@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Str;
 
+
 class ProductController extends Controller
 {
     /**
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $todosProdutos = Product::all();
+        $todosProdutos = Product::latest()->paginate(10);
         return view('allProducts', compact('todosProdutos'));
     }
     
