@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('billing');
 	})->name('billing');
 
-	Route::get('profile', function () {
+	Route::get('profile/{id}', function () {
 		return view('profile');
 	})->name('profile');
 
@@ -72,6 +72,8 @@ Route::group(['middleware' => 'auth'], function () {
 	//adm products
 	Route::get('/todosProdutos', [ProductController::class, 'index'])->name('todosProdutos');
 	Route::post('/criarProduto/cadastro', [ProductController::class, 'store'])->name('storeProduct');
+	Route::get('/administrarProduto/{id}', [ProductController::class, 'show'])->name('administrarProduto');
+	Route::put('/atualizarProduto/{id}', [ProductController::class, 'update'])->name('atualizarProduto');
 	//export e import
 	Route::get('export',  [ExportandImportController::class, 'export'])->name('export');
 	Route::post('import',  [ExportandImportController::class, 'import'])->name('import');

@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $todosProdutos = Product::latest()->paginate(10);
+        $todosProdutos = Product::latest()->paginate(15);
         return view('allProducts', compact('todosProdutos'));
     }
     
@@ -91,7 +91,7 @@ class ProductController extends Controller
         $viewProduct = Product::find($id);
         $viewImage = json_decode($viewProduct->image_product);
         $viewImageDescription = json_decode($viewProduct->image_description);
-        return view('crudProduct.manageProduct', compact('viewProduct', 'viewImageDescription', 'viewImage'));
+        return view('showProduct', compact('viewProduct', 'viewImageDescription', 'viewImage'));
     }
 
 
