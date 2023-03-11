@@ -20,7 +20,15 @@ class ExportandImportController extends Controller
     */
     public function import() 
     {
-        Excel::import(new ProductsImport,request()->file('file'));
+        try {
+            Excel::import(new ProductsImport,request()->file('file'));
+        } catch (\Maatwebsite\Excel\Exceptions\SheetNotFoundException $e) {
+            return redirect()->back()->withErrors(['Erro: Não foi possível encontrar a planilha no arquivo.']);
+        } catch (\Maatwebsite\Excel\Exceptions\NoTypeDetectedException $e) {
+            return redirect()->back()->withErrors(['Erro: Não foi possível detectar o tipo de arquivo.']);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['Erro: Ocorreu um erro durante a importação do arquivo.']);
+        }
                
         return back();
     }

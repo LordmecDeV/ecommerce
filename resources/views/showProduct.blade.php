@@ -71,14 +71,20 @@
               <p class="text-sm">
               {{$viewProduct->description}}
               </p>
-              
               <hr class="horizontal gray-light my-4" >
-              <button style="" class="btn btn-primary" type="button" onclick="Mudarestado('minhaDiv')">Ver imagens da descrição do produto</button>
+              <button style="" class="btn btn-primary" type="button" onclick="Mudarestado('minhaDiv')">Ver imagens do produto</button>
               <div class="slider-container" id="minhaDiv" style="display:none;">
             <div class="slider">
-                <img src="../assets/img/home-decor-1.jpg" class="img-fluid shadow border-radius-lg" alt="Slide 1">
-                <img src="../assets/img/home-decor-2.jpg" class="img-fluid shadow border-radius-lg" alt="Slide 2">
-                <img src="../assets/img/home-decor-3.jpg" class="img-fluid shadow border-radius-lg" alt="Slide 3">
+                <img src="{{$viewProduct->image_product_1}}" class="img-fluid shadow border-radius-lg" alt="Slide 1">
+                <img src="{{$viewProduct->image_product_2}}" class="img-fluid shadow border-radius-lg" alt="Slide 2">
+                <img src="{{$viewProduct->image_product_3}}" class="img-fluid shadow border-radius-lg" alt="Slide 3">
+                <img src="{{$viewProduct->image_product_4}}" class="img-fluid shadow border-radius-lg" alt="Slide 4">
+                <img src="{{$viewProduct->image_product_5}}" class="img-fluid shadow border-radius-lg" alt="Slide 5">
+                <img src="{{$viewProduct->image_product_6}}" class="img-fluid shadow border-radius-lg" alt="Slide 6">
+                <img src="{{$viewProduct->image_product_7}}" class="img-fluid shadow border-radius-lg" alt="Slide 7">
+                <img src="{{$viewProduct->image_product_8}}" class="img-fluid shadow border-radius-lg" alt="Slide 8">
+                <img src="{{$viewProduct->image_product_9}}" class="img-fluid shadow border-radius-lg" alt="Slide 9">
+                <img src="{{$viewProduct->image_product_10}}" class="img-fluid shadow border-radius-lg" alt="Slide 10">
             </div>
             <div class="slider-controls">
                 <button class="prev-slide btn btn-danger">Anterior</button>
@@ -158,37 +164,11 @@
             <div class="card-body p-3">
               <div class="row">
                 <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
-                  <div class="card card-blog card-plain">
-                    <div class="position-relative">
-                      <a class="d-block shadow-xl border-radius-xl">
-                        <img src="../assets/img/home-decor-1.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
-                      </a>
-                    </div>
-                    <div class="card-body px-1 pb-0">
-                      <p class="text-gradient text-dark mb-2 text-sm">SKU: {{$viewProduct->sku}}</p>
-                      <a href="javascript:;">
-                        <h5>
-                        {{$viewProduct->name}}
-                        </h5>
-                      </a>
-                      <p class="mb-4 text-sm">
-                      {{$viewProduct->type_product}}
-                      </p>
-                      <div class="d-flex align-items-center justify-content-between">
-                        <button type="button" class="btn btn-outline-danger btn-sm mb-0">Deletar imagem</button>
-                        <div class="avatar-group mt-2">
-                          {{$viewProduct->created_at}}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
                   <div class="card h-100 card-plain border">
                     <div class="card-body d-flex flex-column justify-content-center text-center">
                     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <i class="fa fa-plus text-secondary mb-3"></i>
-                        <h5 class=" text-secondary">Adicionar Imagem ao produto</h5>
+                        <h5 class=" text-secondary">Atualizar imagens do produto</h5>
                     </button>
                     </div>
                   </div>
@@ -290,7 +270,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Adicionar Imagem</h5>
+                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Atualizar Imagem</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -300,13 +280,31 @@
             {{ csrf_field() }}
             {{ method_field('put') }}
             <div class="form-group mt-3">
-                <label for="formFile" class="form-label">Imagens para o carrousel do produto:</label>
-                <input class="form-control" type="file" multiple name="image_product[]">
+                <label for="productName">Imagem 1:</label>
+                <input type="text" class="form-control" id="productName" value="{{$viewProduct->image_product_1}}" name="image_product_1" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 2:</label>
+                <input type="text" class="form-control" id="productName" value="{{$viewProduct->image_product_2}}" name="image_product_2" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 3:</label>
+                <input type="text" class="form-control" id="productName" value="{{$viewProduct->image_product_3}}" name="image_product_3" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 4:</label>
+                <input type="text" class="form-control" id="productName" value="{{$viewProduct->image_product_4}}" name="image_product_4" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 5:</label>
+                <input type="text" class="form-control" id="productName" value="{{$viewProduct->image_product_5}}" name="image_product_5" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 6:</label>
+                <input type="text" class="form-control" id="productName" value="{{$viewProduct->image_product_6}}" name="image_product_6" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 7:</label>
+                <input type="text" class="form-control" id="productName" value="{{$viewProduct->image_product_7}}" name="image_product_7" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 8:</label>
+                <input type="text" class="form-control" id="productName" value="{{$viewProduct->image_product_8}}" name="image_product_8" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 9:</label>
+                <input type="text" class="form-control" id="productName" value="{{$viewProduct->image_product_9}}" name="image_product_9" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 10:</label>
+                <input type="text" class="form-control" id="productName" value="{{$viewProduct->image_product_10}}" name="image_product_10" placeholder="Insira o link da imagem">
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn bg-gradient-primary">Adicionar</button>
+                <button type="submit" class="btn bg-gradient-primary">Adicionar</button>
             </form>
             </div>
             </div>

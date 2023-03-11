@@ -29,49 +29,35 @@ class ProductController extends Controller
     // criação do produto
     public function store(Request $request)
     {
-       $product = $request->all();
-       $descriptionImage = $request->file('image_description');
-       $arquivo = $request->file('image_product');
-       $salvarArquivosDescricao = [];
-        foreach ($descriptionImage as $descriptionImages) {
-            $extension = $descriptionImages->getClientOriginalExtension();
-            if (!in_array($extension, ['jpg', 'png', 'pdf', 'txt'])) {
-                return redirect()->back()->withErrors("Tipo de arquivo não permitido: $extension");
-            }
-            $filename = $descriptionImages->getClientOriginalName();
-            $filename = pathinfo($filename, PATHINFO_FILENAME);
-            $filename = Str::slug($filename) . '_' . time();
-            $filename = $filename . '.' . $extension;
-            $salvarArquivoDescricao = $descriptionImages->storeAs(public_path('imagens'), $filename);
-            $descriptionImages->move(public_path('imagens'), $filename);
-            $salvarArquivosDescricao[] = $salvarArquivoDescricao;
-        }
-        $salvarArquivos = [];
-        foreach ($arquivo as $arquivos) {
-            $extension = $arquivos->getClientOriginalExtension();
-            if (!in_array($extension, ['jpg', 'png', 'pdf', 'txt'])) {
-                return redirect()->back()->withErrors("Tipo de arquivo não permitido: $extension");
-            }
-            $filename = $arquivos->getClientOriginalName();
-            $filename = pathinfo($filename, PATHINFO_FILENAME);
-            $filename = Str::slug($filename) . '_' . time();
-            $filename = $filename . '.' . $extension;
-            $salvarArquivo = $arquivos->storeAs(public_path('imagens'), $filename);
-            $arquivos->move(public_path('imagens'), $filename);
-            $salvarArquivos[] = $salvarArquivo;
-        }
-        $data = [
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'price' => $request->input('price'),
-            'image_description' => json_encode($salvarArquivosDescricao),
-            'tag' => $request->input('tag'),
-            'sku' => $request->input('sku'),
-            'type_product' => $request->input('type_product'),
-            'status' => $request->input('status'),
-            'image_product' => json_encode($salvarArquivos),
-        ];
-       $createProduct = Product::create($data);
+        $validatedData = $request->validate([
+        'sku' => 'required|unique:products,sku',
+        'name' => 'required',
+        'description' => 'required',
+        'price' => 'required',
+        'status' => 'required',
+        'tag' => 'nullable',
+        'type_product' => 'required',
+        'image_product_1' => 'nullable',
+        'image_product_2' => 'nullable',
+        'image_product_3' => 'nullable',
+        'image_product_4' => 'nullable',
+        'image_product_5' => 'nullable',
+        'image_product_6' => 'nullable',
+        'image_product_7' => 'nullable',
+        'image_product_8' => 'nullable',
+        'image_product_9' => 'nullable',
+        'image_product_10' => 'nullable',
+    ],
+    [
+        'sku.required' => 'O campo SKU é obrigatório.',
+        'sku.unique' => 'SKU já existe.',
+        'name.required' => 'O campo Nome é obrigatório.',
+        'description.required' => 'O campo Descrição é obrigatório.',
+        'price.required' => 'O campo Preço é obrigatório.',
+        'status.required' => 'O campo Status é obrigatório.',
+        'type_product.required' => 'O campo Tipo de Produto é obrigatório.',
+    ]);
+       Product::create($validatedData);
        return redirect('/todosProdutos');
     }
 
