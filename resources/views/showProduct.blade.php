@@ -49,7 +49,7 @@
             <li class="list-group-item">Status: {{$viewProduct->status}}</li>
             <li class="list-group-item">Preço: {{$viewProduct->price}}</li>
             </ul>
-            <button type="button" class="btn bg-gradient-primary mt-3" data-bs-toggle="modal" data-bs-target="#updateProduct">Atualizar produtoss
+            <button type="button" class="btn bg-gradient-primary mt-3" data-bs-toggle="modal" data-bs-target="#updateProduct">Atualizar produto</button>
             </div>
           </div>
         </div>
