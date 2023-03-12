@@ -34,11 +34,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('billing', function () {
 		return view('billing');
 	})->name('billing');
-
-	Route::get('profile', function () {
-		return view('profile');
-	})->name('profile');
-
 	Route::get('rtl', function () {
 		return view('rtl');
 	})->name('rtl');
@@ -66,12 +61,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [SessionsController::class, 'destroy']);
 	Route::get('/user-profile', [InfoUserController::class, 'create']);
 	Route::post('/user-profile', [InfoUserController::class, 'store']);
+	Route::get('/usuarios', [InfoUserController::class, 'show'])->name('users');
     Route::get('/login', function () {
 		return view('dashboard');
 	})->name('sign-up');
 	//adm products
 	Route::get('/todosProdutos', [ProductController::class, 'index'])->name('todosProdutos');
 	Route::post('/criarProduto/cadastro', [ProductController::class, 'store'])->name('storeProduct');
+	Route::get('/administrarProduto/{id}', [ProductController::class, 'show'])->name('administrarProduto');
+	Route::put('/atualizarProduto/{id}', [ProductController::class, 'update'])->name('atualizarProduto');
 	//export e import
 	Route::get('export',  [ExportandImportController::class, 'export'])->name('export');
 	Route::post('import',  [ExportandImportController::class, 'import'])->name('import');

@@ -24,6 +24,9 @@
                 <label for="productPrice">Insira a SKU unica do produto:</label>
                 <input type="text" class="form-control" name="sku" placeholder="Insira a SKU deste produto">
                 </div>
+                @if ($errors->has('sku'))
+                <div class="alert alert-danger">{{ $errors->first('sku') }}</div>
+                @endif
                 <div class="form-group mt-3">
                 <label for="productPrice">Escolha o tipo de produto:</label>
                 <select class="form-select" name="type_product" aria-label="Default select example">
@@ -45,16 +48,31 @@
                 <input type="text" class="form-control" id="productPrice" name="price" placeholder="Insira o preço do produto">
                 </div>
                 <div class="form-group mt-3">
-                <label for="formFile" class="form-label">Imagens para o carrousel do produto:</label>
-                <input class="form-control" type="file" required multiple name="image_product[]">
-                </div>
-                <div class="form-group mt-3">
-                <label for="formFile" class="form-label">Imagens descrição do produto:</label>
-                <input class="form-control" type="file" required multiple name="image_description[]">
-                </div>
-                <div class="form-group mt-3">
                 <label for="productDescription">Descrição do produto:</label>
                 <textarea class="form-control" id="productDescription" required name="description" rows="3"></textarea>
+                </div>
+                <button style="" class="btn btn-primary mt-3" type="button" onclick="Mudarestado('minhaDiv')">Adicionar imagens</button>
+                <div class="form-group mt-3" id="minhaDiv" style="display:none;">
+                <label for="productName">Imagem 1:</label>
+                <input type="text" class="form-control" id="productName" name="image_product_1" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 2:</label>
+                <input type="text" class="form-control" id="productName" name="image_product_2" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 3:</label>
+                <input type="text" class="form-control" id="productName" name="image_product_3" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 4:</label>
+                <input type="text" class="form-control" id="productName" name="image_product_4" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 5:</label>
+                <input type="text" class="form-control" id="productName" name="image_product_5" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 6:</label>
+                <input type="text" class="form-control" id="productName" name="image_product_6" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 7:</label>
+                <input type="text" class="form-control" id="productName" name="image_product_7" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 8:</label>
+                <input type="text" class="form-control" id="productName" name="image_product_8" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 9:</label>
+                <input type="text" class="form-control" id="productName" name="image_product_9" placeholder="Insira o link da imagem">
+                <label for="productName">Imagem 10:</label>
+                <input type="text" class="form-control" id="productName" name="image_product_10" placeholder="Insira o link da imagem">
                 </div>
                 <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Cancelar</a>
                 <button type="submit" class="btn btn-primary mt-3">Criar produto</button>

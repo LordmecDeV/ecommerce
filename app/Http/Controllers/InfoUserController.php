@@ -16,6 +16,12 @@ class InfoUserController extends Controller
         return view('laravel-examples/user-profile');
     }
 
+    public function show()
+    {
+        $viewAllUsers = User::latest()->paginate(15);
+        return view('users', compact('viewAllUsers'));
+    }
+
     public function store(Request $request)
     {
 

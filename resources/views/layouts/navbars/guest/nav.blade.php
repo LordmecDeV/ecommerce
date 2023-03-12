@@ -21,9 +21,9 @@
             </a>
             </li>
             <li class="nav-item">
-            <a class="nav-link me-2" href="{{ url('profile') }}">
+            <a class="nav-link me-2" href="{{ url('users') }}">
                 <i class="fa fa-user opacity-6 me-1 {{ (Request::is('static-sign-up') ? '' : 'text-dark') }}"></i>
-                Profile
+                Usuários
             </a>
             </li>
         @endif
