@@ -17,7 +17,7 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nome</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cargo</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Data de criação</th>
                       <th class="text-secondary opacity-7"></th>
                     </tr>
@@ -36,7 +36,7 @@
                         <p class="text-xs font-weight-bold mb-0">{{$user->email}}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-secondary">{{$user->id}}</span>
+                        <span class="badge badge-sm bg-gradient-secondary">{{$user->role}}</span>
                       </td>
                       <td class="align-middle text-center">
                       <p class="text-xs text-secondary mb-0">{{$user->created_at}}</p>
@@ -50,6 +50,10 @@
                     @endforeach
                   </tbody>
                 </table>
+                <div class="align-buttons" style="display:flex;justify-content:flex-end;align-items:flex-end;margin-right:40px;">
+                    {{$viewAllUsers->links()}}
+                    <a href="{{ route('create.users') }}" class="btn bg-gradient-primary" style="margin-left:auto;">Adicionar usuário <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16"><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg></a>
+                    </div>
                   </div>
               </div>
             </div>
