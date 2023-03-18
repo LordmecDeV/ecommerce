@@ -62,6 +62,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/user-profile', [InfoUserController::class, 'create']);
 	Route::post('/user-profile', [InfoUserController::class, 'store']);
 	Route::get('/usuarios', [InfoUserController::class, 'show'])->name('users');
+	Route::post('/criarUsuario', [InfoUserController::class, 'criarUsuario']);
+	Route::get('/adicionarUsuario', [InfoUserController::class, 'viewCreateUser'])->name('create.users');
     Route::get('/login', function () {
 		return view('dashboard');
 	})->name('sign-up');
