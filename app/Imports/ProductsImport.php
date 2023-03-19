@@ -34,6 +34,7 @@ class ProductsImport implements ToModel, WithHeadingRow
             'tag'    => $row['tag'],
             'sku'    => $row['sku'],
             'type_product'    => $row['type_product'],
+            'carrousel'    => $row['carrousel'],
         ]);
     }
 }

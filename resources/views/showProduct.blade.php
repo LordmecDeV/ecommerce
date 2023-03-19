@@ -217,6 +217,15 @@
                 </select>
             </div>
             <div class="form-group mt-3">
+                <label for="productPrice">Adicionar produto ao carrosel de:</label>
+                <select class="form-select" name="carrousel" aria-label="Default select example">
+                <option value="1" {{($viewProduct->carrousel == 'Mais vendidos' ? 'selected' : '' )}}>Mais vendidos</option>
+                <option value="2" {{($viewProduct->carrousel == 'Lançamentos' ? 'selected' : '' )}}>Lançamentos</option>
+                <option value="3" {{($viewProduct->carrousel == 'Destaques' ? 'selected' : '' )}}>Destaques</option>
+                <option value="0" {{($viewProduct->carrousel == 'Nenhum' ? 'selected' : '' )}}>Nenhum</option>
+                </select>
+            </div>
+            <div class="form-group mt-3">
                 <label for="productPrice">Escolha o status do produto:</label>
                 <select class="form-select" name="status" aria-label="Default select example">
                 <option {{($viewProduct->status == 'Ativo' ? 'selected' : '' )}}>Ativo</option>

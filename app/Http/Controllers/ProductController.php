@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 
 class ProductController extends Controller
@@ -16,7 +18,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $todosProdutos = Product::latest()->paginate(15);
+        $todosProdutos = Product::latest()->paginate(10);
         return view('allProducts', compact('todosProdutos'));
     }
     
@@ -37,6 +39,7 @@ class ProductController extends Controller
         'status' => 'required',
         'tag' => 'nullable',
         'type_product' => 'required',
+        'carrousel' => 'nullable',
         'image_product_1' => 'nullable',
         'image_product_2' => 'nullable',
         'image_product_3' => 'nullable',
@@ -64,6 +67,16 @@ class ProductController extends Controller
     public function formStoreProduct()
     {
         return view('crudProduct.createProduct');
+    }
+
+    public function homePage()
+    {   
+        $bestSeller = DB::table('products')->where('carrousel', '1')->get();
+        $launch = DB::table('products')->where('carrousel', '2')->get();
+        $highlight = DB::table('products')->where('carrousel', '3')->get();
+        $mosaic = DB::table('products')->where('type_product', 'Mosaico')->get();
+        $lighting = DB::table('products')->where('type_product', 'Luminaria')->get();
+        return view('home', compact('bestSeller', 'launch', 'highlight', 'mosaic', 'lighting'));
     }
 
     /**
