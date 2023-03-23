@@ -35,6 +35,14 @@
                 <option>Mosaico</option>
                 <option>Personalizado</option>
                 </select>
+                <div class="form-group mt-3">
+                <label for="productPrice">Adicionar produto ao carrosel de:</label>
+                <select class="form-select" name="carrousel" aria-label="Default select example">
+                <option value="1">Mais vendidos</option>
+                <option value="2">Lançamentos</option>
+                <option value="3">Destaques</option>
+                <option selected value="0">Nenhum</option>
+                </select>
             </div>
             <div class="form-group mt-3">
                 <label for="productPrice">Escolha o status do produto:</label>

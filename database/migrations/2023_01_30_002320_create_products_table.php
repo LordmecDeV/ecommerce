@@ -27,6 +27,7 @@ class CreateProductsTable extends Migration
             $table->text('tag')->nullable();
             $table->string('sku')->unique();
             $table->text('type_product');
+            $table->text('carrousel')->nullable();
             $table->timestamps();
         });
     }

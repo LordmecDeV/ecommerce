@@ -76,8 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('export',  [ExportandImportController::class, 'export'])->name('export');
 	Route::post('import',  [ExportandImportController::class, 'import'])->name('import');
 });
-
-
+Route::get('/home',  [ProductController::class, 'homePage'])->name('homePage');
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/register', [RegisterController::class, 'create']);
