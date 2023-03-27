@@ -79,6 +79,12 @@ class ProductController extends Controller
         return view('home', compact('bestSeller', 'launch', 'highlight', 'mosaic', 'lighting'));
     }
 
+    public function showProductClient($id)
+    {
+        $viewProduct = Product::find($id);
+        $bestSeller = DB::table('products')->where('carrousel', '1')->get();
+        return view('showProductClient', compact('viewProduct', 'bestSeller'));
+    }
     /**
      * Display the specified resource.
      *
@@ -92,8 +98,6 @@ class ProductController extends Controller
         $viewImageDescription = json_decode($viewProduct->image_description);
         return view('showProduct', compact('viewProduct', 'viewImageDescription', 'viewImage'));
     }
-
-
 
     /**
      * Show the form for editing the specified resource.

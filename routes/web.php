@@ -77,6 +77,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('import',  [ExportandImportController::class, 'import'])->name('import');
 });
 Route::get('/home',  [ProductController::class, 'homePage'])->name('homePage');
+Route::get('/produto/{id}',  [ProductController::class, 'showProductClient'])->name('showProductClient');
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/register', [RegisterController::class, 'create']);

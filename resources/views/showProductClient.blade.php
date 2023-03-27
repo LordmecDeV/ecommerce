@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Produto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <!-- Importação do Slick CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
@@ -15,7 +15,23 @@
             background: #189AB4;
         }
         .color-header-2{
-            background: #D4F1F4;;
+            background: #D4F1F4;
+        }
+        .buttonBuy{
+          background-color: #189AB4;
+          width: 250px;
+        }
+        .fontBuyProduct{
+          color: #8A8A8A;
+          font-size: 12px;
+        }
+        .fontBuyProduct2{
+          color: #201F1F;
+          font-size: 15px;
+        }
+        .fontBuyProduct3{
+          color: #201F1F;
+          font-size: 17px;
         }
         .space-margin-right-5{
             margin-right:50px;
@@ -74,17 +90,40 @@
         .width-coments {
             max-width: 200px;
         }
+        .slick-prev.slick-arrow:before, .slick-next.slick-arrow:before{
+            color: black;
+        }
+        .slider-for{
+              position:relative;
+        }
+        .slider-for{
+              position:relative;
+        }
         body {
             overflow-x: hidden;
             background-color: #F3F6F4;
         }
-        .card-img-top {
-        width: 100%;
-        height: auto;
-        }   
+        footer{
+            background-color:white;
+        }
+        span{
+            font-size:20px;
+            color: red;
+        }
+        .parent {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        }
+
+        .div1 { grid-area: 1 / 3 / 5 / 5; }
+        .div2 { grid-area: 5 / 3 / 6 / 5; }
+        .div3 { grid-area: 1 / 5 / 6 / 7; }
+           
     </style>
 </head>
-<body>
 <header>
 <div class="px-3 py-2 color-header">
   <div class="container">
@@ -157,73 +196,86 @@
       </div>
     </div> 
   </header><!--final do header--> 
-    <div id="carouselInterval" class="carousel slide" data-bs-ride="carousel"><!-- inicio do carrousel -->
-  <div class="carousel-inner">
-    <div class="carousel-item active" data-bs-interval="10000">
-    <img src="https://sat02pap005files.storage.live.com/y4mYC5wXAboTYT_65yOpr7H5tsnumkJfpOiR3wJU36F_j1GcgTLy9vQfBtulRpmU1sO944ytiLZ66QAg0n-V4mP4XgKVALoZCXDsMId_-9mMXtxW-NI0QSA71LCNSE4yKdJJyLzNdSfOPx7QZr-GuWjPU8Mr6OohNO0e8MuP1d7r4teT6zeOuDhp_OX7BxELXcq?width=1920&height=430&cropmode=none" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
+<body>
+
+  <div class="parent"><!--começo grid generator-->
+
+    <div class="div1 mt-5"> 
+      <div class="slider-for shadow-lg p-3 bg-body rounded-5">
+        <div><img src="{{$viewProduct->image_product_1}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_1}}"></div>
+        <div><img src="{{$viewProduct->image_product_2}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_2}}"></div>
+        <div><img src="{{$viewProduct->image_product_3}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_3}}"></div>
+        <div><img src="{{$viewProduct->image_product_4}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_4}}"></div>
+        <div><img src="{{$viewProduct->image_product_5}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_5}}"></div>
+      </div>
     </div>
-    <div class="carousel-item" data-bs-interval="2000">
-    <img src="https://sat02pap005files.storage.live.com/y4mNkJd0XjuFOBIYXN-ypjmXdzIPKaIqb39R77Wl3wt7xu1k-o4hN5ouhOYSRuaZgFoEg4zHDt_e0c4e12LGU33XAcT3My63RPvZVt98NpBBedY0mI9OPg8Oa4ErlGmUXbL8Esc0sqvdGR0AYn3H0WcWRYkR9I-Vp-XT42HTtReidZlUWDmgpem_AtUeXU9Wu5h?width=1920&height=430&cropmode=none" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
+
+    <div class="div2 "> 
+      <div class="slider-nav" >
+        <div><img width="200" height="150" src="{{$viewProduct->image_product_1}}" class="img-thumbnail rounded-3" data-lazy="{{$viewProduct->image_product_1}}"></div>
+        <div><img width="200" height="150" src="{{$viewProduct->image_product_2}}" class="img-thumbnail rounded-3" data-lazy="{{$viewProduct->image_product_2}}"></div>
+        <div><img width="200" height="150" src="{{$viewProduct->image_product_3}}" class="img-thumbnail rounded-3" data-lazy="{{$viewProduct->image_product_3}}"></div>
+        <div><img width="200" height="150" src="{{$viewProduct->image_product_4}}" class="img-thumbnail rounded-3" data-lazy="{{$viewProduct->image_product_4}}"></div>
+        <div><img width="200" height="150" src="{{$viewProduct->image_product_5}}" class="img-thumbnail rounded-3" data-lazy="{{$viewProduct->image_product_5}}"></div>
+      </div>
     </div>
-    <div class="carousel-item">
-    <img src="https://sat02pap005files.storage.live.com/y4mTsm8OsfdycBwmt0X-ndEqsPLpeVpe7by1KIGMq9k64_YEFWvkxA5kurqldYIeBITC7KM-P2wM3NbqEhJ200Vic0WMbIdJKBSm6aBv6nrjiui8TGG8UXPUOYghWjvleLm-3jlvUJ_WHFZBB4Pz5r701TwDadOIAz4gSpu-75bBKWStNUlVXcsJB4IZp3yrnDq?width=1920&height=430&cropmode=none" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselInterval" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Anterior</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselInterval" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Próximo</span>
-  </button>
-    </div><!-- final do carrousel -->
-    <div class="container-fluid p-0"><!-- inicio do submenu com as informações e caracteristicas do site -->
-    <div class="px-3 py-2 border-bottom color-header-2">
-        <div class="text-end">
-        <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small ">
-            <li>
-              <a href="#" class="nav-link text-black space-margin-right-5 border-end">
-              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#000C66" class="bi bi-globe-americas space-margin-right-1" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z"/></svg>
-                Enviamos para todo Brasil
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link text-black space-margin-right-5 border-end">
-              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#000C66" class="bi bi-credit-card space-margin-right-1" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/><path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/></svg>
-                Parcelamento em até 4x sem juros
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link text-black border-end">
-              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#000C66" class="bi bi-qr-code space-margin-right-1" viewBox="0 0 16 16"><path d="M2 2h2v2H2V2Z"/><path d="M6 0v6H0V0h6ZM5 1H1v4h4V1ZM4 12H2v2h2v-2Z"/><path d="M6 10v6H0v-6h6Zm-5 1v4h4v-4H1Zm11-9h2v2h-2V2Z"/><path d="M10 0v6h6V0h-6Zm5 1v4h-4V1h4ZM8 1V0h1v2H8v2H7V1h1Zm0 5V4h1v2H8ZM6 8V7h1V6h1v2h1V7h5v1h-4v1H7V8H6Zm0 0v1H2V8H1v1H0V7h3v1h3Zm10 1h-1V7h1v2Zm-1 0h-1v2h2v-1h-1V9Zm-4 0h2v1h-1v1h-1V9Zm2 3v-1h-1v1h-1v1H9v1h3v-2h1Zm0 0h3v1h-2v1h-1v-2Zm-4-1v1h1v-2H7v1h2Z"/><path d="M7 12h1v3h4v1H7v-4Zm9 2v2h-3v-1h2v-1h1Z"/></svg>
-                Pagamento á vista
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link text-black">
-              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#000C66" class="bi bi-shield-lock-fill space-margin-right-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.777 11.777 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7.159 7.159 0 0 0 1.048-.625 11.775 11.775 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.541 1.541 0 0 0-1.044-1.263 62.467 62.467 0 0 0-2.887-.87C9.843.266 8.69 0 8 0zm0 5a1.5 1.5 0 0 1 .5 2.915l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99A1.5 1.5 0 0 1 8 5z"/></svg>
-                Loja com SSL de proteção
-              </a>
-            </li>
+
+    <div class="div3 mt-5" style="margin-left:50px;">
+       <ul class="list-group list-group-flush">
+        <li class="list-group">
+          <h1 class="">{{$viewProduct->name}}<h1>
+        </li>
+        <li class="list-group">
+          <h6 class="border-bottom">Selecione a moldura:</h6> 
+            <ul class="list-inline justify-content-start">
+              <li class="list-inline-item"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="90" fill="black" class="bi bi-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/></svg></li>
+              <li class="list-inline-item"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="90" fill="#8A8A8A" class="bi bi-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/></svg></li></li>
+              <li class="list-inline-item"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="90" fill="pink" class="bi bi-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/></svg></li></li>
+            </ul>
+        </li>
+        <li class="list-group mt-2">
+        <h6 class="border-bottom">Selecione o tamanho:</h6>
+          <ul class="list-inline d-flex justify-content-start">
+            <li class="list-inline-item"><a href="https://imgbb.com/"><img src="https://i.ibb.co/HPp7cPt/Captura-de-tela-de-2023-03-26-18-13-17.png" alt="Captura-de-tela-de-2023-03-26-18-13-17" border="0" height="80px"></a></li>
+            <li class="list-inline-item"><a href="https://imgbb.com/"><img src="https://i.ibb.co/nMSyRwJ/Captura-de-tela-de-2023-03-26-18-16-09.png" alt="Captura-de-tela-de-2023-03-26-18-16-09" border="0" height="80px"></a></li></li>
+            <li class="list-inline-item"><a href="https://imgbb.com/"><img src="https://i.ibb.co/WD7cN1M/Captura-de-tela-de-2023-03-26-18-17-48.png" alt="Captura-de-tela-de-2023-03-26-18-17-48" border="0" height="80px"></a></li>
           </ul>
-      </div>
-      </div><!-- final do submenu com as informações e caracteristicas do site -->
-     
-    
-     <section class="py-5 text-center container-fluid bg-image" style="background-image: url('https://static.vecteezy.com/system/resources/previews/002/037/924/original/abstract-blue-background-with-beautiful-fluid-shapes-free-vector.jpg')"> <!-- inicio do jumbotrom -->
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Personalize o seu quadro</h1>
-        <p class="lead text-black">Personalize o seu quadro da forma que voce quiser, usando suas imagens e sua imaginação com nossos variados modelos de tamanho, molduras e mosaicos</p>
-        <p>
-          <a href="#" class="btn btn-primary ">Criar meu quadro!</a>
-        </p>
-      </div>
+        </li>
+        <li class="list-group mt-2">
+          <ul class="list-group list-group-flush c">
+            <li class="list-group"><h2>{{$viewProduct->price}} <span>no pix</span> </h2></li>
+            <li class="list-group"><h6 class="fontBuyProduct">com 3% de desconto</h6></li>
+             <li class="list-group"><h6 class="fontBuyProduct2"><h6>A partir de <span>R$74,90</span></h6></li><!-- criar variavel para aplicar desconto no valor do produto -->
+            <li class="list-group"><a href class="fontBuyProduct3">mais formas de pagamento<svg style="margin-left:20px;" xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/><path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/></svg></a></li>
+          </ul>
+      </li>
+        <li class="list-group mt-4">
+          <div class="d-flex justify-content-start">
+            <button type="button" class="btn buttonBuy btn-lg rounded-5">Comprar</button>
+          </div>
+        </li>
+        <li class="list-group">
+          <div class="d-flex justify-content-start mt-4">
+            <div class="input-group">
+              <span class="input-group-text" id="basic-addon1">CEP</span>
+              <input type="text" class="form-control-sm input-group-sm" placeholder="Digite seu CEP" aria-label="" aria-describedby="basic-addon1">
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
-  </section><!-- final do jumbotrom -->
-    
-    <div class="container-fluid p-0"><!-- inicio da div de carrousel de produtos -->
+  </div><!--final do grid-->
+
+  <div class="container-fluid mt-5"><!--Descrição-->
+    <div class="d-flex justify-content-center">
+      <button style="" class="btn mt-3" type="button" onclick="Mudarestado('minhaDiv')"><h1>Descrição</h1> <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/></svg></button>
+    </div> 
+        <div class="" id="minhaDiv" style="display:none;">
+        <img src="https://i.ibb.co/JHfBRH7/CATALOGO-PAINEIS-pdf-1.jpg" class="mx-auto d-block mt-5" alt="CATALOGO-PAINEIS-pdf-1" border="0">
+        </div>         
+  </div><!--Descrição final-->
+
+  <div class="container-fluid p-0"><!-- inicio da div de carrousel de produtos -->
     <div class="d-flex align-items-center justify-content-center">
     <h2 class="text-center mt-5">Mais vendidos</h2>
     </div>
@@ -243,95 +295,8 @@
     @endforeach
     </div><!-- final do slick -->
     </div><!-- final da div de carrousel de produtos -->
-    
 
-    
-    <div class="container-fluid p-0"><!-- inicio da div de carousel de lançamentos -->
-    <div class="d-flex align-items-center justify-content-center">
-    <h2 class="text-center mt-5">Lançamentos</h2>
-    </div>
-    <div class="slick-carousel mt-5 p-3"><!-- inicio do slick -->
-    @foreach($launch as $launchs)
-    <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card -->
-    <img src="{{$launchs->image_product_1}}" class="card-img-top" alt="...">
-    <div class="card-body">
-    <h5 class="card-title text-center title-card">{{$launchs->name}}</h5>
-    <p class="card-text text-center price-card">R$ {{$launchs->price}} <a href="#" class="a-href-card">no pix</a></p>
-    <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
-    <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
-    <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $launchs->id]) }}" class="btn btn-primary d-flex justify-content-center">Ver mais...</a>
-    </div>
-    </div><!-- final do card -->
-    @endforeach
-    </div><!-- final do slick -->
-    </div><!-- inicio da div de carousel de lançamentos -->
-
-    <div class="container-fluid p-0"><!-- inicio da div de carousel de lançamentos -->
-    <div class="d-flex align-items-center justify-content-center">
-    <h2 class="text-center mt-5">Destaques</h2>
-    </div>
-    <div class="slick-carousel mt-5 p-3"><!-- inicio do slick -->
-    @foreach($highlight as $highlights)
-    <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card -->
-    <img src="{{$highlights->image_product_1}}" class="card-img-top" alt="...">
-    <div class="card-body">
-    <h5 class="card-title text-center title-card">{{$highlights->name}}</h5>
-    <p class="card-text text-center price-card">R$ {{$highlights->price}} <a href="#" class="a-href-card">no pix</a></p>
-    <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
-    <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
-    <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $highlights->id]) }}" class="btn btn-primary d-flex justify-content-center">Ver mais...</a>
-    </div>
-    </div><!-- final do card -->
-    @endforeach
-    </div><!-- final do slick -->
-    </div><!-- inicio da div de carousel de lançamentos -->
-
-    <div class="container-fluid p-0"><!-- inicio da div de carousel de lançamentos -->
-    <div class="d-flex align-items-center justify-content-center">
-    <h2 class="text-center mt-5">Mosaicos</h2>
-    </div>
-    <div class="slick-carousel mt-5 p-3"><!-- inicio do slick -->
-    @foreach($mosaic as $mosaics)
-    <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card -->
-    <img src="{{$mosaics->image_product_1}}" class="card-img-top" alt="...">
-    <div class="card-body">
-    <h5 class="card-title text-center title-card">{{$mosaics->name}}</h5>
-    <p class="card-text text-center price-card">R$ {{$mosaics->price}} <a href="#" class="a-href-card">no pix</a></p>
-    <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
-    <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
-    <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $mosaics->id]) }}" class="btn btn-primary d-flex justify-content-center">Ver mais...</a>
-    </div>
-    </div><!-- final do card -->
-    @endforeach
-    </div><!-- final do slick -->
-    </div><!-- inicio da div de carousel de lançamentos -->
-
-    <div class="container-fluid p-0"><!-- inicio da div de carousel de lançamentos -->
-    <div class="d-flex align-items-center justify-content-center">
-    <h2 class="text-center mt-5">Luminárias</h2>
-    </div>
-    <div class="slick-carousel mt-5 p-3"><!-- inicio do slick -->
-    @foreach($lighting as $lightings)
-    <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card -->
-    <img src="{{$lightings->image_product_1}}" class="card-img-top" alt="...">
-    <div class="card-body">
-    <h5 class="card-title text-center title-card">{{$lightings->name}}</h5>
-    <p class="card-text text-center price-card">R$ {{$lightings->price}} <a href="#" class="a-href-card">no pix</a></p>
-    <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
-    <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
-    <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $lightings->id]) }}" class="btn btn-primary d-flex justify-content-center">Ver mais...</a>
-    </div>
-    </div><!-- final do card -->
-    @endforeach
-    </div><!-- final do slick -->
-    </div><!-- inicio da div de carousel de lançamentos -->
-
-
-    <div class="container-fluid bg-white mt-5"><!-- inicio do footer -->
+<div class="container-fluid bg-white mt-5">
   <footer class="py-5">
     <div class="row">
       <div class="col-6 col-md-2 mb-3">
@@ -381,26 +346,53 @@
     </div>
 
     <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-      <p>© 2023 Walmeida</p>
+      <p>© 2022 Company, Inc. All rights reserved.</p>
       <ul class="list-unstyled d-flex">
         <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
         <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
         <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
       </ul>
     </div>
-    </footer>
-    </div><!-- final do footer -->
-    
+  </footer>
+</div>
 
-     <!-- Importação do jQuery (necessário para o Slick) -->
+    <!-- Importação do jQuery (necessário para o Slick) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Importação do Slick JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-
     <script>
-        $('.slick-carousel').slick({
+      $(document).ready(function(){
+        $('.slider-nav').slick({
+          arrows: true,
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          asNavFor: '.slider-for',
+          dots: false,
+          centerMode: true,
+          focusOnSelect: true,
+          vertical: false, // adicione essa linha para mudar para o modo vertical
+          lazyLoad: 'ondemand',
+        });
+        $('.slider-for').slick({
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+          fade: true,
+          asNavFor: '.slider-nav'
+        });
+      });
+
+      function Mudarestado(el) {
+        var display = document.getElementById(el).style.display;
+        if (display == "none")
+        document.getElementById(el).style.display = 'block';
+        else
+        document.getElementById(el).style.display = 'none';
+      }
+
+      $('.slick-carousel').slick({
     dots: true,
     infinite: true,
     speed: 300,
