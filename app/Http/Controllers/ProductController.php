@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\PriceAndSize;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -76,9 +77,27 @@ class ProductController extends Controller
         $highlight = DB::table('products')->where('carrousel', '3')->get();
         $mosaic = DB::table('products')->where('type_product', 'Mosaico')->get();
         $lighting = DB::table('products')->where('type_product', 'Luminaria')->get();
-        return view('home', compact('bestSeller', 'launch', 'highlight', 'mosaic', 'lighting'));
+        return view('clientViews.home', compact('bestSeller', 'launch', 'highlight', 'mosaic', 'lighting'));
     }
 
+    public function showProductClient($id)
+    {
+        $viewProduct = Product::find($id);
+        $bestSeller = DB::table('products')->where('carrousel', '1')->get();
+        $getPriceThreePlates = DB::table('price_and_size')->where('type_product', 'Mosaico - 3 Placas')->value('price');
+        $getPriceThreeStraightPlates = DB::table('price_and_size')->where('type_product', 'Mosaico - 3 Placas Reto')->value('price');
+        $getPriceFivePlates = DB::table('price_and_size')->where('type_product', 'Mosaico - 5 Placas')->value('price');
+        $getSmallFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 30x55')->value('price');
+        $getMidFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 40x66')->value('price');
+        $getBigFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 55x92')->value('price');
+        return view('clientViews.showProductClient', compact('viewProduct', 'bestSeller', 'getPriceThreePlates','getPriceThreeStraightPlates','getPriceFivePlates', 'getSmallFrame', 'getMidFrame', 'getBigFrame'));
+    }
+
+    public function categoryLighting()
+    {
+        $viewLighting = DB::table('products')->where('type_product', 'Luminaria')->get();
+        return view('clientViews.categoryProductLuminaria', compact('viewLighting'));
+    }
     /**
      * Display the specified resource.
      *
@@ -92,8 +111,6 @@ class ProductController extends Controller
         $viewImageDescription = json_decode($viewProduct->image_description);
         return view('showProduct', compact('viewProduct', 'viewImageDescription', 'viewImage'));
     }
-
-
 
     /**
      * Show the form for editing the specified resource.
