@@ -1,162 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <!-- Importação do Slick CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <!-- Importação do Slick Theme CSS (opcional) -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
-    <style>
-        .color-header{
-            background: #189AB4;
-        }
-        .color-header-2{
-            background: #D4F1F4;;
-        }
-        .space-margin-right-5{
-            margin-right:50px;
-        }
-        .space-margin-right-4{
-            margin-right:40px;
-        }
-        .space-margin-left-5{
-            margin-right:50px;
-        }
-        .space-margin-right-9{
-            margin-right:300px;
-        }
-        .space-margin-right-1{
-            margin-right: 10px;
-        }
-        .text-header-login{
-            font-size: 14px;
-            text-align: right;
-            color: white;
-        }
-        .container-href-login{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .a-href-login {
-            color: #FFFFFF;
-            font-weight: bold;
-        }
-        .a-href-bem-vindo {
-            color: #FFFFFF;
-            font-weight: normal;
-            text-decoration: none;
-        }
-        .a-href-card {
-            color: #36C5C4;
-            font-weight: normal;
-            text-decoration: none;
-        }
-        .price-card{
-            color:#36C5C4;
-            font-size: 23px;
-        }
-        .title-card{
-            color:#201F1F;
-            font-size: 16px;
-        }
-        .discount-card{
-            color:#201F1F;
-            font-size: 12px;
-        }
-        .height-footer {
-            height: auto;
-        }
-        .width-coments {
-            max-width: 200px;
-        }
-        body {
-            overflow-x: hidden;
-            background-color: #F3F6F4;
-        }
-        .card-img-top {
-        width: 100%;
-        height: auto;
-        }   
-    </style>
-</head>
-<body>
-<header>
-<div class="px-3 py-2 color-header">
-  <div class="container">
-    <div class="d-flex flex-wrap align-items-center justify-content-between">
-      <div class="d-flex align-items-center">
-        <!-- Logo -->
-        <a href="/home"><img src="https://i.ibb.co/cbhjFyD/LOGO-BAIXA-RESOLU-O.png" alt="LOGO-BAIXA-RESOLU-O" border="0" width="256" height="85"></a>
-      </div>
-      <div class="col-12 col-lg-auto mb-2 mb-lg-0 text-center">
-        <form class="d-flex input-group">
-          <!-- Input de Pesquisa -->
-          <input class="form-control me-2 rounded-pill" type="search" placeholder="Digite o que você procura" aria-label="Search">
-        </form>
-      </div>
-      <div class="d-flex align-items-center">
-        <!-- Ícones -->
-        <!-- dropdown favoritos -->
-        <div class="dropdown">
-        <a class="dropdown-toggle space-margin-right-5 text-header-login" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#000000" class="bi bi-heart-fill space-margin-right-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg>Favoritos</a>
-        <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-        </div>
-        <!-- fim dropdown -->
-        <!-- ir para pagina de login ou cadastro -->
-        <div class="container-href-login">
-        <div class="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#000000" class="bi bi-person-circle space-margin-right-1" viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg>
-        </div>
-        <div class="text-header-login">
-           <a href="/home" class="a-href-bem-vindo space-margin-right-4">Bem-vindo(a)</a>  <br><a href="pagina-de-login"class="a-href-login">entrar</a> ou <a href="pagina-de-cadastro" class="a-href-login">cadastrar</a>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    <div class="container-fluid p-0"><!-- submenu com lista de categorias de produtos -->
-    <div class=" border-bottom color-header-2">
-        <div class="text-end">
-        <ul class="nav col-12 col-lg-auto my-2 justify-content-end my-md-0 text-small space-margin-right-9">
-            <li>
-              <a href="#" class="nav-link text-black">
-             <img src="https://i.ibb.co/1fRLnpH/2316a681fa6fab7e7a6099f0bb194665.png" alt="2316a681fa6fab7e7a6099f0bb194665" width="40" height="40" border="0">
-                Luminárias
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link text-black">
-              <img src="https://i.ibb.co/f2Zg8ZW/3133e4cd4c88a55f18f7093f9d2fed89.png" alt="3133e4cd4c88a55f18f7093f9d2fed89" width="40" height="40" border="0">
-                Mosaicos
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link text-black">
-              <img src="https://i.ibb.co/pjj8J40/1cdfb6f3429d1c702cd1ad5c9a15474c.png" alt="1cdfb6f3429d1c702cd1ad5c9a15474c" width="40" height="40" border="0">
-                Quadros
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link text-black">
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zM8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.178.178 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.178.178 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.178.178 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.178.178 0 0 1-.134-.098L8.16 4.1z"/></svg>
-                Destaque
-              </a>
-            </li>
-          </ul>
-      </div>
-      </div>
-    </div> 
-  </header><!--final do header--> 
+@extends('layouts.headerClient.header')
+@section('content')
     <div id="carouselInterval" class="carousel slide" data-bs-ride="carousel"><!-- inicio do carrousel -->
   <div class="carousel-inner">
     <div class="carousel-item active" data-bs-interval="10000">
@@ -179,7 +22,7 @@
   </button>
     </div><!-- final do carrousel -->
     <div class="container-fluid p-0"><!-- inicio do submenu com as informações e caracteristicas do site -->
-    <div class="px-3 py-2 border-bottom color-header-2">
+    <div class="px-3 py-2 border-bottom color-header-2 information-none">
         <div class="text-end">
         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small ">
             <li>
@@ -227,7 +70,7 @@
     <div class="d-flex align-items-center justify-content-center">
     <h2 class="text-center mt-5">Mais vendidos</h2>
     </div>
-    <div class="slick-carousel mt-5 p-3"><!-- inicio do slick -->
+    <div class="slick-carousel mt-5" style="margin-left:40px;"><!-- inicio do slick -->
     @foreach($bestSeller as $bestSellers)
     <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card --> 
     <img src="{{$bestSellers->image_product_1}}" class="card-img-top" alt="...">
@@ -250,7 +93,7 @@
     <div class="d-flex align-items-center justify-content-center">
     <h2 class="text-center mt-5">Lançamentos</h2>
     </div>
-    <div class="slick-carousel mt-5 p-3"><!-- inicio do slick -->
+    <div class="slick-carousel mt-5" style="margin-left:40px;"><!-- inicio do slick -->
     @foreach($launch as $launchs)
     <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card -->
     <img src="{{$launchs->image_product_1}}" class="card-img-top" alt="...">
@@ -271,7 +114,7 @@
     <div class="d-flex align-items-center justify-content-center">
     <h2 class="text-center mt-5">Destaques</h2>
     </div>
-    <div class="slick-carousel mt-5 p-3"><!-- inicio do slick -->
+    <div class="slick-carousel mt-5" style="margin-left:40px;"><!-- inicio do slick -->
     @foreach($highlight as $highlights)
     <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card -->
     <img src="{{$highlights->image_product_1}}" class="card-img-top" alt="...">
@@ -292,7 +135,7 @@
     <div class="d-flex align-items-center justify-content-center">
     <h2 class="text-center mt-5">Mosaicos</h2>
     </div>
-    <div class="slick-carousel mt-5 p-3"><!-- inicio do slick -->
+    <div class="slick-carousel mt-5" style="margin-left:40px;"><!-- inicio do slick -->
     @foreach($mosaic as $mosaics)
     <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card -->
     <img src="{{$mosaics->image_product_1}}" class="card-img-top" alt="...">
@@ -313,7 +156,7 @@
     <div class="d-flex align-items-center justify-content-center">
     <h2 class="text-center mt-5">Luminárias</h2>
     </div>
-    <div class="slick-carousel mt-5 p-3"><!-- inicio do slick -->
+    <div class="slick-carousel mt-5" style="margin-left:40px;"><!-- inicio do slick -->
     @foreach($lighting as $lightings)
     <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card -->
     <img src="{{$lightings->image_product_1}}" class="card-img-top" alt="...">
@@ -390,14 +233,6 @@
     </div>
     </footer>
     </div><!-- final do footer -->
-    
-
-     <!-- Importação do jQuery (necessário para o Slick) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Importação do Slick JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>        
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 
     <script>
         $('.slick-carousel').slick({
@@ -419,8 +254,8 @@
     {
       breakpoint: 600,
       settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToShow: 2,
+        slidesToScroll: 2
       }
     },
     {
@@ -436,5 +271,4 @@
   ]
 });
     </script>
-</body>
-</html>
+@endsection
