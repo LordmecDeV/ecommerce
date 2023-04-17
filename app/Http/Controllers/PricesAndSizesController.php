@@ -25,7 +25,28 @@ class PricesAndSizesController extends Controller
     {
         $validatedData = $request->all();
         PriceAndSize::create($validatedData);
-        return redirect('/todosProdutos');
+        return redirect('/precos-e-tamanhos');
+    }
+
+    public function getUpdate($id)
+    {
+        $updateProduct = PriceAndSize::find($id);
+        return view('updatePricesAndSizes', compact('updateProduct'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $updateProduct = $request->all();
+        $product = PriceAndSize::find($id);
+        $product->update($updateProduct);
+        return redirect('/precos-e-tamanhos');
+    }
+
+    public function destroy($id)
+    {
+    $product = PriceAndSize::findOrFail($id);
+    $product->delete();
+    return redirect()->route('precos-e-tamanhos')->with('success', 'Produto excluído com sucesso!');
     }
 
 }

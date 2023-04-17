@@ -71,13 +71,16 @@ Route::group(['middleware' => 'auth'], function () {
 	})->name('sign-up');
 	//adm products
 	Route::get('/todosProdutos', [ProductController::class, 'index'])->name('todosProdutos');
-	Route::get('/precos-e-tamanhos', [PricesAndSizesController::class, 'index'])->name('precos-e-tamanhos');
-	Route::get('/criar-precos-e-tamanhos', [PricesAndSizesController::class, 'getStore'])->name('criar-precos-e-tamanhos');
-	Route::post('/store-preco-e-tamanhos', [PricesAndSizesController::class, 'store'])->name('store-preco-e-tamanhos');
 	Route::get('/administrar-conteudo', [ManageContentController::class, 'index'])->name('administrar-conteudo');
 	Route::post('/criarProduto/cadastro', [ProductController::class, 'store'])->name('storeProduct');
 	Route::get('/administrarProduto/{id}', [ProductController::class, 'show'])->name('administrarProduto');
 	Route::put('/atualizarProduto/{id}', [ProductController::class, 'update'])->name('atualizarProduto');
+	Route::put('/atualizar-preco-e-tamanho-produto/{id}', [PricesAndSizesController::class, 'update'])->name('atualizar-preco-e-tamanho-produto');
+	Route::get('/atualizar-preco-e-tamanho/{id}', [PricesAndSizesController::class, 'getUpdate'])->name('atualizar-preco-e-tamanho');
+	Route::delete('/deletar-produto/{id}', [PricesAndSizesController::class, 'destroy'])->name('produtos.destroy');
+	Route::get('/precos-e-tamanhos', [PricesAndSizesController::class, 'index'])->name('precos-e-tamanhos');
+	Route::get('/criar-precos-e-tamanhos', [PricesAndSizesController::class, 'getStore'])->name('criar-precos-e-tamanhos');
+	Route::post('/store-preco-e-tamanhos', [PricesAndSizesController::class, 'store'])->name('store-preco-e-tamanhos');
 	//export e import
 	Route::get('export',  [ExportandImportController::class, 'export'])->name('export');
 	Route::post('import',  [ExportandImportController::class, 'import'])->name('import');

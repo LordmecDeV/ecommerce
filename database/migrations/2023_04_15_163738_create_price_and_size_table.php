@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->text('type_product');
-            $table->integer('price');
+            $table->float('price');
             $table->integer('height');
             $table->integer('width');
             $table->integer('length');
