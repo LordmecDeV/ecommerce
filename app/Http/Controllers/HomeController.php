@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function home()
-    {
-        return redirect('dashboard');
-    }
+    // public function home()
+    // {
+    //     if (auth()->user()->can('viewAdminPanel', User::class)) {
+    //         return redirect('dashboard');
+    //     } else {
+    //         return abort(403, 'Acesso não autorizado.');
+    //     } 
+    // }
 }

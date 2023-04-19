@@ -40,7 +40,7 @@
                         <input class="form-control" type="text" value="{{$updateProduct->weight}}" name="weight" id="">
                     </div>    
                 <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Voltar</a>
-                <button type="submit" class="btn btn-primary mt-3">Criar</button>
+                <button type="submit" class="btn btn-primary mt-3">Editar</button>
                 </form>
         </div>
     </div>

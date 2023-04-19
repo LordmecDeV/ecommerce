@@ -19,10 +19,23 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $todosProdutos = Product::latest()->paginate(10);
-        return view('allProducts', compact('todosProdutos'));
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            $todosProdutos = Product::latest()->paginate(10);
+            return view('allProducts', compact('todosProdutos'));
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        }
     }
-    
+
+    public function dashboard()
+    {
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            return view('dashboard');
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        } 
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -32,42 +45,50 @@ class ProductController extends Controller
     // criação do produto
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-        'sku' => 'required|unique:products,sku',
-        'name' => 'required',
-        'description' => 'required',
-        'price' => 'required',
-        'status' => 'required',
-        'tag' => 'nullable',
-        'type_product' => 'required',
-        'carrousel' => 'nullable',
-        'image_product_1' => 'nullable',
-        'image_product_2' => 'nullable',
-        'image_product_3' => 'nullable',
-        'image_product_4' => 'nullable',
-        'image_product_5' => 'nullable',
-        'image_product_6' => 'nullable',
-        'image_product_7' => 'nullable',
-        'image_product_8' => 'nullable',
-        'image_product_9' => 'nullable',
-        'image_product_10' => 'nullable',
-    ],
-    [
-        'sku.required' => 'O campo SKU é obrigatório.',
-        'sku.unique' => 'SKU já existe.',
-        'name.required' => 'O campo Nome é obrigatório.',
-        'description.required' => 'O campo Descrição é obrigatório.',
-        'price.required' => 'O campo Preço é obrigatório.',
-        'status.required' => 'O campo Status é obrigatório.',
-        'type_product.required' => 'O campo Tipo de Produto é obrigatório.',
-    ]);
-       Product::create($validatedData);
-       return redirect('/todosProdutos');
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            $validatedData = $request->validate([
+                'sku' => 'required|unique:products,sku',
+                'name' => 'required',
+                'description' => 'required',
+                'price' => 'required',
+                'status' => 'required',
+                'tag' => 'nullable',
+                'type_product' => 'required',
+                'carrousel' => 'nullable',
+                'image_product_1' => 'nullable',
+                'image_product_2' => 'nullable',
+                'image_product_3' => 'nullable',
+                'image_product_4' => 'nullable',
+                'image_product_5' => 'nullable',
+                'image_product_6' => 'nullable',
+                'image_product_7' => 'nullable',
+                'image_product_8' => 'nullable',
+                'image_product_9' => 'nullable',
+                'image_product_10' => 'nullable',
+            ],
+            [
+                'sku.required' => 'O campo SKU é obrigatório.',
+                'sku.unique' => 'SKU já existe.',
+                'name.required' => 'O campo Nome é obrigatório.',
+                'description.required' => 'O campo Descrição é obrigatório.',
+                'price.required' => 'O campo Preço é obrigatório.',
+                'status.required' => 'O campo Status é obrigatório.',
+                'type_product.required' => 'O campo Tipo de Produto é obrigatório.',
+            ]);
+               Product::create($validatedData);
+               return redirect('/todosProdutos');
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        }
     }
 
-    public function formStoreProduct()
+    public function create()
     {
-        return view('crudProduct.createProduct');
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            return view('laravel-examples/user-profile');
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        } 
     }
 
     public function homePage()
@@ -106,10 +127,14 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $viewProduct = Product::find($id);
-        $viewImage = json_decode($viewProduct->image_product);
-        $viewImageDescription = json_decode($viewProduct->image_description);
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            $viewProduct = Product::find($id);
+            $viewImage = json_decode($viewProduct->image_product);
+            $viewImageDescription = json_decode($viewProduct->image_description);
         return view('showProduct', compact('viewProduct', 'viewImageDescription', 'viewImage'));
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        }
     }
 
     /**
@@ -132,11 +157,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updateProduct = $request->all();
-        $product = Product::find($id);
-        $product->update($updateProduct);
-        return redirect('/todosProdutos');
-        
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            $updateProduct = $request->all();
+            $product = Product::find($id);
+            $product->update($updateProduct);
+            return redirect('/todosProdutos');
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        }
     }
 
     /**

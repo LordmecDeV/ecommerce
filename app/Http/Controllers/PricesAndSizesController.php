@@ -12,41 +12,65 @@ class PricesAndSizesController extends Controller
 {
     public function index()
     {   
-        $viewAll = PriceAndSize::latest()->paginate(10);
-        return view('pricesAndSizes', compact('viewAll'));
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            $viewAll = PriceAndSize::latest()->paginate(10);
+            return view('pricesAndSizes', compact('viewAll'));
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        }
     }
 
     public function getStore()
     {
-        return view('createPricesAndSizes');
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            return view('createPricesAndSizes');
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        }
     }
 
     public function store(Request $request)
     {
-        $validatedData = $request->all();
-        PriceAndSize::create($validatedData);
-        return redirect('/precos-e-tamanhos');
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            $validatedData = $request->all();
+            PriceAndSize::create($validatedData);
+            return redirect('/precos-e-tamanhos');
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        }
     }
 
     public function getUpdate($id)
     {
-        $updateProduct = PriceAndSize::find($id);
-        return view('updatePricesAndSizes', compact('updateProduct'));
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            $updateProduct = PriceAndSize::find($id);
+            return view('updatePricesAndSizes', compact('updateProduct'));
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        } 
     }
 
     public function update(Request $request, $id)
     {
-        $updateProduct = $request->all();
-        $product = PriceAndSize::find($id);
-        $product->update($updateProduct);
-        return redirect('/precos-e-tamanhos');
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            $updateProduct = $request->all();
+            $product = PriceAndSize::find($id);
+            $product->update($updateProduct);
+            return redirect('/precos-e-tamanhos');
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        }
     }
 
     public function destroy($id)
     {
-    $product = PriceAndSize::findOrFail($id);
-    $product->delete();
-    return redirect()->route('precos-e-tamanhos')->with('success', 'Produto excluído com sucesso!');
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            $product = PriceAndSize::findOrFail($id);
+            $product->delete();
+        return redirect()->route('precos-e-tamanhos')->with('success', 'Produto excluído com sucesso!');
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        }  
     }
 
 }
