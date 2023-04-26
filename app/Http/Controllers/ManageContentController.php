@@ -10,8 +10,13 @@ use Illuminate\Support\Facades\Gate;
 
 class ManageContentController extends Controller
 {
+    
     public function index()
     {
-        return view('ManageContent'); 
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            return view('ManageContent');
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        }
     }
 }

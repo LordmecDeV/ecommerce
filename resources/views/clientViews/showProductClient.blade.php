@@ -27,9 +27,9 @@
         <li class="list-group mt-2">
         <h6 class="border-bottom">Selecione o tamanho:</h6>
           <ul class="list-inline d-flex justify-content-start">
-            <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-3-placas" data-price="{{$getSmallFrame}}">30x55</button></li>
-            <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-3-placas-reto" data-price="{{$getMidFrame}}">40x66</button></li>
-            <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-5-placas" data-price="{{$getBigFrame}}">55x92</button></li>
+            <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-3-placas" data-price="{{$getSmallFrame}}" onclick="updatePriceField(this)">30x55</button></li>
+            <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-3-placas-reto" data-price="{{$getMidFrame}}" onclick="updatePriceField(this)">40x66</button></li>
+            <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-5-placas" data-price="{{$getBigFrame}}" onclick="updatePriceField(this)">55x92</button></li>
           </ul>
         </li>
         <li class="list-group mt-2">
@@ -42,7 +42,16 @@
       </li>
         <li class="list-group mt-4">
           <div class="d-flex justify-content-start">
-            <button type="button" class="btn buttonBuy btn-lg rounded-5">Adicionar ao carrinho</button>
+          <form id="product-form" method="POST" action="{{route('adicionar-ao-carrinho')}}">
+            @csrf
+            {{ method_field('POST') }}
+              <input type="hidden" name="product_price" id="product-price" value="{{$viewProduct->price}}">
+              <input type="hidden" name="user_id" value="{{auth()->id()}}">
+              <input type="hidden" name="product_id" value="{{$viewProduct->id}}">
+              <input type="hidden" id="price" name="product_characteristics" value="">
+              <input type="hidden" id="price" name="quantity" value="1">
+              <button type="submit" class="btn btn-primary btn-lg rounded-5">Adicionar ao carrinho</button>
+            </form>
           </div>
         </li>
         <li class="list-group">
@@ -60,22 +69,37 @@
   @elseif($viewProduct->type_product == 'Mosaico')
   <h6 class="border-bottom">Selecione o tipo de mosaico:</h6> 
             <ul class="list-inline justify-content-start">
-              <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-3-placas" data-price="{{$getPriceThreePlates}}">3 Placas</button></li>
-              <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-3-placas-reto" data-price="{{$getPriceThreeStraightPlates}}">3 Placas Reto</button></li>
-              <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-5-placas" data-price="{{$getPriceFivePlates}}">5 Placas</button></li>
+              @foreach ($getPriceThreePlates as $price)
+              <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-3-placas" data-price="{{$price->price}}" onclick="updatePriceField(this)">3 Placas</button></li>
+              @endforeach
+              @foreach ($getPriceThreeStraightPlates as $price)
+              <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-3-placas-reto" data-price="{{$price->price}}" onclick="updatePriceField(this)">3 Placas Reto</button></li>
+              @endforeach
+              @foreach ($getPriceFivePlates as $price)
+              <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-5-placas" data-price="{{$price->price}}" onclick="updatePriceField(this)">5 Placas</button></li>
+              @endforeach
             </ul>
         </li>
         <li class="list-group mt-2">
           <ul class="list-group list-group-flush c">
-            <li class="list-group"><h2 class="product-price" data-price="{{$viewProduct->price}}">{{$viewProduct->price}} <span>no pix</span> </h2></li>
+            <li class="list-group"><h2 class="product-price" data-price="{{$viewProduct->price}}" onclick="updatePriceField(this)">{{$viewProduct->price}} <span>no pix</span> </h2></li>
             <li class="list-group"><h6 class="fontBuyProduct">com 3% de desconto</h6></li>
-             <li class="list-group"><h6 class="fontBuyProduct2"><h6>A partir de <span>R$74,90</span></h6></li><!-- criar variavel para aplicar desconto no valor do produto -->
+             <li class="list-group"><h6 class="fontBuyProduct2"><h6>A partir de <span>R$$$</span></h6></li><!-- criar variavel para aplicar desconto no valor do produto -->
             <li class="list-group"><a href class="fontBuyProduct3">mais formas de pagamento<svg style="margin-left:20px;" xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/><path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/></svg></a></li>
           </ul>
       </li>
         <li class="list-group mt-4">
           <div class="d-flex justify-content-start">
-            <button type="button" class="btn buttonBuy btn-lg rounded-5">Adicionar ao carrinho</button>
+            <form id="product-form" method="POST" action="{{route('adicionar-ao-carrinho')}}">
+            @csrf
+            {{ method_field('POST') }}
+              <input type="hidden" name="product_price" id="product-price" value="{{$viewProduct->price}}">
+              <input type="hidden" name="user_id" value="{{auth()->id()}}">
+              <input type="hidden" name="product_id" value="{{$viewProduct->id}}">
+              <input type="hidden" id="price" name="product_characteristics" value="">
+              <input type="hidden" id="price" name="quantity" value="1">
+              <button type="submit" class="btn btn-primary btn-lg rounded-5">Adicionar ao carrinho</button>
+            </form>
           </div>
         </li>
         <li class="list-group">
@@ -138,7 +162,7 @@
       <button style="" class="btn mt-3" type="button" onclick="Mudarestado('minhaDiv')"><h1>Descrição</h1> <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/></svg></button>
     </div> 
         <div class="" id="minhaDiv" style="display:none;">
-        <img src="https://i.ibb.co/JHfBRH7/CATALOGO-PAINEIS-pdf-1.jpg" class="mx-auto d-block mt-5" alt="CATALOGO-PAINEIS-pdf-1" border="0">
+        <img src="https://sat02pap005files.storage.live.com/y4mRBau8W1UjHcasic0XKGkfdGmhL0152CBM1Vf5H7744AK946AXdiwWl3XwJRnK8NxmeDeMqErffMKQuBKojbsEm2Uo3UQMqjVo2hJWUpA027lLQC3SuGM_pBGO6JRt8eEmaQR2m69l9ktiZWPidsKg_CaxlpoHGGD8bMwjasSGOPNrBbuKzJHY9WQ_hZhdmn5?width=1500&height=12497&cropmode=none" class="mx-auto d-block mt-5" alt="CATALOGO-PAINEIS-pdf-1" border="0">
         </div>         
   </div><!--Descrição final-->
 
@@ -289,7 +313,10 @@
       $('.product-price').text('R$ ' + newPrice);
     }
 
-
+    function updatePriceField(button) {
+      var price = button.getAttribute("data-price");
+      document.getElementById("price").value = price;
+    }
       $('.slick-carousel').slick({
     dots: true,
     infinite: true,

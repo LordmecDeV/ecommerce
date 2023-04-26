@@ -9,6 +9,11 @@
             <div class="card-header pb-0">
               <h6>Tabela de preços e tamanhos</h6>
             </div>
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0">
@@ -18,6 +23,7 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Preço</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Largura</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Peso</th>
+                      <th class="text-secondary opacity-7"></th>
                       <th class="text-secondary opacity-7"></th>
                     </tr>
                   </thead>
@@ -32,7 +38,7 @@
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{$viewAlls->price}}</p>
+                        <p class="text-xs font-weight-bold mb-0">R$ {{$viewAlls->price}}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
                         <p class="text-xs font-weight-bold mb-0">{{$viewAlls->width}}</p>
@@ -41,8 +47,17 @@
                       <p class="text-xs text-secondary mb-0">{{$viewAlls->weight}}</p>
                       </td>
                       <td class="align-middle">
-                        <a href="" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        <a href="{{ route('atualizar-preco-e-tamanho', ['id' => $viewAlls->id]) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           Editar
+                        </a>
+                      </td>
+                      <td class="align-middle">
+                        <a href="" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        <form action="{{ route('produtos.destroy', $viewAlls->id) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn bg-gradient-danger" onclick="return confirm('Tem certeza que deseja excluir este produto?')">Deletar</button>
+                        </form>
                         </a>
                       </td>
                     </tr>
