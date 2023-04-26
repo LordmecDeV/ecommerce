@@ -105,9 +105,9 @@ class ProductController extends Controller
     {
         $viewProduct = Product::find($id);
         $bestSeller = DB::table('products')->where('carrousel', '1')->get();
-        $getPriceThreePlates = DB::table('price_and_size')->where('type_product', 'Mosaico - 3 Placas')->value('price');
-        $getPriceThreeStraightPlates = DB::table('price_and_size')->where('type_product', 'Mosaico - 3 Placas Reto')->value('price');
-        $getPriceFivePlates = DB::table('price_and_size')->where('type_product', 'Mosaico - 5 Placas')->value('price');
+        $getPriceThreePlates = DB::table('price_and_size')->where('type_product', 'Mosaico - 3 Placas')->get();
+        $getPriceThreeStraightPlates = DB::table('price_and_size')->where('type_product', 'Mosaico - 3 Placas Reto')->get();
+        $getPriceFivePlates = DB::table('price_and_size')->where('type_product', 'Mosaico - 5 Placas')->get();
         $getSmallFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 30x55')->value('price');
         $getMidFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 40x66')->value('price');
         $getBigFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 55x92')->value('price');

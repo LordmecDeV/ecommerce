@@ -9,6 +9,7 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\ManageContentController;
 use App\Http\Controllers\PricesAndSizesController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\ExportandImportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -85,7 +86,14 @@ Route::group(['middleware' => 'auth'], function () {
 	//export e import
 	Route::get('export',  [ExportandImportController::class, 'export'])->name('export');
 	Route::post('import',  [ExportandImportController::class, 'import'])->name('import');
+
+	//Carrinho de compras
+	Route::post('/adicionar-ao-carrinho',  [ShoppingCartController::class, 'createProductInCart'])->name('adicionar-ao-carrinho');
+	Route::get('/carrinho',  [ShoppingCartController::class, 'cartView'])->name('carrinho');
+	Route::delete('/excluir-item-do-carrinho',  [ShoppingCartController::class, 'destroy'])->name('excluir-item-do-carrinho');
+	Route::get('/carrinho',  [ShoppingCartController::class, 'cartView'])->name('carrinho');
 });
+	//pagina do cliente
 	Route::get('/home',  [ProductController::class, 'homePage'])->name('homePage');
 	Route::get('/produto/{id}',  [ProductController::class, 'showProductClient'])->name('showProductClient');
 	Route::get('/categoria/luminaria',  [ProductController::class, 'categoryLighting'])->name('categoryLighting');
