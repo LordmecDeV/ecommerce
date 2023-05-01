@@ -29,7 +29,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', [HomeController::class, 'home']);
 
 	Route::get('billing', function () {
 		return view('billing');
@@ -95,14 +94,15 @@ Route::group(['middleware' => 'auth'], function () {
 });
 	//pagina do cliente
 	Route::get('/home',  [ProductController::class, 'homePage'])->name('homePage');
+	Route::get('/calcular-frete',  [ShoppingCartController::class, 'calculateFrete'])->name('calcular-frete');
 	Route::get('/produto/{id}',  [ProductController::class, 'showProductClient'])->name('showProductClient');
 	Route::get('/categoria/luminaria',  [ProductController::class, 'categoryLighting'])->name('categoryLighting');
-
+	Route::get('/register', [RegisterController::class, 'create']);
+    Route::post('/register-user', [RegisterController::class, 'store'])->name('register-user');
+	Route::get('/login', [SessionsController::class, 'create']);
+    Route::post('/session', [SessionsController::class, 'store'])->name('login.store');
+	
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('/register', [RegisterController::class, 'create']);
-    Route::post('/register', [RegisterController::class, 'store']);
-    Route::get('/login', [SessionsController::class, 'create']);
-    Route::post('/session', [SessionsController::class, 'store']);
 	Route::get('/login/forgot-password', [ResetController::class, 'create']);
 	Route::post('/forgot-password', [ResetController::class, 'sendEmail']);
 	Route::get('/reset-password/{token}', [ResetController::class, 'resetPass'])->name('password.reset');
@@ -111,5 +111,5 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::get('/login', function () {
-    return view('session/login-session');
+    return view('clientViews/login-session');
 })->name('login');

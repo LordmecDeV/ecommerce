@@ -153,7 +153,8 @@
           /* fallback for old browsers */
           background-color: #8BC6EC;
           background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
-          }   
+          }
+          
     </style>
 </head>
 <header>
@@ -172,12 +173,36 @@
         <!-- Center elements -->
         <div class="order-lg-last col-lg-5 col-sm-8 col-8">
           <div class="d-flex float-end">
-            <a href="" class="btn btn-primary rounded-circle p-3 lh-1" style="margin-right:10px;" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg></a>
+            <a class="btn btn-primary rounded-circle p-3 lh-1" style="margin-right:10px;" data-bs-toggle="offcanvas" href="#offcanvasUser" role="button" aria-controls="offcanvasExample"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg></a>
             <a href="" class="btn btn-primary rounded-circle p-3 lh-1" style="margin-right:10px;" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg></a>
             <a role="button" aria-controls="offcanvasExample" href="#offcanvasExample" data-bs-toggle="offcanvas" class="btn btn-primary rounded-circle p-3 lh-1" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg></a>
           </div>
         </div>
+        <!-- offcanvas usuario -->
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasUser" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Meus dados</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div>
+          @auth
+          <ul class="list-group list-group-flush text-start">
+            <li class="list-group-item list-group-item-action text-reset" ><a href="" class="text-reset">Minha conta</li></a>
+            <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="" class="text-reset">Meus pedidos</li></a>
+            <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="" class="text-reset">Favoritos</li></a>
+            <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="" class="text-reset">Rastrear pedidos</li></a>
+          </ul>
+          @endauth
+          @guest
+            <p>Faça o <a href="{{ route('login') }}">login</a> ou <a href="/register">registre-se</a> para continuar.</p>
+          @endguest
+          </div>
+          
+        </div>
+      </div>
         <!-- Center elements -->
+        <!-- offcanvas carrinho -->
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasExampleLabel">Carrinho</h5>
@@ -276,7 +301,7 @@
 </header>
 <!-- Products -->
     <body>
-      <!-- Importação do jQuery (necessário para o Slick) -->
+    <!-- Importação do jQuery (necessário para o Slick) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Importação do Slick JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
@@ -284,4 +309,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
     @yield('content')
     </body>
+    
 </html>
