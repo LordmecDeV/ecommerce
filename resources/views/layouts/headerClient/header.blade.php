@@ -10,6 +10,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <!-- Importação do Slick Theme CSS (opcional) -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+  rel="stylesheet"
+/>
     <style>
         .color-header{
           background: #000000;  /* fallback for old browsers */
@@ -192,6 +196,8 @@
             <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="" class="text-reset">Meus pedidos</li></a>
             <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="" class="text-reset">Favoritos</li></a>
             <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="" class="text-reset">Rastrear pedidos</li></a>
+            <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="{{ url('/logout')}}" class="text-reset">Sair</li></a>
+            
           </ul>
           @endauth
           @guest
@@ -278,10 +284,10 @@
         <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link text-dark" aria-current="page" href="#">Home</a>
+            <a class="nav-link text-dark" aria-current="page" href="/home">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Luminária</a>
+            <a class="nav-link text-dark" href="/categoria/luminaria">Luminária</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-dark" href="#">Mosaicos</a>
@@ -307,6 +313,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    <script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
+></script>
     @yield('content')
     </body>
     

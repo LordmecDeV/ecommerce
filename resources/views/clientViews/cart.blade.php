@@ -73,7 +73,7 @@
 
                   <div class="form-outline">
                     <input id="form1" min="0" name="quantity" value="1" type="number" class="form-control" />
-                    <label class="form-label" for="form1">Quantidade</label>
+                    
                   </div>
 
                   <button class="btn btn-outline-primary px-3 ms-2 btn-sm" style="height:40px;"

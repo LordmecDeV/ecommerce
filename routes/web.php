@@ -110,6 +110,11 @@ Route::group(['middleware' => 'guest'], function () {
 
 });
 
+
 Route::get('/login', function () {
     return view('clientViews/login-session');
 })->name('login');
+
+Route::get('/', function () {
+    return view('clientViews/login-session');
+});
