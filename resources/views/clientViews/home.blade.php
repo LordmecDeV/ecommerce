@@ -80,7 +80,7 @@
     <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
     <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
     <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $bestSellers->id]) }}" class="btn btn-primary d-flex justify-content-center">Ver mais...</a>
+    <a href="{{ route('showProductClient', ['id' => $bestSellers->id]) }}" class="btn btn-secondary d-flex justify-content-center">Ver mais...</a>
     </div>
     </div><!-- final do card -->
     @endforeach
@@ -103,7 +103,7 @@
     <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
     <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
     <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $launchs->id]) }}" class="btn btn-primary d-flex justify-content-center">Ver mais...</a>
+    <a href="{{ route('showProductClient', ['id' => $launchs->id]) }}" class="btn btn-secondary d-flex justify-content-center">Ver mais...</a>
     </div>
     </div><!-- final do card -->
     @endforeach
@@ -124,7 +124,7 @@
     <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
     <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
     <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $highlights->id]) }}" class="btn btn-primary d-flex justify-content-center">Ver mais...</a>
+    <a href="{{ route('showProductClient', ['id' => $highlights->id]) }}" class="btn btn-secondary d-flex justify-content-center">Ver mais...</a>
     </div>
     </div><!-- final do card -->
     @endforeach
@@ -145,7 +145,7 @@
     <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
     <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
     <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $mosaics->id]) }}" class="btn btn-primary d-flex justify-content-center">Ver mais...</a>
+    <a href="{{ route('showProductClient', ['id' => $mosaics->id]) }}" class="btn btn-secondary d-flex justify-content-center">Ver mais...</a>
     </div>
     </div><!-- final do card -->
     @endforeach
@@ -166,7 +166,7 @@
     <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
     <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
     <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $lightings->id]) }}" class="btn btn-primary d-flex justify-content-center">Ver mais...</a>
+    <a href="{{ route('showProductClient', ['id' => $lightings->id]) }}" class="btn btn-secondary d-flex justify-content-center">Ver mais...</a>
     </div>
     </div><!-- final do card -->
     @endforeach

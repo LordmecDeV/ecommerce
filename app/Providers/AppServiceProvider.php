@@ -30,11 +30,14 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $userId = auth()->id();
             $headerCartItems = DB::table('shopping_cart')
-                            ->join('products', 'shopping_cart.product_id', '=', 'products.id')
-                            ->join('price_and_size', 'shopping_cart.product_characteristics', '=', 'price_and_size.price')
-                            ->select('shopping_cart.product_id', 'shopping_cart.quantity', 'products.*', 'price_and_size.*')
-                            ->where('shopping_cart.user_id', $userId)
-                            ->get();
+            ->join('products', 'shopping_cart.product_id', '=', 'products.id')
+            ->join('price_and_size', 'shopping_cart.product_characteristics', '=', 'price_and_size.price')
+            ->select('shopping_cart.product_id', 'shopping_cart.quantity', 'products.*', 'price_and_size.*')
+            ->where('shopping_cart.user_id', $userId)
+            ->get();
+            $headerCartItems = $headerCartItems->unique(function($item) {
+                return $item->product_id . '-' . $item->price;
+            });
             $view->with('headerCartItems', $headerCartItems);
         });
     }

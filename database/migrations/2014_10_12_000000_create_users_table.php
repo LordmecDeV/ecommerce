@@ -18,8 +18,17 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('number')->nullable();
+            $table->string('complement')->nullable();
+            $table->string('reference')->nullable();
+            $table->string('city')->nullable();
+            $table->string('neighborhood')->nullable();
+            $table->string('state')->nullable();
             $table->bigInteger('phone')->nullable();
             $table->string('location')->nullable();
+            $table->string('cep')->nullable();
+            $table->bigInteger('cpf')->nullable();
+            $table->string('birthdate')->nullable();
             $table->string('about_me')->nullable();
             $table->string('role')->nullable();
             $table->rememberToken();
