@@ -290,10 +290,10 @@
             <a class="nav-link text-dark" href="/categoria/luminaria">Luminária</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Mosaicos</a>
+            <a class="nav-link text-dark" href="/categoria/mosaico">Mosaicos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Quadros</a>
+            <a class="nav-link text-dark" href="/categoria/quadro">Quadros</a>
           </li>
             </ul>
           </li>
