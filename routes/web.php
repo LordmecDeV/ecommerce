@@ -97,6 +97,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/calcular-frete',  [ShoppingCartController::class, 'calculateFrete'])->name('calcular-frete');
 	Route::get('/produto/{id}',  [ProductController::class, 'showProductClient'])->name('showProductClient');
 	Route::get('/categoria/luminaria',  [ProductController::class, 'categoryLighting'])->name('categoryLighting');
+	Route::get('/categoria/mosaico',  [ProductController::class, 'categoryMosaic'])->name('categoryMosaic');
+	Route::get('/categoria/quadro',  [ProductController::class, 'categoryFrame'])->name('categoryFrame');
 	Route::get('/register', [RegisterController::class, 'create']);
     Route::post('/register-user', [RegisterController::class, 'store'])->name('register-user');
 	Route::get('/login', [SessionsController::class, 'create']);
