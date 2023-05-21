@@ -14,6 +14,13 @@
     <div class="col">
     <ul class="list-group list-group-flush">
         <li class="list-group">
+        <form id="product-form"  class="" method="POST" action="{{route('adicionar-aos-favoritos')}}">
+          @csrf
+          {{ method_field('POST') }}
+          <input type="hidden" name="user_id" value="{{auth()->id()}}">
+          <input type="hidden" name="product_id" value="{{$viewProduct->id}}">
+          <li class="list-inline-item"><button type="{{ $isFavorite ? 'button' : 'submit' }}" class="btn btn-link p-0 text-muted mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"  class="bi bi-heart-fill" fill="{{ $isFavorite ? 'red' : '#ced4da' }}" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg></button></li>
+        </form>
           <h1 class="">{{$viewProduct->name}}<h1>
         </li>
         @if($viewProduct->type_product == 'Quadro')
@@ -36,8 +43,7 @@
           <ul class="list-group list-group-flush c">
             <li class="list-group"><h2 class="product-price" data-price="{{$viewProduct->price}}">R$ {{$viewProduct->price}} <span>no pix</span> </h2></li>
             <li class="list-group"><h6 class="fontBuyProduct">com 3% de desconto</h6></li>
-             <li class="list-group"><h6 class="fontBuyProduct2"><h6>A partir de <span>R$&&&</span></h6></li><!-- criar variavel para aplicar desconto no valor do produto -->
-            <li class="list-group"><a href class="fontBuyProduct3">mais formas de pagamento<svg style="margin-left:20px;" xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/><path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/></svg></a></li>
+            <li class="list-group"><h6 class="fontBuyProduct2"><h6>A partir de <span>R$&&&</span></h6></li><!-- criar variavel para aplicar desconto no valor do produto -->
           </ul>
       </li>
         <li class="list-group mt-4">

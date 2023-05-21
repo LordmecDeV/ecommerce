@@ -38,7 +38,15 @@ class AppServiceProvider extends ServiceProvider
             $headerCartItems = $headerCartItems->unique(function($item) {
                 return $item->product_id . '-' . $item->price;
             });
-            $view->with('headerCartItems', $headerCartItems);
+            $favoriteItems = DB::table('favorites')
+            ->join('products', 'favorites.product_id', '=', 'products.id')
+            ->select('products.*')
+            ->where('favorites.user_id', $userId)
+            ->get();
+            $view->with([
+                'headerCartItems' => $headerCartItems,
+                'favoriteItems' => $favoriteItems,
+            ]);
         });
     }
 }

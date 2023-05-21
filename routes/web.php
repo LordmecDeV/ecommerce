@@ -11,6 +11,7 @@ use App\Http\Controllers\PricesAndSizesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\ExportandImportController;
+use App\Http\Controllers\FavoriteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
@@ -91,6 +92,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/carrinho',  [ShoppingCartController::class, 'cartView'])->name('carrinho');
 	Route::delete('/excluir-item-do-carrinho',  [ShoppingCartController::class, 'destroy'])->name('excluir-item-do-carrinho');
 	Route::get('/carrinho',  [ShoppingCartController::class, 'cartView'])->name('carrinho');
+	//Favoritos
+	Route::delete('/excluir-item-do-favorito',  [FavoriteController::class, 'destroy'])->name('excluir-item-do-favorito');
+	Route::get('/favoritos',  [FavoriteController::class, 'favoriteView'])->name('favoritos');
+	Route::post('/adicionar-aos-favoritos',  [FavoriteController::class, 'createFavoriteProduct'])->name('adicionar-aos-favoritos');
 });
 	//pagina do cliente
 	Route::get('/home',  [ProductController::class, 'homePage'])->name('homePage');

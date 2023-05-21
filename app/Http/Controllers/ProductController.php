@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Favorite;
 use App\Models\PriceAndSize;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -111,7 +112,10 @@ class ProductController extends Controller
         $getSmallFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 30x55')->value('price');
         $getMidFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 40x66')->value('price');
         $getBigFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 55x92')->value('price');
-        return view('clientViews.showProductClient', compact('viewProduct', 'bestSeller', 'getPriceThreePlates','getPriceThreeStraightPlates','getPriceFivePlates', 'getSmallFrame', 'getMidFrame', 'getBigFrame'));
+        $isFavorite = Favorite::where('user_id', auth()->id())
+            ->where('product_id', $viewProduct->id)
+            ->exists();
+        return view('clientViews.showProductClient', compact('viewProduct', 'bestSeller', 'getPriceThreePlates','getPriceThreeStraightPlates','getPriceFivePlates', 'getSmallFrame', 'getMidFrame', 'getBigFrame', 'isFavorite'));
     }
 
     public function categoryLighting()
