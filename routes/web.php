@@ -96,6 +96,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::delete('/excluir-item-do-favorito',  [FavoriteController::class, 'destroy'])->name('excluir-item-do-favorito');
 	Route::get('/favoritos',  [FavoriteController::class, 'favoriteView'])->name('favoritos');
 	Route::post('/adicionar-aos-favoritos',  [FavoriteController::class, 'createFavoriteProduct'])->name('adicionar-aos-favoritos');
+	//informações do usuario
+	Route::get('/informacoes-do-usuario',  [InfoUserController::class, 'viewAuthUser'])->name('informacoes-do-usuario');
 });
 	//pagina do cliente
 	Route::get('/home',  [ProductController::class, 'homePage'])->name('homePage');
