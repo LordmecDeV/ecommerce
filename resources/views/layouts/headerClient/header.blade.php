@@ -190,7 +190,7 @@
           <div>
           @auth
           <ul class="list-group list-group-flush text-start">
-            <li class="list-group-item list-group-item-action text-reset" ><a href="" class="text-reset">Minha conta</li></a>
+            <li class="list-group-item list-group-item-action text-reset" ><a href="/informacoes-do-usuario" class="text-reset">Minha conta</li></a>
             <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="" class="text-reset">Meus pedidos</li></a>
             <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="/favoritos" class="text-reset">Favoritos</li></a>
             <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="" class="text-reset">Rastrear pedidos</li></a>

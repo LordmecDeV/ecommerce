@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\View;
 
+
 class InfoUserController extends Controller
 {
     public function show()
@@ -38,5 +39,12 @@ class InfoUserController extends Controller
         $usuario->password = bcrypt($request->input('password'));
         $usuario->save();
         return redirect('/usuarios');
+    }
+
+    public function viewAuthUser()
+    {
+        $user = Auth::user();
+        // dd($user);
+        return view('clientViews.userInformation', compact('user'));
     }
 }
