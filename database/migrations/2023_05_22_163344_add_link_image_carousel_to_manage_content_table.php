@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('manage_content', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->longText('description')->nullable();
-            $table->text('type_description')->nullable();
+        Schema::table('manage_content', function (Blueprint $table) {
+            $table->text('link_image_carousel')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manage_content');
+        Schema::table('manage_content', function (Blueprint $table) {
+            $table->dropIfExists('link_image_carousel');
+        });
     }
 };
