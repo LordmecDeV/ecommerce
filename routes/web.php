@@ -81,7 +81,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/precos-e-tamanhos', [PricesAndSizesController::class, 'index'])->name('precos-e-tamanhos');
 	Route::get('/criar-precos-e-tamanhos', [PricesAndSizesController::class, 'getStore'])->name('criar-precos-e-tamanhos');
 	Route::post('/store-preco-e-tamanhos', [PricesAndSizesController::class, 'store'])->name('store-preco-e-tamanhos');
-
+	//administrar conteudos do site
+	Route::get('/alterar-imagens-do-carousel', [ManageContentController::class, 'imagesCarousel'])->name('alterar-imagens-do-carousel');
+	Route::post('/alterar-carousel', [ManageContentController::class, 'updateImagesCarousel'])->name('alterar-carousel');
 	Route::get('/administrar-conteudo', [ManageContentController::class, 'index'])->name('administrar-conteudo');
 	//export e import
 	Route::get('export',  [ExportandImportController::class, 'export'])->name('export');

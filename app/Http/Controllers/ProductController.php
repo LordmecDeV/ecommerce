@@ -99,7 +99,17 @@ class ProductController extends Controller
         $highlight = DB::table('products')->where('carrousel', '3')->get();
         $mosaic = DB::table('products')->where('type_product', 'Mosaico')->get();
         $lighting = DB::table('products')->where('type_product', 'Luminaria')->get();
-        return view('clientViews.home', compact('bestSeller', 'launch', 'highlight', 'mosaic', 'lighting'));
+        //imagens do carousel
+        $mainImageCarousel = DB::table('manage_content')
+                                ->where('image_carousel', 'Imagem principal do carousel')
+                                ->value('link_image_carousel');
+        $imageCarousel2 = DB::table('manage_content')
+                                ->where('image_carousel', 'Imagem 2')
+                                ->value('link_image_carousel');
+        $imageCarousel3 = DB::table('manage_content')
+                                ->where('image_carousel', 'Imagem 3')
+                                ->value('link_image_carousel');
+        return view('clientViews.home', compact('bestSeller', 'launch', 'highlight', 'mosaic', 'lighting', 'mainImageCarousel', 'imageCarousel2', 'imageCarousel3'));
     }
 
     public function showProductClient($id)

@@ -3,13 +3,13 @@
     <div id="carouselInterval" class="carousel slide" data-bs-ride="carousel"><!-- inicio do carrousel -->
   <div class="carousel-inner">
     <div class="carousel-item active" data-bs-interval="10000">
-    <img src="https://sat02pap005files.storage.live.com/y4mYC5wXAboTYT_65yOpr7H5tsnumkJfpOiR3wJU36F_j1GcgTLy9vQfBtulRpmU1sO944ytiLZ66QAg0n-V4mP4XgKVALoZCXDsMId_-9mMXtxW-NI0QSA71LCNSE4yKdJJyLzNdSfOPx7QZr-GuWjPU8Mr6OohNO0e8MuP1d7r4teT6zeOuDhp_OX7BxELXcq?width=1920&height=430&cropmode=none" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
+    <img src="{{$mainImageCarousel}}" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
     </div>
     <div class="carousel-item" data-bs-interval="2000">
-    <img src="https://sat02pap005files.storage.live.com/y4mNkJd0XjuFOBIYXN-ypjmXdzIPKaIqb39R77Wl3wt7xu1k-o4hN5ouhOYSRuaZgFoEg4zHDt_e0c4e12LGU33XAcT3My63RPvZVt98NpBBedY0mI9OPg8Oa4ErlGmUXbL8Esc0sqvdGR0AYn3H0WcWRYkR9I-Vp-XT42HTtReidZlUWDmgpem_AtUeXU9Wu5h?width=1920&height=430&cropmode=none" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
+    <img src="{{$imageCarousel2}}" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
     </div>
     <div class="carousel-item">
-    <img src="https://sat02pap005files.storage.live.com/y4mTsm8OsfdycBwmt0X-ndEqsPLpeVpe7by1KIGMq9k64_YEFWvkxA5kurqldYIeBITC7KM-P2wM3NbqEhJ200Vic0WMbIdJKBSm6aBv6nrjiui8TGG8UXPUOYghWjvleLm-3jlvUJ_WHFZBB4Pz5r701TwDadOIAz4gSpu-75bBKWStNUlVXcsJB4IZp3yrnDq?width=1920&height=430&cropmode=none" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
+    <img src="{{$imageCarousel3}}" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselInterval" data-bs-slide="prev">
