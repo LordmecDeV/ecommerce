@@ -3,13 +3,13 @@
     <div id="carouselInterval" class="carousel slide" data-bs-ride="carousel"><!-- inicio do carrousel -->
   <div class="carousel-inner">
     <div class="carousel-item active" data-bs-interval="10000">
-    <img src="{{$mainImageCarousel}}" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
+    <img src="https://sat02pap005files.storage.live.com/y4mYC5wXAboTYT_65yOpr7H5tsnumkJfpOiR3wJU36F_j1GcgTLy9vQfBtulRpmU1sO944ytiLZ66QAg0n-V4mP4XgKVALoZCXDsMId_-9mMXtxW-NI0QSA71LCNSE4yKdJJyLzNdSfOPx7QZr-GuWjPU8Mr6OohNO0e8MuP1d7r4teT6zeOuDhp_OX7BxELXcq?width=1920&height=430&cropmode=none" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
     </div>
     <div class="carousel-item" data-bs-interval="2000">
-    <img src="{{$imageCarousel2}}" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
+    <img src="https://sat02pap005files.storage.live.com/y4mNkJd0XjuFOBIYXN-ypjmXdzIPKaIqb39R77Wl3wt7xu1k-o4hN5ouhOYSRuaZgFoEg4zHDt_e0c4e12LGU33XAcT3My63RPvZVt98NpBBedY0mI9OPg8Oa4ErlGmUXbL8Esc0sqvdGR0AYn3H0WcWRYkR9I-Vp-XT42HTtReidZlUWDmgpem_AtUeXU9Wu5h?width=1920&height=430&cropmode=none" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
     </div>
     <div class="carousel-item">
-    <img src="{{$imageCarousel3}}" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
+    <img src="https://sat02pap005files.storage.live.com/y4mTsm8OsfdycBwmt0X-ndEqsPLpeVpe7by1KIGMq9k64_YEFWvkxA5kurqldYIeBITC7KM-P2wM3NbqEhJ200Vic0WMbIdJKBSm6aBv6nrjiui8TGG8UXPUOYghWjvleLm-3jlvUJ_WHFZBB4Pz5r701TwDadOIAz4gSpu-75bBKWStNUlVXcsJB4IZp3yrnDq?width=1920&height=430&cropmode=none" class="d-block w-100" alt="d96a1d82b1449fd148e9890ec74ea813" border="0">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselInterval" data-bs-slide="prev">
@@ -53,18 +53,14 @@
       </div>
       </div><!-- final do submenu com as informações e caracteristicas do site -->
      
-    
-     <section class="py-5 text-center container-fluid bg-image" style="background-image: url('https://static.vecteezy.com/system/resources/previews/002/037/924/original/abstract-blue-background-with-beautiful-fluid-shapes-free-vector.jpg')"> <!-- inicio do jumbotrom -->
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Personalize o seu quadro</h1>
-        <p class="lead text-black">Personalize o seu quadro da forma que voce quiser, usando suas imagens e sua imaginação com nossos variados modelos de tamanho, molduras e mosaicos</p>
-        <p>
-          <a href="#" class="btn btn-primary ">Criar meu quadro!</a>
-        </p>
+      <h1 class="text-center mt-5 mb-5 fw-bold"> Categorias </h1>
+      <div class="slick-carousel mt-5" style="margin-left:40px;">
+        <img style="margin-right:40px;" src="https://imgs.extra.com.br/1518245871/1xg.jpg?imwidth=500" class="rounded-circle img-thumbnail" alt="Mosaico">
+        <img style="margin-right:40px;" src="https://images.tcdn.com.br/img/img_prod/882836/quadro_abstrato_colorido_moderno_tela_unica_14851_1_3f6503db86ddfcc653b7ad7910f2f8e8_20220325171443.jpg" class="rounded-circle img-thumbnail" alt="Quadros"> 
+        <img style="margin-right:40px;" src="https://img.kalunga.com.br/fotosdeprodutos/435223z.jpg" class="rounded-circle img-thumbnail" alt="Luminarias">
+        <img style="margin-right:40px;" src="https://cdn.awsli.com.br/600x450/1670/1670279/produto/111528128/734d9391d9.jpg" class="rounded-circle img-thumbnail" alt="Personalizado"> 
+        <img style="margin-right:40px;" src="https://d3ugyf2ht6aenh.cloudfront.net/stores/001/894/418/products/pabloes1-1c6b7f31a863e41cb216736346495827-640-0.webp" class="rounded-circle img-thumbnail" alt="Destaque">   
       </div>
-    </div>
-  </section><!-- final do jumbotrom -->
     
     <div class="container-fluid p-0"><!-- inicio da div de carrousel de produtos -->
     <div class="d-flex align-items-center justify-content-center">
@@ -239,6 +235,7 @@
     dots: true,
     infinite: true,
     speed: 300,
+    arrows: false,
     slidesToShow: 4,
     slidesToScroll: 4,
     responsive: [
