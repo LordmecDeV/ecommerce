@@ -10,9 +10,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <!-- Importação do Slick Theme CSS (opcional) -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet"
-/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet"/>
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@500&family=Montserrat:ital,wght@0,400;0,500;1,400&display=swap');
         .color-header{
           background: #000000;  /* fallback for old browsers */
           background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
@@ -21,6 +21,14 @@
         .color-header-2{
             background: #D4F1F4;
         }
+        .font-price{
+          font-family: 'Montserrat', sans-serif;
+          font-size: 20px;
+        }
+        .font-card-title{
+          font-family: 'Montserrat', sans-serif;
+          font-size: 23px;
+        }
         .buttonBuy{
           background-color: #189AB4;
           width: 250px;
@@ -28,6 +36,51 @@
         .fontBuyProduct{
           color: #8A8A8A;
           font-size: 12px;
+        }
+        .circle {
+          position: absolute;
+          bottom: -30px; /* Metade da altura do círculo */
+          left: 50%;
+          transform: translateX(-50%);
+          width: 80px; /* Largura do círculo */
+          height: 80px; /* Altura do círculo */
+          border-radius: 50%;
+          margin-top: -30px; /* Metade da altura do círculo */
+          transition: all 0.3s ease-in-out; /* Transição suave */
+          cursor: pointer; /* Altera o cursor do mouse ao passar por cima */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Efeito de sombra para sobreposição */
+          border: 5px solid white; /* Adiciona a borda branca */
+        }
+        .circle-rounded{
+          border-radius: 4.5%;
+        }
+        .circle-color-lauchs{
+          background-color: #ff007f;
+        }
+        .circle-color-best-sellers{
+          background-color: #007bff;
+        }
+        .circle-color-highlights{
+          background-color: #F7D060;
+        }
+        .circle-color-mosaics{
+          background-color: #5BC0F8;
+        }
+        .circle-color-lighting{
+          background-color: #94B4A4;
+        }
+        .circle-color-frame{
+          background-color: #440047;
+        }
+        .circle:hover {
+          width: 90px; /* Largura aumentada do círculo */
+          height: 90px; /* Altura aumentada do círculo */
+        }
+        .circle:hover i {
+          transform: scale(1.3); /* Aumenta o tamanho do ícone */
         }
         .fontBuyProduct2{
           color: #201F1F;
@@ -111,9 +164,12 @@
         footer{
             background-color:white;
         }
-        span{
+        .span-card{
             font-size:20px;
-            color: red;
+            color: grey;
+        }
+        .span-price{
+            font-size:30px;
         }
         .parent {
         display: grid;
@@ -123,7 +179,7 @@
         grid-row-gap: 0px;
         }
         .card:hover {
-          transform: scale(1.05);
+          transform: scale(1.02);
           transition: all 0.2s ease-in-out;
         }
         .div1 { grid-area: 1 / 3 / 5 / 5; }

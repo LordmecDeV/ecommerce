@@ -130,19 +130,19 @@ class ProductController extends Controller
 
     public function categoryLighting()
     {
-        $viewLighting = DB::table('products')->where('type_product', 'Luminaria')->get();
+        $viewLighting = DB::table('products')->where('type_product', 'Luminaria')->latest()->paginate(16);
         return view('clientViews.categoryProduct.categoryProductLuminaria', compact('viewLighting'));
     }
 
     public function categoryMosaic()
     {
-        $viewMosaic = DB::table('products')->where('type_product', 'Mosaico')->get();
+        $viewMosaic = DB::table('products')->where('type_product', 'Mosaico')->latest()->paginate(16);
         return view('clientViews.categoryProduct.categoryProductMosaico', compact('viewMosaic'));
     }
 
     public function categoryFrame()
     {
-        $viewFrame = DB::table('products')->where('type_product', 'Quadro')->get();
+        $viewFrame = DB::table('products')->where('type_product', 'Quadro')->latest()->paginate(16);
         return view('clientViews.categoryProduct.categoryProductQuadro', compact('viewFrame'));
     }
     /**

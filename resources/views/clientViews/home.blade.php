@@ -54,8 +54,8 @@
       </div><!-- final do submenu com as informações e caracteristicas do site -->
      
       <h1 class="text-center mt-5 mb-5 fw-bold"> Categorias </h1>
-      <div class="slick-carousel mt-5" style="margin-left:40px;">
-        <img style="margin-right:40px;" src="https://imgs.extra.com.br/1518245871/1xg.jpg?imwidth=500" class="rounded-circle img-thumbnail" alt="Mosaico">
+      <div class="slick-carousel mt-5" style="margin-left:50px;">
+        <img style="margin-right:40px;" src="https://i.ibb.co/pb2TryG/3-PLACAS-copiar-copy.png" alt="3-PLACAS-copiar-copy" class="rounded-circle img-thumbnail" alt="Mosaico">
         <img style="margin-right:40px;" src="https://images.tcdn.com.br/img/img_prod/882836/quadro_abstrato_colorido_moderno_tela_unica_14851_1_3f6503db86ddfcc653b7ad7910f2f8e8_20220325171443.jpg" class="rounded-circle img-thumbnail" alt="Quadros"> 
         <img style="margin-right:40px;" src="https://img.kalunga.com.br/fotosdeprodutos/435223z.jpg" class="rounded-circle img-thumbnail" alt="Luminarias">
         <img style="margin-right:40px;" src="https://cdn.awsli.com.br/600x450/1670/1670279/produto/111528128/734d9391d9.jpg" class="rounded-circle img-thumbnail" alt="Personalizado"> 
@@ -64,178 +64,191 @@
     
     <div class="container-fluid p-0"><!-- inicio da div de carrousel de produtos -->
     <div class="d-flex align-items-center justify-content-center">
-    <h2 class="text-center mt-5">Mais vendidos</h2>
+    <h2 class="text-center fw-bold mt-5">Mais vendidos</h2>
     </div>
-    <div class="slick-carousel mt-5" style="margin-left:40px;"><!-- inicio do slick -->
+    <div class="slick-carousel mt-5" style="margin-left:50px;"><!-- inicio do slick -->
     @foreach($bestSeller as $bestSellers)
-    <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card --> 
-    <img src="{{$bestSellers->image_product_1}}" class="card-img-top" alt="...">
-    <div class="card-body">
-    <h5 class="card-title text-center title-card">{{$bestSellers->name}}</h5>
-    <p class="card-text text-center price-card">R$ {{$bestSellers->price}} <a href="#" class="a-href-card">no pix</a></p>
-    <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
-    <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
-    <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $bestSellers->id]) }}" class="btn btn-secondary d-flex justify-content-center">Ver mais...</a>
+    <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;"><!-- inicio do card --> 
+    <img src="{{$bestSellers->image_product_1}}" class="card-img-top circle-rounded" alt="...">
+    <div class="card-body mb-4">
+    <h2 class="card-title text-center fw-bold font-card-title" style="margin-bottom: 0.1rem;">{{$bestSellers->name}}</h2>
+    <h5 class="card-text text-center text-muted fw-bold font-price" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">{{$bestSellers->type_product}}</h5>
+    <p class="card-title text-center title-card text-decoration-line-through" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">De <span class="span-card">R$149</span></p>
+    <p class="card-text text-center fw-bold font-price font-price" style="margin-top: 0.05rem;">Por R$<span class="span-price">{{$bestSellers->price}}</span></p>
+    <div class="circle circle-color-best-sellers">
+    <a href="{{ route('showProductClient', ['id' => $bestSellers->id]) }}" class="">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-cart-plus-fill" viewBox="0 0 16 16"><path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/></svg>
+    </a>
+    </div>
     </div>
     </div><!-- final do card -->
     @endforeach
     </div><!-- final do slick -->
     </div><!-- final da div de carrousel de produtos -->
     
-
-    
-    <div class="container-fluid p-0"><!-- inicio da div de carousel de lançamentos -->
+    <div class="container-fluid p-0"><!-- inicio da div de carrousel de produtos -->
     <div class="d-flex align-items-center justify-content-center">
-    <h2 class="text-center mt-5">Lançamentos</h2>
+    <h2 class="text-center fw-bold mt-5">Lançamentos</h2>
     </div>
-    <div class="slick-carousel mt-5" style="margin-left:40px;"><!-- inicio do slick -->
+    <div class="slick-carousel mt-5" style="margin-left:50px;"><!-- inicio do slick -->
     @foreach($launch as $launchs)
-    <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card -->
-    <img src="{{$launchs->image_product_1}}" class="card-img-top" alt="...">
-    <div class="card-body">
-    <h5 class="card-title text-center title-card">{{$launchs->name}}</h5>
-    <p class="card-text text-center price-card">R$ {{$launchs->price}} <a href="#" class="a-href-card">no pix</a></p>
-    <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
-    <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
-    <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $launchs->id]) }}" class="btn btn-secondary d-flex justify-content-center">Ver mais...</a>
+    <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;"><!-- inicio do card --> 
+    <img src="{{$launchs->image_product_1}}" class="card-img-top circle-rounded" alt="...">
+    <div class="card-body mb-4">
+    <h2 class="card-title text-center fw-bold font-card-title" style="margin-bottom: 0.1rem;">{{$launchs->name}}</h2>
+    <h5 class="card-text text-center text-muted fw-bold font-price" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">{{$launchs->type_product}}</h5>
+    <p class="card-title text-center title-card text-decoration-line-through" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">De <span class="span-card">R$149</span></p>
+    <h5 class="card-text text-center fw-bold font-price font-price" style="margin-top: 0.05rem;">Por R$<span class="span-price">{{$launchs->price}}<span></h5>
+    <div class="circle circle-color-lauchs">
+    <a href="{{ route('showProductClient', ['id' => $launchs->id]) }}" class="">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-cart-plus-fill" viewBox="0 0 16 16"><path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/></svg>
+    </a>
+    </div>
     </div>
     </div><!-- final do card -->
     @endforeach
     </div><!-- final do slick -->
-    </div><!-- inicio da div de carousel de lançamentos -->
+    </div><!-- final da div de carrousel de produtos -->
 
-    <div class="container-fluid p-0"><!-- inicio da div de carousel de lançamentos -->
+    <div class="container-fluid p-0"><!-- inicio da div de carrousel de produtos -->
     <div class="d-flex align-items-center justify-content-center">
-    <h2 class="text-center mt-5">Destaques</h2>
+    <h2 class="text-center fw-bold mt-5">Destaques</h2>
     </div>
-    <div class="slick-carousel mt-5" style="margin-left:40px;"><!-- inicio do slick -->
+    <div class="slick-carousel mt-5" style="margin-left:50px;"><!-- inicio do slick -->
     @foreach($highlight as $highlights)
-    <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card -->
-    <img src="{{$highlights->image_product_1}}" class="card-img-top" alt="...">
-    <div class="card-body">
-    <h5 class="card-title text-center title-card">{{$highlights->name}}</h5>
-    <p class="card-text text-center price-card">R$ {{$highlights->price}} <a href="#" class="a-href-card">no pix</a></p>
-    <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
-    <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
-    <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $highlights->id]) }}" class="btn btn-secondary d-flex justify-content-center">Ver mais...</a>
+    <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;"><!-- inicio do card --> 
+    <img src="{{$highlights->image_product_1}}" class="card-img-top circle-rounded" alt="...">
+    <div class="card-body mb-4">
+    <h2 class="card-title text-center fw-bold font-card-title" style="margin-bottom: 0.1rem;">{{$highlights->name}}</h2>
+    <h5 class="card-text text-center text-muted fw-bold font-price" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">{{$highlights->type_product}}</h5>
+    <p class="card-title text-center title-card text-decoration-line-through" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">De <span class="span-card">R$149</span></p>
+    <h5 class="card-text text-center fw-bold font-price font-price" style="margin-top: 0.05rem;">Por R$<span class="span-price">{{$highlights->price}}</span></h5>
+    <div class="circle circle-color-highlights">
+    <a href="{{ route('showProductClient', ['id' => $highlights->id]) }}" class="">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-cart-plus-fill" viewBox="0 0 16 16"><path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/></svg>
+    </a>
+    </div>
     </div>
     </div><!-- final do card -->
     @endforeach
     </div><!-- final do slick -->
-    </div><!-- inicio da div de carousel de lançamentos -->
+    </div><!-- final da div de carrousel de produtos -->
 
-    <div class="container-fluid p-0"><!-- inicio da div de carousel de lançamentos -->
+    <div class="container-fluid p-0"><!-- inicio da div de carrousel de produtos -->
     <div class="d-flex align-items-center justify-content-center">
-    <h2 class="text-center mt-5">Mosaicos</h2>
+    <h2 class="text-center fw-bold mt-5">Mosaicos</h2>
     </div>
-    <div class="slick-carousel mt-5" style="margin-left:40px;"><!-- inicio do slick -->
+    <div class="slick-carousel mt-5" style="margin-left:50px;"><!-- inicio do slick -->
     @foreach($mosaic as $mosaics)
-    <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card -->
-    <img src="{{$mosaics->image_product_1}}" class="card-img-top" alt="...">
-    <div class="card-body">
-    <h5 class="card-title text-center title-card">{{$mosaics->name}}</h5>
-    <p class="card-text text-center price-card">R$ {{$mosaics->price}} <a href="#" class="a-href-card">no pix</a></p>
-    <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
-    <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
-    <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $mosaics->id]) }}" class="btn btn-secondary d-flex justify-content-center">Ver mais...</a>
+    <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;"><!-- inicio do card --> 
+    <img src="{{$mosaics->image_product_1}}" class="card-img-top circle-rounded" alt="...">
+    <div class="card-body mb-4">
+    <h2 class="card-title text-center fw-bold font-card-title" style="margin-bottom: 0.1rem;">{{$mosaics->name}}</h2>
+    <h5 class="card-text text-center text-muted fw-bold font-price" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">{{$mosaics->type_product}}</h5>
+    <p class="card-title text-center title-card text-decoration-line-through" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">De <span class="span-card">R$149</span></p>
+    <h5 class="card-text text-center fw-bold font-price font-price" style="margin-top: 0.05rem;">Por R$<span class="span-price">{{$mosaics->price}}<span></h5>
+    <div class="circle circle-color-mosaics">
+    <a href="{{ route('showProductClient', ['id' => $mosaics->id]) }}" class="">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-cart-plus-fill" viewBox="0 0 16 16"><path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/></svg>
+    </a>
+    </div>
     </div>
     </div><!-- final do card -->
     @endforeach
     </div><!-- final do slick -->
-    </div><!-- inicio da div de carousel de lançamentos -->
+    </div><!-- final da div de carrousel de produtos -->
 
-    <div class="container-fluid p-0"><!-- inicio da div de carousel de lançamentos -->
+    <div class="container-fluid p-0"><!-- inicio da div de carrousel de produtos -->
     <div class="d-flex align-items-center justify-content-center">
-    <h2 class="text-center mt-5">Luminárias</h2>
+    <h2 class="text-center fw-bold mt-5">Luminarias</h2>
     </div>
-    <div class="slick-carousel mt-5" style="margin-left:40px;"><!-- inicio do slick -->
+    <div class="slick-carousel mt-5" style="margin-left:50px;"><!-- inicio do slick -->
     @foreach($lighting as $lightings)
-    <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card -->
-    <img src="{{$lightings->image_product_1}}" class="card-img-top" alt="...">
-    <div class="card-body">
-    <h5 class="card-title text-center title-card">{{$lightings->name}}</h5>
-    <p class="card-text text-center price-card">R$ {{$lightings->price}} <a href="#" class="a-href-card">no pix</a></p>
-    <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
-    <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
-    <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $lightings->id]) }}" class="btn btn-secondary d-flex justify-content-center">Ver mais...</a>
+    <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;"><!-- inicio do card --> 
+    <img src="{{$lightings->image_product_1}}" class="card-img-top circle-rounded" alt="...">
+    <div class="card-body mb-4">
+    <h2 class="card-title text-center fw-bold font-card-title" style="margin-bottom: 0.1rem;">{{$lightings->name}}</h2>
+    <h5 class="card-text text-center text-muted fw-bold font-price" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">{{$lightings->type_product}}</h5>
+    <p class="card-title text-center title-card text-decoration-line-through" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">De <span class="span-card">R$149</span></p>
+    <h5 class="card-text text-center fw-bold font-price font-price" style="margin-top: 0.05rem;">Por R$ <span class="span-price">{{$lightings->price}}</span></h5>
+    <div class="circle circle-color-lighting">
+    <a href="{{ route('showProductClient', ['id' => $lightings->id]) }}" class="">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-cart-plus-fill" viewBox="0 0 16 16"><path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/></svg>
+    </a>
+    </div>
     </div>
     </div><!-- final do card -->
     @endforeach
     </div><!-- final do slick -->
-    </div><!-- inicio da div de carousel de lançamentos -->
+    </div><!-- final da div de carrousel de produtos -->
 
 
     <div class="container-fluid bg-white mt-5"><!-- inicio do footer -->
-  <footer class="py-5">
-    <div class="row">
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+    <footer class="py-5">
+      <div class="row">
+        <div class="col-6 col-md-2 mb-3">
+          <h5>Section</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-2 mb-3">
+          <h5>Section</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-2 mb-3">
+          <h5>Section</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-5 offset-md-1 mb-3">
+          <form>
+            <h5>Subscribe to our newsletter</h5>
+            <p>Monthly digest of what's new and exciting from us.</p>
+            <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+              <label for="newsletter1" class="visually-hidden">Email address</label>
+              <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+              <button class="btn btn-primary" type="button">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+        <p>© 2023 Walmeida</p>
+        <ul class="list-unstyled d-flex">
+          <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+          <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+          <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
         </ul>
       </div>
-
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
-
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
-
-      <div class="col-md-5 offset-md-1 mb-3">
-        <form>
-          <h5>Subscribe to our newsletter</h5>
-          <p>Monthly digest of what's new and exciting from us.</p>
-          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-            <label for="newsletter1" class="visually-hidden">Email address</label>
-            <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-            <button class="btn btn-primary" type="button">Subscribe</button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-      <p>© 2023 Walmeida</p>
-      <ul class="list-unstyled d-flex">
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-      </ul>
-    </div>
-    </footer>
+      </footer>
     </div><!-- final do footer -->
 
     <script>
         $('.slick-carousel').slick({
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 300,
-    arrows: false,
+    arrows: true,
     slidesToShow: 4,
     slidesToScroll: 4,
     responsive: [
@@ -245,7 +258,7 @@
         slidesToShow: 3,
         slidesToScroll: 3,
         infinite: true,
-        dots: true,
+        dots: false,
       }
     },
     {
