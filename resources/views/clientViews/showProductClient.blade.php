@@ -174,19 +174,22 @@
 
   <div class="container-fluid p-0"><!-- inicio da div de carrousel de produtos -->
     <div class="d-flex align-items-center justify-content-center">
-    <h2 class="text-center mt-5">Mais vendidos</h2>
+    <h2 class="text-center fw-bold mt-5">Mais vendidos</h2>
     </div>
-    <div class="slick-carousel mt-5" style="margin-left:45px;"><!-- inicio do slick -->
+    <div class="slick-carousel mt-5" style="margin-left:50px;"><!-- inicio do slick -->
     @foreach($bestSeller as $bestSellers)
-    <div class="card space-margin-left-5  shadow mb-5 bg-body rounded-4" style="width: 18rem;"><!-- inicio do card --> 
-    <img src="{{$bestSellers->image_product_1}}" class="card-img-top" alt="...">
-    <div class="card-body">
-    <h5 class="card-title text-center title-card">{{$bestSellers->name}}</h5>
-    <p class="card-text text-center price-card">R$ {{$bestSellers->price}} <a href="#" class="a-href-card">no pix</a></p>
-    <h5 class="card-text text-center discount-card">Com 3% de desconto</h5>
-    <h5 class="card-text text-center discount-card">A partir de R$ 74,90</h5>
-    <h5 class="card-text text-center discount-card">até 4x de R$ 18,72 sem juros</h5>
-    <a href="{{ route('showProductClient', ['id' => $bestSellers->id]) }}" class="btn btn-secondary d-flex justify-content-center">Ver mais...</a>
+    <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;"><!-- inicio do card --> 
+    <img src="{{$bestSellers->image_product_1}}" class="card-img-top circle-rounded" alt="...">
+    <div class="card-body mb-4">
+    <h2 class="card-title text-center fw-bold font-card-title" style="margin-bottom: 0.1rem;">{{$bestSellers->name}}</h2>
+    <h5 class="card-text text-center text-muted fw-bold font-price" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">{{$bestSellers->type_product}}</h5>
+    <p class="card-title text-center title-card text-decoration-line-through" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">De <span class="span-card">R$149</span></p>
+    <p class="card-text text-center fw-bold font-price font-price" style="margin-top: 0.05rem;">Por R$<span class="span-price">{{$bestSellers->price}}</span></p>
+    <div class="circle circle-color-best-sellers">
+    <a href="{{ route('showProductClient', ['id' => $bestSellers->id]) }}" class="">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-cart-plus-fill" viewBox="0 0 16 16"><path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/></svg>
+    </a>
+    </div>
     </div>
     </div><!-- final do card -->
     @endforeach
