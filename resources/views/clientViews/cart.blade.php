@@ -6,7 +6,7 @@
       <div class="col-md-8">
         <div class="card mb-4">
           <div class="card-header py-3">
-            <h5 class="mb-0">Carrinho</h5>
+            <h5 class="mb-0"> <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-cart-check" viewBox="0 0 16 16"><path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/><path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg> Carrinho</h5>
           </div>
           <div class="card-body">
           @if(!empty($message))
@@ -99,8 +99,56 @@
         </div>
         <div class="card mb-4">
           <div class="card-body">
-            <p><strong>Expectativa de entrega:</strong></p>
-            <p class="mb-0">12.10.2020 - 14.10.2020</p>
+          <h5 class="mb-0"> <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16"><path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg> Calcule o frete: </h5>
+          <div class="container px-4 text-left">
+            <div class="row gx-5">
+
+              <div class="col">
+                <div class="p-3 ">
+                  <ul class="">
+                    <li class="list-group-item fw-bold">Cidade: {{$city}}</li>
+                    <li class="list-group-item fw-bold">CEP: {{$cep}}</li>
+                    <li class="list-group-item fw-bold">Endereço: {{$location}}</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="p-3">
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Alterar endereço
+                  </button>
+                </div>
+              </div>
+                </div>
+              </div>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Selecione o serviço desejado</th>
+                    <th scope="col">Tipo de serviço</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Entrega em ate</th>
+                    <th scope="col">Transportadora</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
+                      <th scope="row"><h6 class="fw-bold">{{ $totalPacFrete['companyName'] }}</h5></th>
+                      <td><p class="fw-bold fontCalculateFrete">R$ {{ $totalPacFrete['totalFrete'] }}</p></td>
+                      <td><h5 class="fw-bold">{{ $totalPacFrete['deliveryTime'] }}</h5></td>
+                      <td> <img src="https://www.geralferramentas.com.br/pub/media/catalog/product/cache/ebd33fa67d0860d79e515ee268e8835d/p/a/pac2270.png" height="150" width="150" class="img-fluid" alt="Company Logo"></td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" class="form-check-input" id="exampleCheck2"></td>
+                      <th scope="row"><h5 class="fw-bold">{{ $totalSedexFrete['companyName'] }}</h5></th>
+                      <td><p class="fw-bold fontCalculateFrete">R$ {{ $totalSedexFrete['totalFrete'] }}<p></td>
+                      <td><h5 class="fw-bold">{{ $totalSedexFrete['deliveryTime'] }}</h5></td>
+                      <td> <img src="https://img.elo7.com.br/product/main/27BA07B/sedex-sedex.jpg" height="100" width="100" class="img-fluid" alt="Company Logo"></td>
+                    </tr>
+                  </tbody>
+                </table>
           </div>
         </div>
         <div class="card mb-4 mb-lg-0">
@@ -217,4 +265,22 @@
     </div>
     </footer>
     </div><!-- final do footer -->
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Alterar endereço de entrega</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary">Calcular</button>
+          </div>
+        </div>
+      </div>
+    </div>
 @endsection

@@ -57,6 +57,14 @@
         .circle-rounded{
           border-radius: 4.5%;
         }
+        .custom-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+  /* Outros estilos personalizados, se necessário */
+}
         .circle-color-lauchs{
           background-color: #ff007f;
         }
@@ -81,6 +89,9 @@
         }
         .circle:hover i {
           transform: scale(1.3); /* Aumenta o tamanho do ícone */
+        }
+        .fontCalculateFrete{
+          font-size: 15px;
         }
         .fontBuyProduct2{
           color: #201F1F;
@@ -385,6 +396,15 @@
           </li>
           <li class="nav-item">
             <a class="nav-link text-dark" href="/categoria/quadro">Quadros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/categoria/mais-vendidos">Mais vendidos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/categoria/lancamentos">Lançamentos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/categoria/destaques">Produtos em destaque</a>
           </li>
             </ul>
           </li>

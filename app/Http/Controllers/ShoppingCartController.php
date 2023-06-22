@@ -25,7 +25,7 @@ class ShoppingCartController extends Controller
         return redirect('/carrinho');
     }
 
-    public function cartView()
+        public function cartView()
     {
         $userId = auth()->id();
         $cartItems = DB::table('shopping_cart')
@@ -34,17 +34,63 @@ class ShoppingCartController extends Controller
                         ->select('shopping_cart.product_id', 'shopping_cart.quantity', 'products.*', 'price_and_size.*')
                         ->where('shopping_cart.user_id', $userId)
                         ->get();
-                        
+
         $cartItems = $cartItems->unique(function($item) {
             return $item->product_id . '-' . $item->price;
         });
-        
+
         $quotations = $this->calculateFrete($cartItems); // calcular o frete para os itens no carrinho
-        
+        $totalSedexFrete = $this->calculateTotalFreight($quotations, 'SEDEX');
+        $totalPacFrete = $this->calculateTotalFreight($quotations, 'PAC');
+        $user = auth()->user();
+        $cep = $user->cep;
+        $location = $user->location;
+        $city = $user->city;       
         $message = $this->checkCartIsEmpty($userId);  //verifica se o carrinho esta vazio
-        $totalPriceCart = $this->getTotalCartValue($userId); //calcula o total de itens adicionados no carrinho pelo usuario logado e retorna o valor em uma variavel 
-        return view('clientViews.cart', compact('cartItems', 'message', 'totalPriceCart', 'quotations'));
+        $totalPriceCart = $this->getTotalCartValue($userId); //calcula o total de itens adicionados no carrinho pelo usuário logado e retorna o valor em uma variável
+        
+        return view('clientViews.cart', compact('cartItems', 'quotations', 'message', 'totalPriceCart', 'totalPacFrete', 'totalSedexFrete', 'cep', 'location', 'city'));
     }
+
+    public function calculateTotalFreight($quotations, $transportadora)
+    {
+        $totalFrete = 0;
+        $deliveryTime = 0;
+        $companyName = '';
+        $companyImage = '';
+
+        foreach ($quotations as $quotation) {
+            foreach ($quotation as $item) {
+                if (isset($item['name']) && $item['name'] === $transportadora) {
+                    if (isset($item['packages'])) {
+                        $packages = $item['packages'];
+                        foreach ($packages as $package) {
+                            if (isset($package['price'])) {
+                                $totalFrete += (float) $package['price'];
+                            }
+                        }
+                    }
+                    $deliveryTime = $item['delivery_time'];
+                    $companyName = $item['name'];
+                    if (isset($item['company']['picture'])) {
+                        $companyImage = $item['company']['picture'];
+                    }
+                }
+            }
+        }
+
+        // Formata o valor de totalFrete substituindo o ponto por vírgula
+        $totalFrete = number_format($totalFrete, 2, ',', '.');
+
+        return [
+            'totalFrete' => $totalFrete,
+            'deliveryTime' => $deliveryTime,
+            'companyName' => $companyName,
+            'companyImage' => $companyImage,
+        ];
+    }
+
+
 
     public function checkCartIsEmpty($userId)
     {
@@ -83,39 +129,46 @@ class ShoppingCartController extends Controller
 
     public function calculateFrete($cartItems)
     {
-        $shipment = new Shipment('eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjE1NzMzMWU0MWIxMWVmNzhiOWM0M2YwNTk5OWE4NWNiNGRmZWE3ZTI0YjBkNzE0M2I0MzcwNmZhNzBmOWQ3MGQyZTI0NDQ3MzlmNGQwNjU2In0.eyJhdWQiOiI5NTYiLCJqdGkiOiIxNTczMzFlNDFiMTFlZjc4YjljNDNmMDU5OTlhODVjYjRkZmVhN2UyNGIwZDcxNDNiNDM3MDZmYTcwZjlkNzBkMmUyNDQ0NzM5ZjRkMDY1NiIsImlhdCI6MTY4Mjc0OTg0MywibmJmIjoxNjgyNzQ5ODQzLCJleHAiOjE3MTQzNzIyNDMsInN1YiI6IjEzY2M3MDdkLWIzYzMtNGFlNy1hYjFhLWVmNTgxMzE5NGFlZSIsInNjb3BlcyI6WyJjYXJ0LXJlYWQiLCJjYXJ0LXdyaXRlIiwiY29tcGFuaWVzLXJlYWQiLCJjb21wYW5pZXMtd3JpdGUiLCJjb3Vwb25zLXJlYWQiLCJjb3Vwb25zLXdyaXRlIiwibm90aWZpY2F0aW9ucy1yZWFkIiwib3JkZXJzLXJlYWQiLCJwcm9kdWN0cy1yZWFkIiwicHJvZHVjdHMtZGVzdHJveSIsInByb2R1Y3RzLXdyaXRlIiwicHVyY2hhc2VzLXJlYWQiLCJzaGlwcGluZy1jYWxjdWxhdGUiLCJzaGlwcGluZy1jYW5jZWwiLCJzaGlwcGluZy1jaGVja291dCIsInNoaXBwaW5nLWNvbXBhbmllcyIsInNoaXBwaW5nLWdlbmVyYXRlIiwic2hpcHBpbmctcHJldmlldyIsInNoaXBwaW5nLXByaW50Iiwic2hpcHBpbmctc2hhcmUiLCJzaGlwcGluZy10cmFja2luZyIsImVjb21tZXJjZS1zaGlwcGluZyIsInRyYW5zYWN0aW9ucy1yZWFkIiwidXNlcnMtcmVhZCIsInVzZXJzLXdyaXRlIiwid2ViaG9va3MtcmVhZCIsIndlYmhvb2tzLXdyaXRlIl19.P1_7d_qNmYLn-pvX8YlWcWtzlFKH-E9l7Xv_gL9qHYXPsWYxF_fxGE9arvWLluBTIaxfjI1CQ1HeVOGnL1tZY0Bnb2bFgg7_vZk1g3kIa35XuXjBQ16yLpimKHRbcSAmnw4gfhHwsdAK6YXamcygBrSgYG8oQJuF02SYcDf-SNTsOIgF39GoH5ZKZYoelIGFeKAPb8DfeUysPTBFPB41Fyf9C3BKA3T0uW-DmoMXrrpapFiJK_Tpy-PWyzzBzW2z7wSbeoBuW8tksu9Yp0wbf5tVMM1tYCpR8xrexSwJ_o0rFGb60jezYPgNm--Da6h-QVwKU4lmVsZAnpcioz0B-iOWGqqiPyyGhCOUeIedGik30SzpuDmjIVDlrLmHMTwJuWdUFK6nMDwdGqUSRdBmBaN3Qj3N_kIjCc0S9_A0a32UN5oPZlpr3jwvTU3LS5IrozzF0u-zJ5ky4E1kZCnmDaJWZnMDw1WoSLCQCdZqC8LoKTATlP4SdloeGKvMYxjdUc69cPjD_it3-d1o42fs60c-COCcS1Ne9XqqP95ejS2956ZcdSuoKyRJhNVoMf7yAFKdUorqL-2Ujf6REDt0MhxJ-EKLxd-xWUk_HTCzXLMGGdsBBjESgHiNuWZotyIHSZQhkBP3ue8a4QN8P16LJMsugWzHUT_q8F9O56Fz7Ls', Environment::SANDBOX);
+        $shipment = new Shipment('eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImYwODJmMjkzMjFlNGU3NmUxZjBjNmZiOTk1NGU3ODZmYTVmMzYzZDhmY2FjNDJhN2YwZGEzMDQ3NDEyNWJmYjMxMGI2NzcxYTBiNDljNmE5In0.eyJhdWQiOiIxIiwianRpIjoiZjA4MmYyOTMyMWU0ZTc2ZTFmMGM2ZmI5OTU0ZTc4NmZhNWYzNjNkOGZjYWM0MmE3ZjBkYTMwNDc0MTI1YmZiMzEwYjY3NzFhMGI0OWM2YTkiLCJpYXQiOjE2ODczMTI3NzgsIm5iZiI6MTY4NzMxMjc3OCwiZXhwIjoxNzE4OTM1MTc4LCJzdWIiOiJiNTA3ZDlhZi1iNDJiLTQzMDgtYjBhOC1lYWU0MzBiNDM2ODEiLCJzY29wZXMiOlsiY2FydC1yZWFkIiwiY2FydC13cml0ZSIsImNvbXBhbmllcy1yZWFkIiwiY29tcGFuaWVzLXdyaXRlIiwiY291cG9ucy1yZWFkIiwiY291cG9ucy13cml0ZSIsIm5vdGlmaWNhdGlvbnMtcmVhZCIsIm9yZGVycy1yZWFkIiwicHJvZHVjdHMtcmVhZCIsInByb2R1Y3RzLWRlc3Ryb3kiLCJwcm9kdWN0cy13cml0ZSIsInB1cmNoYXNlcy1yZWFkIiwic2hpcHBpbmctY2FsY3VsYXRlIiwic2hpcHBpbmctY2FuY2VsIiwic2hpcHBpbmctY2hlY2tvdXQiLCJzaGlwcGluZy1jb21wYW5pZXMiLCJzaGlwcGluZy1nZW5lcmF0ZSIsInNoaXBwaW5nLXByZXZpZXciLCJzaGlwcGluZy1wcmludCIsInNoaXBwaW5nLXNoYXJlIiwic2hpcHBpbmctdHJhY2tpbmciLCJlY29tbWVyY2Utc2hpcHBpbmciLCJ0cmFuc2FjdGlvbnMtcmVhZCIsInVzZXJzLXJlYWQiLCJ1c2Vycy13cml0ZSIsIndlYmhvb2tzLXJlYWQiLCJ3ZWJob29rcy13cml0ZSIsIndlYmhvb2tzLXVwZGF0ZSIsIndlYmhvb2tzLWRlbGV0ZSIsInRkZWFsZXItd2ViaG9vayJdfQ.ZfQCk-Met9uym8a2TR4xRnz5ehzpeOlIN1Z5j3lHTc0QcYXB7Sidi5ov9C8fKdZrialEIwhlHbz1rztPuxWZF6dEvjnyNbAlecHXTTRT2PCWOwca0mvEmDpRAR2GIfG_Hb8kCSvtO6N3eiLtarHbmpJQnLOszue3r9u6GGs9Y3NWzksNp0wAddBCMisfoqtU8zjJ4HLNmIth-R4nb-9bAnzuO7GE4gh61L1i2ucNafGmzFbjthSBWQBi1IuwjSzIUZYo7IIitbf7Y5XJU7RtfLWSDLU8ZXVjLsp2fSh2llq6nUio3neD70OIIlu_HABV_RETQCfTVreJJtGBgL-PBHmOwyJMQeDzw_WUcLwSKstiOb3WQrzmtykBMJ3WJvFllIfdoiIiAioWbzkaIMemeXxw3NOzMNBFQOgkDDcyLNaVLBGU3F3DFbsWkvLLDS-J0xPj0hxe_STGa-iXAgTIm241ECWrgTE1ohz9skrsUhyIrtyD0zK3fI4d7hLrWYlgUMDtRPoOSWpgEZ3RW2RznZeyNYaAa2hvwLsY6lKOwziiXUvnNDLyowmyn2l42JhQslWR2OFk7IyqL_655Kd38Dnq8jEsPdrYUIUdvze7sQQ7HZ1usbu2H27Ue79sPVt3l2jkdmkqlyGUNHcuTEpWgrxRxEw5bU6b_-MuQJrZaMs', Environment::PRODUCTION);
         $calculator = $shipment->calculator();
         $calculator->postalCode('04865065', '04865080');
 
         $quotations = [];
-
+        $user = auth()->user();
+        $cep = $user->cep;
         // Calcular o frete de cada produto individualmente
         foreach ($cartItems as $item) {
             $calculator = $shipment->calculator();
-            $calculator->postalCode('04865065', '04865080');
+            $calculator->postalCode('04865065', $cep);
             $melhorEnvioProduct = new MelhorEnvioProduct(
-                $item->weight,
-                $item->width,
                 $item->height,
+                $item->width,
                 $item->length,
-                $item->price,
+                $item->weight,
+                '1',
                 '1'
             );
             $calculator->addProducts($melhorEnvioProduct);
             $calculator->addServices(
                 Service::CORREIOS_PAC, 
                 Service::CORREIOS_SEDEX,
+                Service::CORREIOS_MINI,
                 Service::JADLOG_PACKAGE, 
-                Service::JADLOG_COM
+                Service::JADLOG_COM, 
+                Service::AZULCARGO_AMANHA,
+                Service::AZULCARGO_ECOMMERCE,
+                Service::LATAMCARGO_JUNTOS,
+                Service::VIABRASIL_RODOVIARIO
             );    
             $calculator->setOwnHand(); // mão própria
             $calculator->setReceipt(); // aviso de recebimento
             $calculator->setCollect(); // coleta
             $quotations[] = $calculator->calculate();
+            //dd($quotations);
         }
-        
+         return $quotations;
         // Somar os valores de frete de cada produto individualmente para obter o frete total
-        $totalShippingCost = array_sum(array_column($quotations, 'total'));
+        
     }
             
 }

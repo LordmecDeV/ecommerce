@@ -82,7 +82,7 @@
               <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-3-placas-reto" data-price="{{$price->price}}" onclick="updatePriceField(this)">3 Placas Reto</button></li>
               @endforeach
               @foreach ($getPriceFivePlates as $price)
-              <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-5-placas" data-price="{{$price->price}}" onclick="updatePriceField(this)">5 Placas</button></li>
+              <li class="list-inline-item mt-2"><button type="button" class="btn btn-outline-dark" id="btn-5-placas" data-price="{{$price->price}}" onclick="updatePriceField(this)">5 Placas</button></li>
               @endforeach
             </ul>
         </li>
@@ -131,7 +131,16 @@
       </li>
         <li class="list-group mt-4">
           <div class="d-flex justify-content-start">
-            <button type="button" class="btn buttonBuy btn-lg rounded-5">Adicionar ao carrinho</button>
+          <form id="product-form" method="POST" action="{{route('adicionar-ao-carrinho')}}">
+            @csrf
+            {{ method_field('POST') }}
+              <input type="hidden" name="product_price" id="product-price" value="{{$viewProduct->price}}">
+              <input type="hidden" name="user_id" value="{{auth()->id()}}">
+              <input type="hidden" name="product_id" value="{{$viewProduct->id}}">
+              <input type="hidden" id="price" name="product_characteristics" value="{{$viewProduct->price}}">
+              <input type="hidden" id="price" name="quantity" value="1">
+              <button type="submit" class="btn btn-primary btn-lg rounded-5">Adicionar ao carrinho</button>
+            </form>
           </div>
         </li>
         <li class="list-group">
@@ -177,7 +186,7 @@
     <h2 class="text-center fw-bold mt-5">Mais vendidos</h2>
     </div>
     <div class="slick-carousel mt-5" style="margin-left:50px;"><!-- inicio do slick -->
-    @foreach($bestSeller as $bestSellers)
+    @foreach($bestSeller->slice(0, 10)->toArray() as $bestSellers)
     <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;"><!-- inicio do card --> 
     <img src="{{$bestSellers->image_product_1}}" class="card-img-top circle-rounded" alt="...">
     <div class="card-body mb-4">
@@ -193,7 +202,15 @@
     </div>
     </div><!-- final do card -->
     @endforeach
+    <a href="/categoria/mais-vendidos" class="mt-4 mb-5">
+        <div class="d-flex align-items-center justify-content-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" fill="currentColor" class="bi bi-plus me-2" viewBox="0 0 16 16">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+          </svg>
+        </div>
+      </a>
     </div><!-- final do slick -->
+
     </div><!-- final da div de carrousel de produtos -->
 
 <div class="container-fluid bg-white mt-5">

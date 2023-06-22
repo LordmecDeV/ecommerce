@@ -98,11 +98,15 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::delete('/excluir-item-do-favorito',  [FavoriteController::class, 'destroy'])->name('excluir-item-do-favorito');
 	Route::get('/favoritos',  [FavoriteController::class, 'favoriteView'])->name('favoritos');
 	Route::post('/adicionar-aos-favoritos',  [FavoriteController::class, 'createFavoriteProduct'])->name('adicionar-aos-favoritos');
+	Route::get('/search-products', [ProductController::class, 'search'])->name('searchProducts');
 	//informações do usuario
 	Route::get('/informacoes-do-usuario',  [InfoUserController::class, 'viewAuthUser'])->name('informacoes-do-usuario');
 });
 	//pagina do cliente
 	Route::get('/home',  [ProductController::class, 'homePage'])->name('homePage');
+	Route::get('/categoria/mais-vendidos',  [ProductController::class, 'categoryBestSeller'])->name('categoryBestSeller');
+	Route::get('/categoria/lancamentos',  [ProductController::class, 'categoryLaunch'])->name('categoryLaunch');
+	Route::get('/categoria/destaques',  [ProductController::class, 'categoryHighlight'])->name('categoryHighlight');
 	Route::get('/calcular-frete',  [ShoppingCartController::class, 'calculateFrete'])->name('calcular-frete');
 	Route::get('/produto/{id}',  [ProductController::class, 'showProductClient'])->name('showProductClient');
 	Route::get('/categoria/luminaria',  [ProductController::class, 'categoryLighting'])->name('categoryLighting');

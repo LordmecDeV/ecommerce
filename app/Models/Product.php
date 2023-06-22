@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class Product extends Model
 {
@@ -15,6 +17,6 @@ class Product extends Model
 
     public function carts()
     {
-    return $this->hasMany(ShoppingCart::class);
+        return $this->hasMany(ShoppingCart::class);
     }
 }

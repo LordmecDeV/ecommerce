@@ -93,12 +93,27 @@ class ProductController extends Controller
     }
 
     public function homePage()
-    {   
+    {
+        // Carrossel Best Seller
         $bestSeller = DB::table('products')->where('carrousel', '1')->get();
+        $bestSeller = $this->applyMinPriceLogic($bestSeller);
+
+        // Carrossel Launch
         $launch = DB::table('products')->where('carrousel', '2')->get();
+        $launch = $this->applyMinPriceLogic($launch);
+
+        // Carrossel Highlight
         $highlight = DB::table('products')->where('carrousel', '3')->get();
+        $highlight = $this->applyMinPriceLogic($highlight);
+
+        // Carrossel Mosaic
         $mosaic = DB::table('products')->where('type_product', 'Mosaico')->get();
+        $mosaic = $this->applyMinPriceLogic($mosaic);
+
+        // Carrossel Lighting
         $lighting = DB::table('products')->where('type_product', 'Luminaria')->get();
+        $lighting = $this->applyMinPriceLogic($lighting);
+
         //imagens do carousel
         $mainImageCarousel = DB::table('manage_content')
                                 ->where('image_carousel', 'Imagem principal do carousel')
@@ -109,48 +124,120 @@ class ProductController extends Controller
         $imageCarousel3 = DB::table('manage_content')
                                 ->where('image_carousel', 'Imagem 3')
                                 ->value('link_image_carousel');
-        return view('clientViews.home', compact('bestSeller', 'launch', 'highlight', 'mosaic', 'lighting', 'mainImageCarousel', 'imageCarousel2', 'imageCarousel3'));
+
+        return view('clientViews.home', compact(
+            'bestSeller',
+            'launch',
+            'highlight',
+            'mosaic',
+            'lighting',
+            'mainImageCarousel',
+            'imageCarousel2',
+            'imageCarousel3'
+        ));
+    }
+
+    private function applyMinPriceLogic($products)
+    {
+        foreach ($products as $product) {
+            $typeProduct = $product->type_product;
+            $minPrice = DB::table('price_and_size')->where('type_product', 'like', $typeProduct.'%')->min('price');
+            $product->price = $minPrice;
+        }
+
+        return $products;
     }
 
     public function showProductClient($id)
     {
         $viewProduct = Product::find($id);
         $bestSeller = DB::table('products')->where('carrousel', '1')->get();
+        $bestSeller = $this->applyMinPriceLogic($bestSeller);
+        $isFavorite = Favorite::where('user_id', auth()->id())
+            ->where('product_id', $viewProduct->id)
+            ->exists();
+
+        $typeProduct = $viewProduct->type_product;
+        $minPrice = DB::table('price_and_size')->where('type_product', 'like', $typeProduct.'%')->min('price');
+        $viewProduct->price = $minPrice;
+
         $getPriceThreePlates = DB::table('price_and_size')->where('type_product', 'Mosaico - 3 Placas')->get();
         $getPriceThreeStraightPlates = DB::table('price_and_size')->where('type_product', 'Mosaico - 3 Placas Reto')->get();
         $getPriceFivePlates = DB::table('price_and_size')->where('type_product', 'Mosaico - 5 Placas')->get();
         $getSmallFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 30x55')->value('price');
         $getMidFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 40x66')->value('price');
         $getBigFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 55x92')->value('price');
-        $isFavorite = Favorite::where('user_id', auth()->id())
-            ->where('product_id', $viewProduct->id)
-            ->exists();
-        return view('clientViews.showProductClient', compact('viewProduct', 'bestSeller', 'getPriceThreePlates','getPriceThreeStraightPlates','getPriceFivePlates', 'getSmallFrame', 'getMidFrame', 'getBigFrame', 'isFavorite'));
+
+        return view('clientViews.showProductClient', compact(
+            'viewProduct',
+            'bestSeller',
+            'getPriceThreePlates',
+            'getPriceThreeStraightPlates',
+            'getPriceFivePlates',
+            'getSmallFrame',
+            'getMidFrame',
+            'getBigFrame',
+            'isFavorite'
+        ));
     }
+
 
     public function categoryLighting()
     {
         $viewLighting = DB::table('products')->where('type_product', 'Luminaria')->latest()->paginate(16);
+        $viewLighting = $this->applyMinPriceLogic($viewLighting);
         return view('clientViews.categoryProduct.categoryProductLuminaria', compact('viewLighting'));
     }
 
     public function categoryMosaic()
     {
         $viewMosaic = DB::table('products')->where('type_product', 'Mosaico')->latest()->paginate(16);
+        $viewMosaic = $this->applyMinPriceLogic($viewMosaic);
         return view('clientViews.categoryProduct.categoryProductMosaico', compact('viewMosaic'));
     }
 
     public function categoryFrame()
     {
         $viewFrame = DB::table('products')->where('type_product', 'Quadro')->latest()->paginate(16);
+        $viewFrame = $this->applyMinPriceLogic($viewFrame);
         return view('clientViews.categoryProduct.categoryProductQuadro', compact('viewFrame'));
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    public function categoryBestSeller()
+    {
+        $bestSeller = DB::table('products')->where('carrousel', '1')->latest()->paginate(16);
+        $bestSeller = $this->applyMinPriceLogic($bestSeller);
+        return view('clientViews.categoryProduct.categoryProductMaisVendidos', compact('bestSeller'));
+    }
+
+    public function categoryLaunch()
+    {
+        $launch = DB::table('products')->where('carrousel', '2')->latest()->paginate(16);
+        $launch = $this->applyMinPriceLogic($launch);
+        return view('clientViews.categoryProduct.categoryProductLancamentos', compact('launch'));
+    }
+
+    public function categoryHighlight()
+    {
+        $highlight = DB::table('products')->where('carrousel', '3')->latest()->paginate(16);
+        $highlight = $this->applyMinPriceLogic($highlight);
+        return view('clientViews.categoryProduct.categoryProductDestaques', compact('highlight'));
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $todosProdutos = Product::where('id', $search)
+                            ->orWhere('name', 'like', '%'.$search.'%')
+                            ->get();
+
+        // Faça algo com os resultados da pesquisa (exibição na view, redirecionamento, etc.)
+
+        // Retorne uma view com os resultados da pesquisa
+        return view('searchResult', compact('todosProdutos'));
+    }
+    
     public function show($id)
     {
         if (auth()->user()->can('viewAdminPanel', User::class)) {

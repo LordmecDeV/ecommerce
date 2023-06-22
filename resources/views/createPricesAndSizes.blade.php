@@ -1,5 +1,25 @@
 @extends('layouts.user_type.auth')
 @section('content')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/jquery.inputmask.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#price').inputmask('currency', {
+            prefix: 'R$ ',
+            autoGroup: true,
+            groupSeparator: '.',
+            radixPoint: ',',
+            digits: 2,
+            digitsOptional: false,
+            rightAlign: false,
+            allowMinus: false,
+            placeholder: '0'
+        });
+    });
+</script>
+
+
 
 <div class="container-fluid py-4">
         <div class="card">
@@ -21,7 +41,7 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="form-control-label">Preço</label>
-                        <input class="form-control" type="text" name="price" id="">
+                        <input class="form-control price-input" id="price" type="text" name="price" />
                     </div>
                     <div class="form-group">
                         <label for="" class="form-control-label">Altura</label>

@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="form-control-label">Preço</label>
-                        <input class="form-control" type="number" value="{{$updateProduct->price}}" name="price" id="">
+                        <input class="form-control" type="" value="{{$updateProduct->price}}" name="price" id="">
                     </div>
                     <div class="form-group">
                         <label for="" class="form-control-label">Altura</label>
