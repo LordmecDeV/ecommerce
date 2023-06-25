@@ -29,6 +29,14 @@
           font-family: 'Montserrat', sans-serif;
           font-size: 23px;
         }
+        .btn-moldura.btn-selected {
+            background-color: #000 !important;
+            color: #fff !important;
+        }
+        .btn-tamanho.btn-selected {
+            background-color: #000 !important;
+            color: #fff !important;
+        }
         .buttonBuy{
           background-color: #189AB4;
           width: 250px;
@@ -57,6 +65,14 @@
         .circle-rounded{
           border-radius: 4.5%;
         }
+        .custom-button {
+          background: none;
+          border: none;
+          padding: 0;
+          color: inherit;
+          cursor: pointer;
+          /* Outros estilos personalizados, se necessário */
+        }
         .circle-color-lauchs{
           background-color: #ff007f;
         }
@@ -81,6 +97,9 @@
         }
         .circle:hover i {
           transform: scale(1.3); /* Aumenta o tamanho do ícone */
+        }
+        .fontCalculateFrete{
+          font-size: 15px;
         }
         .fontBuyProduct2{
           color: #201F1F;
@@ -274,7 +293,7 @@
                 @foreach($headerCartItems as $items)
                   <div class="row mb-4 d-flex justify-content-between align-items-center">
                     <div class="col-md-2 col-lg-2 col-xl-2">
-                      <img src="{{$items->image_product_1}}" class="img-fluid rounded-3" alt="Cotton T-shirt">
+                    <img src="{{$items->image_product_1}}" class="img-fluid rounded-3" alt="item cart">
                     </div>
                     <div class="col-md-3 col-lg-3 col-xl-3">
                       <h6 class="text-muted">{{$items->type_product}}</h6>
@@ -284,7 +303,7 @@
                       <h6 class="mb-0">R${{$items->price}}</h6>
                     </div>
                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                      <a href="#!" class="text-muted"><i class="fas fa-times"></i>
                     </div>
                   </div>
                   <hr class="my-4">
@@ -311,14 +330,11 @@
                 @foreach($favoriteItems as $items)
                   <div class="row mb-4 d-flex justify-content-between align-items-center">
                     <div class="col-md-2 col-lg-2 col-xl-2">
-                      <img src="{{$items->image_product_1}}" class="img-fluid rounded-3" alt="Cotton T-shirt">
+                    <a href="{{ route('showProductClient', ['id' => $items->id]) }}"><img src="{{$items->image_product_1}}" class="img-fluid rounded-3" alt="Cotton T-shirt"></a>
                     </div>
                     <div class="col-md-3 col-lg-3 col-xl-3">
                       <h6 class="text-muted">{{$items->type_product}}</h6>
-                      <h6 class="text-black mb-0">{{$items->name}}</h6>
-                    </div>
-                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0">R${{$items->price}}</h6>
+                      <a href="{{ route('showProductClient', ['id' => $items->id]) }}"><h6 class="text-black mb-0">{{$items->name}}</h6></a>
                     </div>
                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                       <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
@@ -386,6 +402,15 @@
           <li class="nav-item">
             <a class="nav-link text-dark" href="/categoria/quadro">Quadros</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/categoria/mais-vendidos">Mais vendidos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/categoria/lancamentos">Lançamentos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/categoria/destaques">Produtos em destaque</a>
+          </li>
             </ul>
           </li>
         </ul>
@@ -404,11 +429,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-    <script
-  type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
-></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
     @yield('content')
     </body>
-    
+    @section('footer')
+      @include('footer')
+    @endsection 
 </html>
