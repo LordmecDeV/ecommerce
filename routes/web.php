@@ -90,6 +90,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('import',  [ExportandImportController::class, 'import'])->name('import');
 
 	//Carrinho de compras
+	Route::put('/atualizarEndereco', [ShoppingCartController::class, 'updateAddress'])->name('atualizarEndereco');
 	Route::post('/adicionar-ao-carrinho',  [ShoppingCartController::class, 'createProductInCart'])->name('adicionar-ao-carrinho');
 	Route::get('/carrinho',  [ShoppingCartController::class, 'cartView'])->name('carrinho');
 	Route::delete('/excluir-item-do-carrinho',  [ShoppingCartController::class, 'destroy'])->name('excluir-item-do-carrinho');
@@ -108,6 +109,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/categoria/lancamentos',  [ProductController::class, 'categoryLaunch'])->name('categoryLaunch');
 	Route::get('/categoria/destaques',  [ProductController::class, 'categoryHighlight'])->name('categoryHighlight');
 	Route::get('/calcular-frete',  [ShoppingCartController::class, 'calculateFrete'])->name('calcular-frete');
+	Route::get('/calcular-frete-produto', [ProductController::class, 'calculateFrete']);
 	Route::get('/produto/{id}',  [ProductController::class, 'showProductClient'])->name('showProductClient');
 	Route::get('/categoria/luminaria',  [ProductController::class, 'categoryLighting'])->name('categoryLighting');
 	Route::get('/categoria/mosaico',  [ProductController::class, 'categoryMosaic'])->name('categoryMosaic');

@@ -9,6 +9,11 @@ use App\Models\PriceAndSize;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use MelhorEnvio\Shipment;
+use MelhorEnvio\Resources\Shipment\Package;
+use MelhorEnvio\Enums\Service;
+use MelhorEnvio\Enums\Environment;
+use MelhorEnvio\Resources\Shipment\Product as MelhorEnvioProduct;
 
 
 class ProductController extends Controller
@@ -140,9 +145,10 @@ class ProductController extends Controller
     private function applyMinPriceLogic($products)
     {
         foreach ($products as $product) {
-            $typeProduct = $product->type_product;
-            $minPrice = DB::table('price_and_size')->where('type_product', 'like', $typeProduct.'%')->min('price');
-            $product->price = $minPrice;
+            $type_product = $product->type_product;
+            $minPrice = DB::table('price_and_size')->where('type_product', 'like', $type_product.'%')->min('price');
+            $formattedPrice = number_format($minPrice, 2, ',', '.');
+            $product->price = $formattedPrice;
         }
 
         return $products;
@@ -157,9 +163,10 @@ class ProductController extends Controller
             ->where('product_id', $viewProduct->id)
             ->exists();
 
-        $typeProduct = $viewProduct->type_product;
-        $minPrice = DB::table('price_and_size')->where('type_product', 'like', $typeProduct.'%')->min('price');
-        $viewProduct->price = $minPrice;
+        $type_product = $viewProduct->type_product;
+        $minPrice = DB::table('price_and_size')->where('type_product', 'like', $type_product.'%')->min('price');
+        $formattedPrice = number_format($minPrice, 2, ',', '.');
+        $viewProduct->price = $formattedPrice;
 
         $getPriceThreePlates = DB::table('price_and_size')->where('type_product', 'Mosaico - 3 Placas')->get();
         $getPriceThreeStraightPlates = DB::table('price_and_size')->where('type_product', 'Mosaico - 3 Placas Reto')->get();
@@ -167,7 +174,6 @@ class ProductController extends Controller
         $getSmallFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 30x55')->value('price');
         $getMidFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 40x66')->value('price');
         $getBigFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 55x92')->value('price');
-
         return view('clientViews.showProductClient', compact(
             'viewProduct',
             'bestSeller',
@@ -179,6 +185,106 @@ class ProductController extends Controller
             'getBigFrame',
             'isFavorite'
         ));
+    }
+
+    public function calculateFrete(Request $request)
+    {
+        $shipment = new Shipment('eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImYwODJmMjkzMjFlNGU3NmUxZjBjNmZiOTk1NGU3ODZmYTVmMzYzZDhmY2FjNDJhN2YwZGEzMDQ3NDEyNWJmYjMxMGI2NzcxYTBiNDljNmE5In0.eyJhdWQiOiIxIiwianRpIjoiZjA4MmYyOTMyMWU0ZTc2ZTFmMGM2ZmI5OTU0ZTc4NmZhNWYzNjNkOGZjYWM0MmE3ZjBkYTMwNDc0MTI1YmZiMzEwYjY3NzFhMGI0OWM2YTkiLCJpYXQiOjE2ODczMTI3NzgsIm5iZiI6MTY4NzMxMjc3OCwiZXhwIjoxNzE4OTM1MTc4LCJzdWIiOiJiNTA3ZDlhZi1iNDJiLTQzMDgtYjBhOC1lYWU0MzBiNDM2ODEiLCJzY29wZXMiOlsiY2FydC1yZWFkIiwiY2FydC13cml0ZSIsImNvbXBhbmllcy1yZWFkIiwiY29tcGFuaWVzLXdyaXRlIiwiY291cG9ucy1yZWFkIiwiY291cG9ucy13cml0ZSIsIm5vdGlmaWNhdGlvbnMtcmVhZCIsIm9yZGVycy1yZWFkIiwicHJvZHVjdHMtcmVhZCIsInByb2R1Y3RzLWRlc3Ryb3kiLCJwcm9kdWN0cy13cml0ZSIsInB1cmNoYXNlcy1yZWFkIiwic2hpcHBpbmctY2FsY3VsYXRlIiwic2hpcHBpbmctY2FuY2VsIiwic2hpcHBpbmctY2hlY2tvdXQiLCJzaGlwcGluZy1jb21wYW5pZXMiLCJzaGlwcGluZy1nZW5lcmF0ZSIsInNoaXBwaW5nLXByZXZpZXciLCJzaGlwcGluZy1wcmludCIsInNoaXBwaW5nLXNoYXJlIiwic2hpcHBpbmctdHJhY2tpbmciLCJlY29tbWVyY2Utc2hpcHBpbmciLCJ0cmFuc2FjdGlvbnMtcmVhZCIsInVzZXJzLXJlYWQiLCJ1c2Vycy13cml0ZSIsIndlYmhvb2tzLXJlYWQiLCJ3ZWJob29rcy13cml0ZSIsIndlYmhvb2tzLXVwZGF0ZSIsIndlYmhvb2tzLWRlbGV0ZSIsInRkZWFsZXItd2ViaG9vayJdfQ.ZfQCk-Met9uym8a2TR4xRnz5ehzpeOlIN1Z5j3lHTc0QcYXB7Sidi5ov9C8fKdZrialEIwhlHbz1rztPuxWZF6dEvjnyNbAlecHXTTRT2PCWOwca0mvEmDpRAR2GIfG_Hb8kCSvtO6N3eiLtarHbmpJQnLOszue3r9u6GGs9Y3NWzksNp0wAddBCMisfoqtU8zjJ4HLNmIth-R4nb-9bAnzuO7GE4gh61L1i2ucNafGmzFbjthSBWQBi1IuwjSzIUZYo7IIitbf7Y5XJU7RtfLWSDLU8ZXVjLsp2fSh2llq6nUio3neD70OIIlu_HABV_RETQCfTVreJJtGBgL-PBHmOwyJMQeDzw_WUcLwSKstiOb3WQrzmtykBMJ3WJvFllIfdoiIiAioWbzkaIMemeXxw3NOzMNBFQOgkDDcyLNaVLBGU3F3DFbsWkvLLDS-J0xPj0hxe_STGa-iXAgTIm241ECWrgTE1ohz9skrsUhyIrtyD0zK3fI4d7hLrWYlgUMDtRPoOSWpgEZ3RW2RznZeyNYaAa2hvwLsY6lKOwziiXUvnNDLyowmyn2l42JhQslWR2OFk7IyqL_655Kd38Dnq8jEsPdrYUIUdvze7sQQ7HZ1usbu2H27Ue79sPVt3l2jkdmkqlyGUNHcuTEpWgrxRxEw5bU6b_-MuQJrZaMs', Environment::PRODUCTION);
+        $calculator = $shipment->calculator();
+
+        $cep = $request->input('cep');
+        $cep_format = str_replace(['-', ' '], '', $cep);
+        $type_product = $request->input('type_product');
+        // Verificar o tipo de produto selecionado
+        if ($type_product === 'Mosaico') {
+            $getPriceThreeStraightPlates = DB::table('price_and_size')
+                ->where('type_product', 'Mosaico - 3 Placas Reto')
+                ->get();
+
+            // Verificar se existem valores para o produto selecionado
+            if ($getPriceThreeStraightPlates->isNotEmpty()) {
+                // Utilizar os valores obtidos para calcular o frete
+                $product = $getPriceThreeStraightPlates[0];
+
+                $calculator->postalCode('04865065', $cep_format);
+                $melhorEnvioProduct = new MelhorEnvioProduct(
+                    $product->width,
+                    $product->height,
+                    $product->length,
+                    $product->weight,
+                    '1',
+                    '1'
+                );
+                $calculator->addProducts($melhorEnvioProduct);
+            }
+            } elseif ($type_product === 'Quadro') {
+            $getPriceQuadro = DB::table('price_and_size')
+                ->where('type_product', 'Quadro - 40x66')
+                ->get();
+
+            if ($getPriceQuadro->isNotEmpty()) {
+                $product = $getPriceQuadro[0];
+
+                $calculator->postalCode('04865065', $cep_format);
+                $melhorEnvioProduct = new MelhorEnvioProduct(
+                    $product->width,
+                    $product->height,
+                    $product->length,
+                    $product->weight,
+                    '1',
+                    '1'
+                );
+                $calculator->addProducts($melhorEnvioProduct);
+            }
+            } elseif ($type_product === 'Luminaria') {
+            $getPriceLuminaria = DB::table('price_and_size')
+                ->where('type_product', 'Luminaria')
+                ->get();
+
+            if ($getPriceLuminaria->isNotEmpty()) {
+                $product = $getPriceLuminaria[0];
+
+                $calculator->postalCode('04865065', $cep_format);
+                $melhorEnvioProduct = new MelhorEnvioProduct(
+                    $product->width,
+                    $product->height,
+                    $product->length,
+                    $product->weight,
+                    '1',
+                    '1'
+                );
+                $calculator->addProducts($melhorEnvioProduct);
+            }
+        }
+        $calculator->addServices(
+            Service::CORREIOS_PAC,
+            Service::CORREIOS_SEDEX
+        );
+        $calculator->setOwnHand(); // mão própria
+        $calculator->setReceipt(); // aviso de recebimento
+        $calculator->setCollect(); // coleta
+        $quotations = $calculator->calculate();
+
+        if (!empty($quotations)) {
+            // Construir a resposta em formato JSON
+            $response = [
+                'success' => true,
+                'quotations' => [],
+            ];
+
+            foreach ($quotations as $quotation) {
+                $response['quotations'][] = [
+                    'service' => $quotation['name'],
+                    'price' => $quotation['price'],
+                    'delivery_time' => $quotation['delivery_time'],
+                    // Adicione outros campos relevantes que deseja exibir no modal
+                ];
+            }
+
+            return response()->json($response);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 
 

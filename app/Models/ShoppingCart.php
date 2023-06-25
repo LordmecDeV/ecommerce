@@ -12,7 +12,7 @@ class ShoppingCart extends Model
 
     protected $table = "shopping_cart";
     protected $fillable = [
-        'user_id', 'product_id', 'product_characteristics', 'quantity'
+        'user_id', 'characteristics', 'product_id', 'product_characteristics', 'quantity'
     ];
 
     public function user()

@@ -21,9 +21,15 @@ class ShoppingCartController extends Controller
     public function createProductInCart(Request $request)
     {
         $addInCart = $request->all();
+        // Verifica se o campo 'characteristics' existe no request
+        if (isset($addInCart['characteristics'])) {
+            // Converte o valor do campo 'characteristics' para JSON antes de salvar
+            $addInCart['characteristics'] = json_encode($addInCart['product_characteristics']);
+        }
         ShoppingCart::create($addInCart);
         return redirect('/carrinho');
     }
+
 
         public function cartView()
     {
@@ -45,11 +51,12 @@ class ShoppingCartController extends Controller
         $user = auth()->user();
         $cep = $user->cep;
         $location = $user->location;
-        $city = $user->city;       
+        $city = $user->city;  
+        $number = $user->number;     
         $message = $this->checkCartIsEmpty($userId);  //verifica se o carrinho esta vazio
         $totalPriceCart = $this->getTotalCartValue($userId); //calcula o total de itens adicionados no carrinho pelo usuário logado e retorna o valor em uma variável
         
-        return view('clientViews.cart', compact('cartItems', 'quotations', 'message', 'totalPriceCart', 'totalPacFrete', 'totalSedexFrete', 'cep', 'location', 'city'));
+        return view('clientViews.cart', compact('cartItems', 'quotations', 'message', 'totalPriceCart', 'totalPacFrete', 'totalSedexFrete', 'cep', 'location', 'city', 'number'));
     }
 
     public function calculateTotalFreight($quotations, $transportadora)
@@ -131,15 +138,19 @@ class ShoppingCartController extends Controller
     {
         $shipment = new Shipment('eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImYwODJmMjkzMjFlNGU3NmUxZjBjNmZiOTk1NGU3ODZmYTVmMzYzZDhmY2FjNDJhN2YwZGEzMDQ3NDEyNWJmYjMxMGI2NzcxYTBiNDljNmE5In0.eyJhdWQiOiIxIiwianRpIjoiZjA4MmYyOTMyMWU0ZTc2ZTFmMGM2ZmI5OTU0ZTc4NmZhNWYzNjNkOGZjYWM0MmE3ZjBkYTMwNDc0MTI1YmZiMzEwYjY3NzFhMGI0OWM2YTkiLCJpYXQiOjE2ODczMTI3NzgsIm5iZiI6MTY4NzMxMjc3OCwiZXhwIjoxNzE4OTM1MTc4LCJzdWIiOiJiNTA3ZDlhZi1iNDJiLTQzMDgtYjBhOC1lYWU0MzBiNDM2ODEiLCJzY29wZXMiOlsiY2FydC1yZWFkIiwiY2FydC13cml0ZSIsImNvbXBhbmllcy1yZWFkIiwiY29tcGFuaWVzLXdyaXRlIiwiY291cG9ucy1yZWFkIiwiY291cG9ucy13cml0ZSIsIm5vdGlmaWNhdGlvbnMtcmVhZCIsIm9yZGVycy1yZWFkIiwicHJvZHVjdHMtcmVhZCIsInByb2R1Y3RzLWRlc3Ryb3kiLCJwcm9kdWN0cy13cml0ZSIsInB1cmNoYXNlcy1yZWFkIiwic2hpcHBpbmctY2FsY3VsYXRlIiwic2hpcHBpbmctY2FuY2VsIiwic2hpcHBpbmctY2hlY2tvdXQiLCJzaGlwcGluZy1jb21wYW5pZXMiLCJzaGlwcGluZy1nZW5lcmF0ZSIsInNoaXBwaW5nLXByZXZpZXciLCJzaGlwcGluZy1wcmludCIsInNoaXBwaW5nLXNoYXJlIiwic2hpcHBpbmctdHJhY2tpbmciLCJlY29tbWVyY2Utc2hpcHBpbmciLCJ0cmFuc2FjdGlvbnMtcmVhZCIsInVzZXJzLXJlYWQiLCJ1c2Vycy13cml0ZSIsIndlYmhvb2tzLXJlYWQiLCJ3ZWJob29rcy13cml0ZSIsIndlYmhvb2tzLXVwZGF0ZSIsIndlYmhvb2tzLWRlbGV0ZSIsInRkZWFsZXItd2ViaG9vayJdfQ.ZfQCk-Met9uym8a2TR4xRnz5ehzpeOlIN1Z5j3lHTc0QcYXB7Sidi5ov9C8fKdZrialEIwhlHbz1rztPuxWZF6dEvjnyNbAlecHXTTRT2PCWOwca0mvEmDpRAR2GIfG_Hb8kCSvtO6N3eiLtarHbmpJQnLOszue3r9u6GGs9Y3NWzksNp0wAddBCMisfoqtU8zjJ4HLNmIth-R4nb-9bAnzuO7GE4gh61L1i2ucNafGmzFbjthSBWQBi1IuwjSzIUZYo7IIitbf7Y5XJU7RtfLWSDLU8ZXVjLsp2fSh2llq6nUio3neD70OIIlu_HABV_RETQCfTVreJJtGBgL-PBHmOwyJMQeDzw_WUcLwSKstiOb3WQrzmtykBMJ3WJvFllIfdoiIiAioWbzkaIMemeXxw3NOzMNBFQOgkDDcyLNaVLBGU3F3DFbsWkvLLDS-J0xPj0hxe_STGa-iXAgTIm241ECWrgTE1ohz9skrsUhyIrtyD0zK3fI4d7hLrWYlgUMDtRPoOSWpgEZ3RW2RznZeyNYaAa2hvwLsY6lKOwziiXUvnNDLyowmyn2l42JhQslWR2OFk7IyqL_655Kd38Dnq8jEsPdrYUIUdvze7sQQ7HZ1usbu2H27Ue79sPVt3l2jkdmkqlyGUNHcuTEpWgrxRxEw5bU6b_-MuQJrZaMs', Environment::PRODUCTION);
         $calculator = $shipment->calculator();
-        $calculator->postalCode('04865065', '04865080');
 
         $quotations = [];
         $user = auth()->user();
         $cep = $user->cep;
+        $cep_format = str_replace(['-', ' '], '', $cep);
+        if (empty($cep_format)) {
+            return []; // Retorna um array vazio em caso de CEP inválido.
+        }
+        // dd($cep_format);
         // Calcular o frete de cada produto individualmente
         foreach ($cartItems as $item) {
             $calculator = $shipment->calculator();
-            $calculator->postalCode('04865065', $cep);
+            $calculator->postalCode('04865065', $cep_format);
             $melhorEnvioProduct = new MelhorEnvioProduct(
                 $item->height,
                 $item->width,
@@ -169,6 +180,40 @@ class ShoppingCartController extends Controller
          return $quotations;
         // Somar os valores de frete de cada produto individualmente para obter o frete total
         
+    }
+
+    public function updateAddress(Request $request)
+    {
+        // Valide os campos de entrada, se necessário
+        $validatedData = $request->validate([
+            'cep' => 'required',
+            'location' => 'required',
+            'number' => 'required',
+            'reference' => 'required',
+            'complement' => 'required',
+            'neighborhood' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+        ]);
+
+        // Recupere o usuário autenticado
+        $user = auth()->user();
+
+        // Atualize as informações de endereço do usuário
+        $user->cep = $request->cep;
+        $user->location = $request->location;
+        $user->number = $request->number;
+        $user->reference = $request->reference;
+        $user->complement = $request->complement;
+        $user->neighborhood = $request->neighborhood;
+        $user->city = $request->city;
+        $user->state = $request->state;
+
+        // Salve as alterações no banco de dados
+        $user->save();
+
+        // Retorne uma resposta de sucesso ou redirecione para a página desejada
+        return redirect()->back()->with('success', 'Endereço atualizado com sucesso.');
     }
             
 }

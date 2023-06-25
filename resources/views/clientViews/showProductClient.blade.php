@@ -27,16 +27,16 @@
         <li class="list-group">
           <h6 class="border-bottom">Selecione a moldura:</h6> 
             <ul class="list-inline justify-content-start">
-              <li class="list-inline-item"><button type="button" class="btn btn-outline-dark">Branca</button></li>
-              <li class="list-inline-item"><button type="button" class="btn btn-outline-dark">Preta</button></li>
+            <li class="list-inline-item"><button type="button" class="btn btn-outline-dark btn-moldura" id="btn-branca">Branca</button></li>
+            <li class="list-inline-item"><button type="button" class="btn btn-outline-dark btn-moldura" id="btn-preta">Preta</button></li>
             </ul>
         </li>
         <li class="list-group mt-2">
         <h6 class="border-bottom">Selecione o tamanho:</h6>
           <ul class="list-inline d-flex justify-content-start">
-            <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-3-placas" data-price="{{$getSmallFrame}}" onclick="updatePriceField(this)">30x55</button></li>
-            <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-3-placas-reto" data-price="{{$getMidFrame}}" onclick="updatePriceField(this)">40x66</button></li>
-            <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-5-placas" data-price="{{$getBigFrame}}" onclick="updatePriceField(this)">55x92</button></li>
+            <li class="list-inline-item"><button type="button" class="btn btn-outline-dark btn-tamanho" id="btn-3-placas" data-price="{{$getSmallFrame}}" onclick="updatePriceField(this)">30x55</button></li>
+            <li class="list-inline-item"><button type="button" class="btn btn-outline-dark btn-tamanho" id="btn-3-placas-reto" data-price="{{$getMidFrame}}" onclick="updatePriceField(this)">40x66</button></li>
+            <li class="list-inline-item"><button type="button" class="btn btn-outline-dark btn-tamanho" id="btn-5-placas" data-price="{{$getBigFrame}}" onclick="updatePriceField(this)">55x92</button></li>
           </ul>
         </li>
         <li class="list-group mt-2">
@@ -55,6 +55,7 @@
               <input type="hidden" name="user_id" value="{{auth()->id()}}">
               <input type="hidden" name="product_id" value="{{$viewProduct->id}}">
               <input type="hidden" id="price" name="product_characteristics" value="">
+              <input type="hidden" id="characteristics" name="characteristics" value="">
               <input type="hidden" id="price" name="quantity" value="1">
               <button type="submit" class="btn btn-primary btn-lg rounded-5">Adicionar ao carrinho</button>
             </form>
@@ -62,10 +63,12 @@
         </li>
         <li class="list-group">
           <div class="d-flex justify-content-start mt-4">
-            <div class="input-group">
+          <div class="input-group">
               <span class="input-group-text" id="basic-addon1">CEP</span>
-              <input type="text" class="form-control-sm input-group-sm" placeholder="Digite seu CEP" aria-label="" aria-describedby="basic-addon1">
-            </div>
+              <input type="text" class="form-control-sm input-group-sm" id="cep-input" placeholder="Digite seu CEP" aria-label="" aria-describedby="basic-addon1">
+              <input type="hidden" name="type_product" value="Quadro">
+              <button class="btn btn-primary" id="calcular-frete-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16"><path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/><path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/></svg></button>
+          </div>
           </div>
         </li>
       </ul>
@@ -91,7 +94,6 @@
             <li class="list-group"><h2 class="product-price" data-price="{{$viewProduct->price}}" onclick="updatePriceField(this)">{{$viewProduct->price}} <span>no pix</span> </h2></li>
             <li class="list-group"><h6 class="fontBuyProduct">com 3% de desconto</h6></li>
              <li class="list-group"><h6 class="fontBuyProduct2"><h6>A partir de <span>R$$$</span></h6></li><!-- criar variavel para aplicar desconto no valor do produto -->
-            <li class="list-group"><a href class="fontBuyProduct3">mais formas de pagamento<svg style="margin-left:20px;" xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/><path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/></svg></a></li>
           </ul>
       </li>
         <li class="list-group mt-4">
@@ -110,10 +112,12 @@
         </li>
         <li class="list-group">
           <div class="d-flex justify-content-start mt-4">
-            <div class="input-group">
+          <div class="input-group">
               <span class="input-group-text" id="basic-addon1">CEP</span>
-              <input type="text" class="form-control-sm input-group-sm" placeholder="Digite seu CEP" aria-label="" aria-describedby="basic-addon1">
-            </div>
+              <input type="text" class="form-control-sm input-group-sm" id="cep-input" placeholder="Digite seu CEP" aria-label="" aria-describedby="basic-addon1">
+              <input type="hidden" name="type_product" value="Mosaico">
+              <button class="btn btn-primary" id="calcular-frete-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16"><path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/><path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/></svg></button>
+          </div> 
           </div>
         </li>
       </ul>
@@ -126,7 +130,6 @@
             <li class="list-group"><h2>{{$viewProduct->price}} <span>no pix</span> </h2></li>
             <li class="list-group"><h6 class="fontBuyProduct">com 3% de desconto</h6></li>
              <li class="list-group"><h6 class="fontBuyProduct2"><h6>A partir de <span>R$74,90</span></h6></li><!-- criar variavel para aplicar desconto no valor do produto -->
-            <li class="list-group"><a href class="fontBuyProduct3">mais formas de pagamento<svg style="margin-left:20px;" xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/><path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/></svg></a></li>
           </ul>
       </li>
         <li class="list-group mt-4">
@@ -145,10 +148,12 @@
         </li>
         <li class="list-group">
           <div class="d-flex justify-content-start mt-4">
-            <div class="input-group">
+          <div class="input-group">
               <span class="input-group-text" id="basic-addon1">CEP</span>
-              <input type="text" class="form-control-sm input-group-sm" placeholder="Digite seu CEP" aria-label="" aria-describedby="basic-addon1">
-            </div>
+              <input type="text" class="form-control-sm input-group-sm" id="cep-input" placeholder="Digite seu CEP" aria-label="" aria-describedby="basic-addon1">
+              <input type="hidden" name="type_product" value="Luminaria">
+              <button class="btn btn-primary" id="calcular-frete-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16"><path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/><path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/></svg></button>
+          </div>
           </div>
         </li>
       </ul>
@@ -213,67 +218,29 @@
 
     </div><!-- final da div de carrousel de produtos -->
 
-<div class="container-fluid bg-white mt-5">
-  <footer class="py-5">
-    <div class="row">
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
+    <!-- Modal -->
+<div class="modal fade" id="freteModal" tabindex="-1" aria-labelledby="freteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="freteModalLabel">Opções de Frete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
+      <div class="modal-body">
+        <!-- Aqui serão exibidos os dados do frete -->
+        <div id="freteOptions"></div>
       </div>
-
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
-
-      <div class="col-md-5 offset-md-1 mb-3">
-        <form>
-          <h5>Subscribe to our newsletter</h5>
-          <p>Monthly digest of what's new and exciting from us.</p>
-          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-            <label for="newsletter1" class="visually-hidden">Email address</label>
-            <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-            <button class="btn btn-primary" type="button">Subscribe</button>
-          </div>
-        </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
       </div>
     </div>
-
-    <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-      <p>© 2022 Company, Inc. All rights reserved.</p>
-      <ul class="list-unstyled d-flex">
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-      </ul>
-    </div>
-  </footer>
+  </div>
 </div>
 
-   
+@section('footer')
+      @include('footer')
+    @endsection 
+
     <script>
       $(document).ready(function(){
   $('.slider-nav').slick({
@@ -378,5 +345,97 @@
     // instead of a settings object
   ]
 });
+
+  // Função para calcular o frete e exibir os resultados em um modal
+  function calcularFrete() {
+        var cep = $('#cep-input').val(); // Obter o valor do campo CEP
+        var type_product = $('input[name="type_product"]').val(); //
+        // Realizar a chamada AJAX para o backend
+        $.ajax({
+            url: '/calcular-frete-produto', // Substitua pela URL correta para a rota Laravel
+            method: 'GET',
+            data: { cep: cep, type_product: type_product },
+            dataType: 'json',
+            success: function(response) {
+                    if (response.success) {
+                      var quotations = response.quotations;
+                      var freteOptions = $('#freteOptions');
+
+                      // Limpar os dados existentes antes de exibir os novos
+                      freteOptions.empty();
+
+                      // Adicionar os dados do frete ao modal
+                      quotations.forEach(function(quotation) {
+                        freteOptions.append('<p>Os valores de frete podem variar conforme o tamanho do produto</p>');
+                        freteOptions.append('<p>Serviço: ' + quotation.service + '</p>');
+                        freteOptions.append('<p>Preço: ' + quotation.price + '</p>');
+                        freteOptions.append('<p>Prazo de Entrega: ' + quotation.delivery_time + ' dias</p>');
+                        freteOptions.append('<hr>');
+                      });
+
+                      // Abrir o modal
+                      $('#freteModal').modal('show');
+                    } else {
+                      alert('Não foi possível calcular o frete. Por favor, tente novamente.');
+                    }
+                  },
+            error: function () {
+                alert('Erro ao calcular o frete. Por favor, tente novamente.');
+            }
+        });
+    }
+
+    // Chamar a função calcularFrete quando o botão for clicado
+    $('#calcular-frete-btn').click(function () {
+        calcularFrete();
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var btnBranca = document.getElementById('btn-branca');
+        var btnPreta = document.getElementById('btn-preta');
+        var productCharacteristics = document.getElementById('characteristics');
+
+        btnBranca.addEventListener('click', function() {
+            productCharacteristics.value = 'Branco';
+        });
+
+        btnPreta.addEventListener('click', function() {
+            productCharacteristics.value = 'Preto';
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var molduraButtons = document.querySelectorAll('.btn-moldura');
+
+        // Adiciona evento de clique aos botões de moldura
+        molduraButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                // Remove a classe 'btn-selected' de todos os botões de moldura
+                molduraButtons.forEach(function(btn) {
+                    btn.classList.remove('btn-selected');
+                });
+
+                // Adiciona a classe 'btn-selected' apenas ao botão clicado
+                this.classList.add('btn-selected');
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var tamanhoButtons = document.querySelectorAll('.btn-tamanho');
+
+        // Adiciona evento de clique aos botões de tamanho
+        tamanhoButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                // Remove a classe 'btn-selected' de todos os botões de tamanho
+                tamanhoButtons.forEach(function(btn) {
+                    btn.classList.remove('btn-selected');
+                });
+
+                // Adiciona a classe 'btn-selected' apenas ao botão clicado
+                this.classList.add('btn-selected');
+            });
+        });
+    });
     </script>
 @endsection
