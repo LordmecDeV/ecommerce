@@ -189,7 +189,7 @@ class ProductController extends Controller
 
     public function calculateFrete(Request $request)
     {
-        $shipment = new Shipment('eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImYwODJmMjkzMjFlNGU3NmUxZjBjNmZiOTk1NGU3ODZmYTVmMzYzZDhmY2FjNDJhN2YwZGEzMDQ3NDEyNWJmYjMxMGI2NzcxYTBiNDljNmE5In0.eyJhdWQiOiIxIiwianRpIjoiZjA4MmYyOTMyMWU0ZTc2ZTFmMGM2ZmI5OTU0ZTc4NmZhNWYzNjNkOGZjYWM0MmE3ZjBkYTMwNDc0MTI1YmZiMzEwYjY3NzFhMGI0OWM2YTkiLCJpYXQiOjE2ODczMTI3NzgsIm5iZiI6MTY4NzMxMjc3OCwiZXhwIjoxNzE4OTM1MTc4LCJzdWIiOiJiNTA3ZDlhZi1iNDJiLTQzMDgtYjBhOC1lYWU0MzBiNDM2ODEiLCJzY29wZXMiOlsiY2FydC1yZWFkIiwiY2FydC13cml0ZSIsImNvbXBhbmllcy1yZWFkIiwiY29tcGFuaWVzLXdyaXRlIiwiY291cG9ucy1yZWFkIiwiY291cG9ucy13cml0ZSIsIm5vdGlmaWNhdGlvbnMtcmVhZCIsIm9yZGVycy1yZWFkIiwicHJvZHVjdHMtcmVhZCIsInByb2R1Y3RzLWRlc3Ryb3kiLCJwcm9kdWN0cy13cml0ZSIsInB1cmNoYXNlcy1yZWFkIiwic2hpcHBpbmctY2FsY3VsYXRlIiwic2hpcHBpbmctY2FuY2VsIiwic2hpcHBpbmctY2hlY2tvdXQiLCJzaGlwcGluZy1jb21wYW5pZXMiLCJzaGlwcGluZy1nZW5lcmF0ZSIsInNoaXBwaW5nLXByZXZpZXciLCJzaGlwcGluZy1wcmludCIsInNoaXBwaW5nLXNoYXJlIiwic2hpcHBpbmctdHJhY2tpbmciLCJlY29tbWVyY2Utc2hpcHBpbmciLCJ0cmFuc2FjdGlvbnMtcmVhZCIsInVzZXJzLXJlYWQiLCJ1c2Vycy13cml0ZSIsIndlYmhvb2tzLXJlYWQiLCJ3ZWJob29rcy13cml0ZSIsIndlYmhvb2tzLXVwZGF0ZSIsIndlYmhvb2tzLWRlbGV0ZSIsInRkZWFsZXItd2ViaG9vayJdfQ.ZfQCk-Met9uym8a2TR4xRnz5ehzpeOlIN1Z5j3lHTc0QcYXB7Sidi5ov9C8fKdZrialEIwhlHbz1rztPuxWZF6dEvjnyNbAlecHXTTRT2PCWOwca0mvEmDpRAR2GIfG_Hb8kCSvtO6N3eiLtarHbmpJQnLOszue3r9u6GGs9Y3NWzksNp0wAddBCMisfoqtU8zjJ4HLNmIth-R4nb-9bAnzuO7GE4gh61L1i2ucNafGmzFbjthSBWQBi1IuwjSzIUZYo7IIitbf7Y5XJU7RtfLWSDLU8ZXVjLsp2fSh2llq6nUio3neD70OIIlu_HABV_RETQCfTVreJJtGBgL-PBHmOwyJMQeDzw_WUcLwSKstiOb3WQrzmtykBMJ3WJvFllIfdoiIiAioWbzkaIMemeXxw3NOzMNBFQOgkDDcyLNaVLBGU3F3DFbsWkvLLDS-J0xPj0hxe_STGa-iXAgTIm241ECWrgTE1ohz9skrsUhyIrtyD0zK3fI4d7hLrWYlgUMDtRPoOSWpgEZ3RW2RznZeyNYaAa2hvwLsY6lKOwziiXUvnNDLyowmyn2l42JhQslWR2OFk7IyqL_655Kd38Dnq8jEsPdrYUIUdvze7sQQ7HZ1usbu2H27Ue79sPVt3l2jkdmkqlyGUNHcuTEpWgrxRxEw5bU6b_-MuQJrZaMs', Environment::PRODUCTION);
+        $shipment = new Shipment('eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjcyMWFiNzI4ZmFmMWQ1ODEzZGYxNGI5Njc5YWQ5MjI2OTk0NTMyNDc1YWMxM2I3MTk0MTBjMTBmNTc4OGE0ZjRjYjFjMjFkOWY1ZTRmNGYwIn0.eyJhdWQiOiIxIiwianRpIjoiNzIxYWI3MjhmYWYxZDU4MTNkZjE0Yjk2NzlhZDkyMjY5OTQ1MzI0NzVhYzEzYjcxOTQxMGMxMGY1Nzg4YTRmNGNiMWMyMWQ5ZjVlNGY0ZjAiLCJpYXQiOjE2ODk1MjUzNTEsIm5iZiI6MTY4OTUyNTM1MSwiZXhwIjoxNzIxMTQ3NzUxLCJzdWIiOiJiNTA3ZDlhZi1iNDJiLTQzMDgtYjBhOC1lYWU0MzBiNDM2ODEiLCJzY29wZXMiOlsiY2FydC1yZWFkIiwiY2FydC13cml0ZSIsImNvbXBhbmllcy1yZWFkIiwiY29tcGFuaWVzLXdyaXRlIiwiY291cG9ucy1yZWFkIiwiY291cG9ucy13cml0ZSIsIm5vdGlmaWNhdGlvbnMtcmVhZCIsIm9yZGVycy1yZWFkIiwicHJvZHVjdHMtcmVhZCIsInByb2R1Y3RzLWRlc3Ryb3kiLCJwcm9kdWN0cy13cml0ZSIsInB1cmNoYXNlcy1yZWFkIiwic2hpcHBpbmctY2FsY3VsYXRlIiwic2hpcHBpbmctY2FuY2VsIiwic2hpcHBpbmctY2hlY2tvdXQiLCJzaGlwcGluZy1jb21wYW5pZXMiLCJzaGlwcGluZy1nZW5lcmF0ZSIsInNoaXBwaW5nLXByZXZpZXciLCJzaGlwcGluZy1wcmludCIsInNoaXBwaW5nLXNoYXJlIiwic2hpcHBpbmctdHJhY2tpbmciLCJlY29tbWVyY2Utc2hpcHBpbmciLCJ0cmFuc2FjdGlvbnMtcmVhZCIsInVzZXJzLXJlYWQiLCJ1c2Vycy13cml0ZSIsIndlYmhvb2tzLXJlYWQiLCJ3ZWJob29rcy13cml0ZSIsIndlYmhvb2tzLXVwZGF0ZSIsIndlYmhvb2tzLWRlbGV0ZSIsInRkZWFsZXItd2ViaG9vayJdfQ.KB9VbBDhrjTDBI3usrCW7r-E9uqQD4CpJN2OkFrqglvYmbbHEih9TDock_xmqti7CsqDZmFNSK_wyax5s_1rwg_6PfQXV9m8uj3b7wtd2d5zEEQFAgw_TuNpXZRgfynGsXnH5PT-1C-sgSXBWoDKP6r8_L7YDn3iiRdxHOEHh70ikdwjJYPmx_iCB45MLnmkYEQfkFdUQaHqOMZq1CYoP-umwPfdBDfYpmnelVqGnUSnBq1w_bN51XNfzDDa62AbJGfrdJ5u65NUyLw1uqx12_6pFu1pXb8B2_0SFVnu4eOFdnv9phFHjthsXSvxqVhUzVIVjlijZIRpo_f1lBPrSYgtf1IaM9d1bXfuMtZT-Z2u6UdjuGryC8DZauhJB5jBYOLpHNcQZiv44OPQfZ6HolfmvxSCSJI8eTI-1tvB9U3QCnYnUkUp5iVOZgG2zaavhs94UNqRkeC1-X2V4l9n0T0uTj9JSb3PgEQVQ6ZkPqaL6Rg2TG5Os-22WvMfQxpKRZgmFg37RZ1p__1IuR211XogRv1BXR3LMmEs7wXUDN-8YIVJSmvvNUFPFd8Ph0yuz_mdP_0oHYzu7PomKkBp2T7C-Z78E8OrorSCQnQMEhqj5yps26vQRUCStRMsI6hDQp7HDqKqhv6ZbRiqMIR9yHmpjGY1KvQ2LvXKq1iKKwo', Environment::PRODUCTION);
         $calculator = $shipment->calculator();
 
         $cep = $request->input('cep');
@@ -264,7 +264,7 @@ class ProductController extends Controller
         $calculator->setReceipt(); // aviso de recebimento
         $calculator->setCollect(); // coleta
         $quotations = $calculator->calculate();
-
+        
         if (!empty($quotations)) {
             // Construir a resposta em formato JSON
             $response = [
@@ -273,14 +273,25 @@ class ProductController extends Controller
             ];
 
             foreach ($quotations as $quotation) {
-                $response['quotations'][] = [
-                    'service' => $quotation['name'],
-                    'price' => $quotation['price'],
-                    'delivery_time' => $quotation['delivery_time'],
-                    // Adicione outros campos relevantes que deseja exibir no modal
-                ];
+                if (isset($quotation['error'])) {
+                    // Se houver um erro na cotação, adicione uma mensagem personalizada
+                    $errorMessage = $quotation['error'];
+                    $response['quotations'][] = [
+                        'service' => $quotation['name'],
+                        'error' => $errorMessage,
+                        // Adicione outros campos relevantes que deseja exibir no modal
+                    ];
+                } else {
+                    // Se não houver erro, adicione os dados da cotação normalmente
+                    $response['quotations'][] = [
+                        'service' => $quotation['name'],
+                        'price' => $quotation['price'],
+                        'delivery_time' => $quotation['delivery_time'],
+                        // Adicione outros campos relevantes que deseja exibir no modal
+                    ];
+                }
             }
-
+            
             return response()->json($response);
         } else {
             return response()->json(['success' => false]);
