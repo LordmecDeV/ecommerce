@@ -24,7 +24,7 @@ class ShoppingCartController extends Controller
         // Verifica se o campo 'characteristics' existe no request
         if (isset($addInCart['characteristics'])) {
             // Converte o valor do campo 'characteristics' para JSON antes de salvar
-            $addInCart['characteristics'] = json_encode($addInCart['product_characteristics']);
+            $addInCart['characteristics'] = json_encode($addInCart['characteristics']);
         }
         ShoppingCart::create($addInCart);
         return redirect('/carrinho');
@@ -48,6 +48,10 @@ class ShoppingCartController extends Controller
         $quotations = $this->calculateFrete($cartItems); // calcular o frete para os itens no carrinho
         $totalSedexFrete = $this->calculateTotalFreight($quotations, 'SEDEX');
         $totalPacFrete = $this->calculateTotalFreight($quotations, 'PAC');
+        if ($totalPacFrete === null) {
+            // Serviço PAC indisponível para o trecho
+            $totalPacFrete = "Serviço PAC indisponível para o trecho";
+        }
         $user = auth()->user();
         $cep = $user->cep;
         $location = $user->location;
@@ -65,7 +69,7 @@ class ShoppingCartController extends Controller
         $deliveryTime = 0;
         $companyName = '';
         $companyImage = '';
-
+    
         foreach ($quotations as $quotation) {
             foreach ($quotation as $item) {
                 if (isset($item['name']) && $item['name'] === $transportadora) {
@@ -77,7 +81,9 @@ class ShoppingCartController extends Controller
                             }
                         }
                     }
-                    $deliveryTime = $item['delivery_time'];
+                    if (isset($item['delivery_time'])) {
+                        $deliveryTime = $item['delivery_time'];
+                    }
                     $companyName = $item['name'];
                     if (isset($item['company']['picture'])) {
                         $companyImage = $item['company']['picture'];
@@ -85,10 +91,18 @@ class ShoppingCartController extends Controller
                 }
             }
         }
-
+    
         // Formata o valor de totalFrete substituindo o ponto por vírgula
         $totalFrete = number_format($totalFrete, 2, ',', '.');
-
+    
+        // Verifica se houve erro na cotação
+        if ($totalFrete == 0 && $deliveryTime == 0 && $companyName == '' && $companyImage == '') {
+            $error = 'Serviço econômico indisponível para o trecho.';
+            return [
+                'error' => $error,
+            ];
+        }
+    
         return [
             'totalFrete' => $totalFrete,
             'deliveryTime' => $deliveryTime,
@@ -96,6 +110,8 @@ class ShoppingCartController extends Controller
             'companyImage' => $companyImage,
         ];
     }
+    
+
 
 
 
@@ -136,7 +152,7 @@ class ShoppingCartController extends Controller
 
     public function calculateFrete($cartItems)
     {
-        $shipment = new Shipment('eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImYwODJmMjkzMjFlNGU3NmUxZjBjNmZiOTk1NGU3ODZmYTVmMzYzZDhmY2FjNDJhN2YwZGEzMDQ3NDEyNWJmYjMxMGI2NzcxYTBiNDljNmE5In0.eyJhdWQiOiIxIiwianRpIjoiZjA4MmYyOTMyMWU0ZTc2ZTFmMGM2ZmI5OTU0ZTc4NmZhNWYzNjNkOGZjYWM0MmE3ZjBkYTMwNDc0MTI1YmZiMzEwYjY3NzFhMGI0OWM2YTkiLCJpYXQiOjE2ODczMTI3NzgsIm5iZiI6MTY4NzMxMjc3OCwiZXhwIjoxNzE4OTM1MTc4LCJzdWIiOiJiNTA3ZDlhZi1iNDJiLTQzMDgtYjBhOC1lYWU0MzBiNDM2ODEiLCJzY29wZXMiOlsiY2FydC1yZWFkIiwiY2FydC13cml0ZSIsImNvbXBhbmllcy1yZWFkIiwiY29tcGFuaWVzLXdyaXRlIiwiY291cG9ucy1yZWFkIiwiY291cG9ucy13cml0ZSIsIm5vdGlmaWNhdGlvbnMtcmVhZCIsIm9yZGVycy1yZWFkIiwicHJvZHVjdHMtcmVhZCIsInByb2R1Y3RzLWRlc3Ryb3kiLCJwcm9kdWN0cy13cml0ZSIsInB1cmNoYXNlcy1yZWFkIiwic2hpcHBpbmctY2FsY3VsYXRlIiwic2hpcHBpbmctY2FuY2VsIiwic2hpcHBpbmctY2hlY2tvdXQiLCJzaGlwcGluZy1jb21wYW5pZXMiLCJzaGlwcGluZy1nZW5lcmF0ZSIsInNoaXBwaW5nLXByZXZpZXciLCJzaGlwcGluZy1wcmludCIsInNoaXBwaW5nLXNoYXJlIiwic2hpcHBpbmctdHJhY2tpbmciLCJlY29tbWVyY2Utc2hpcHBpbmciLCJ0cmFuc2FjdGlvbnMtcmVhZCIsInVzZXJzLXJlYWQiLCJ1c2Vycy13cml0ZSIsIndlYmhvb2tzLXJlYWQiLCJ3ZWJob29rcy13cml0ZSIsIndlYmhvb2tzLXVwZGF0ZSIsIndlYmhvb2tzLWRlbGV0ZSIsInRkZWFsZXItd2ViaG9vayJdfQ.ZfQCk-Met9uym8a2TR4xRnz5ehzpeOlIN1Z5j3lHTc0QcYXB7Sidi5ov9C8fKdZrialEIwhlHbz1rztPuxWZF6dEvjnyNbAlecHXTTRT2PCWOwca0mvEmDpRAR2GIfG_Hb8kCSvtO6N3eiLtarHbmpJQnLOszue3r9u6GGs9Y3NWzksNp0wAddBCMisfoqtU8zjJ4HLNmIth-R4nb-9bAnzuO7GE4gh61L1i2ucNafGmzFbjthSBWQBi1IuwjSzIUZYo7IIitbf7Y5XJU7RtfLWSDLU8ZXVjLsp2fSh2llq6nUio3neD70OIIlu_HABV_RETQCfTVreJJtGBgL-PBHmOwyJMQeDzw_WUcLwSKstiOb3WQrzmtykBMJ3WJvFllIfdoiIiAioWbzkaIMemeXxw3NOzMNBFQOgkDDcyLNaVLBGU3F3DFbsWkvLLDS-J0xPj0hxe_STGa-iXAgTIm241ECWrgTE1ohz9skrsUhyIrtyD0zK3fI4d7hLrWYlgUMDtRPoOSWpgEZ3RW2RznZeyNYaAa2hvwLsY6lKOwziiXUvnNDLyowmyn2l42JhQslWR2OFk7IyqL_655Kd38Dnq8jEsPdrYUIUdvze7sQQ7HZ1usbu2H27Ue79sPVt3l2jkdmkqlyGUNHcuTEpWgrxRxEw5bU6b_-MuQJrZaMs', Environment::PRODUCTION);
+        $shipment = new Shipment('eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjcyMWFiNzI4ZmFmMWQ1ODEzZGYxNGI5Njc5YWQ5MjI2OTk0NTMyNDc1YWMxM2I3MTk0MTBjMTBmNTc4OGE0ZjRjYjFjMjFkOWY1ZTRmNGYwIn0.eyJhdWQiOiIxIiwianRpIjoiNzIxYWI3MjhmYWYxZDU4MTNkZjE0Yjk2NzlhZDkyMjY5OTQ1MzI0NzVhYzEzYjcxOTQxMGMxMGY1Nzg4YTRmNGNiMWMyMWQ5ZjVlNGY0ZjAiLCJpYXQiOjE2ODk1MjUzNTEsIm5iZiI6MTY4OTUyNTM1MSwiZXhwIjoxNzIxMTQ3NzUxLCJzdWIiOiJiNTA3ZDlhZi1iNDJiLTQzMDgtYjBhOC1lYWU0MzBiNDM2ODEiLCJzY29wZXMiOlsiY2FydC1yZWFkIiwiY2FydC13cml0ZSIsImNvbXBhbmllcy1yZWFkIiwiY29tcGFuaWVzLXdyaXRlIiwiY291cG9ucy1yZWFkIiwiY291cG9ucy13cml0ZSIsIm5vdGlmaWNhdGlvbnMtcmVhZCIsIm9yZGVycy1yZWFkIiwicHJvZHVjdHMtcmVhZCIsInByb2R1Y3RzLWRlc3Ryb3kiLCJwcm9kdWN0cy13cml0ZSIsInB1cmNoYXNlcy1yZWFkIiwic2hpcHBpbmctY2FsY3VsYXRlIiwic2hpcHBpbmctY2FuY2VsIiwic2hpcHBpbmctY2hlY2tvdXQiLCJzaGlwcGluZy1jb21wYW5pZXMiLCJzaGlwcGluZy1nZW5lcmF0ZSIsInNoaXBwaW5nLXByZXZpZXciLCJzaGlwcGluZy1wcmludCIsInNoaXBwaW5nLXNoYXJlIiwic2hpcHBpbmctdHJhY2tpbmciLCJlY29tbWVyY2Utc2hpcHBpbmciLCJ0cmFuc2FjdGlvbnMtcmVhZCIsInVzZXJzLXJlYWQiLCJ1c2Vycy13cml0ZSIsIndlYmhvb2tzLXJlYWQiLCJ3ZWJob29rcy13cml0ZSIsIndlYmhvb2tzLXVwZGF0ZSIsIndlYmhvb2tzLWRlbGV0ZSIsInRkZWFsZXItd2ViaG9vayJdfQ.KB9VbBDhrjTDBI3usrCW7r-E9uqQD4CpJN2OkFrqglvYmbbHEih9TDock_xmqti7CsqDZmFNSK_wyax5s_1rwg_6PfQXV9m8uj3b7wtd2d5zEEQFAgw_TuNpXZRgfynGsXnH5PT-1C-sgSXBWoDKP6r8_L7YDn3iiRdxHOEHh70ikdwjJYPmx_iCB45MLnmkYEQfkFdUQaHqOMZq1CYoP-umwPfdBDfYpmnelVqGnUSnBq1w_bN51XNfzDDa62AbJGfrdJ5u65NUyLw1uqx12_6pFu1pXb8B2_0SFVnu4eOFdnv9phFHjthsXSvxqVhUzVIVjlijZIRpo_f1lBPrSYgtf1IaM9d1bXfuMtZT-Z2u6UdjuGryC8DZauhJB5jBYOLpHNcQZiv44OPQfZ6HolfmvxSCSJI8eTI-1tvB9U3QCnYnUkUp5iVOZgG2zaavhs94UNqRkeC1-X2V4l9n0T0uTj9JSb3PgEQVQ6ZkPqaL6Rg2TG5Os-22WvMfQxpKRZgmFg37RZ1p__1IuR211XogRv1BXR3LMmEs7wXUDN-8YIVJSmvvNUFPFd8Ph0yuz_mdP_0oHYzu7PomKkBp2T7C-Z78E8OrorSCQnQMEhqj5yps26vQRUCStRMsI6hDQp7HDqKqhv6ZbRiqMIR9yHmpjGY1KvQ2LvXKq1iKKwo', Environment::PRODUCTION);
         $calculator = $shipment->calculator();
 
         $quotations = [];
