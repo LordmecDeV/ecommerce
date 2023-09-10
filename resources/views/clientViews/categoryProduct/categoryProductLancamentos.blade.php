@@ -40,12 +40,13 @@
       <div class="col-md-3 mb-5">
         <div class="card p-2 space-margin-left-5 shadow bg-body circle-rounded" style="width: 18rem;">
           <!-- Início do card -->
+          <a href="{{ route('showProductClient', ['id' => $launchs->id]) }}">
           <img src="{{$launchs->image_product_1}}" class="card-img-top circle-rounded" alt="...">
           <div class="card-body mb-4">
-            <h2 class="card-title text-center fw-bold font-card-title" style="margin-bottom: 0.1rem;">{{$launchs->name}}</h2>
+            <h2 class="card-title text-center fw-bold font-card-title color-card-information" style="margin-bottom: 0.1rem;">{{$launchs->name}}</h2>
             <h5 class="card-text text-center text-muted fw-bold font-price" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">{{$launchs->type_product}}</h5>
             <p class="card-title text-center title-card text-decoration-line-through" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">De <span class="span-card">R$149</span></p>
-            <h5 class="card-text text-center fw-bold font-price font-price" style="margin-top: 0.05rem;">Por R$ <span class="span-price">{{$launchs->price}}</span></h5>
+            <h5 class="card-text text-center fw-bold font-price font-price color-card-information" style="margin-top: 0.05rem;">Por R$ <span class="span-price color-card-information">{{$launchs->price}}</span></h5>
             <div class="circle circle-color-lauchs">
               <a href="{{ route('showProductClient', ['id' => $launchs->id]) }}" class="">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
@@ -54,6 +55,7 @@
               </a>
             </div>
           </div>
+          </a>
         </div>
       </div>
     @endforeach

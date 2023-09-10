@@ -21,6 +21,9 @@
         .color-header-2{
             background: #D4F1F4;
         }
+        .color-card-information{
+          color: black;
+        }
         .font-price{
           font-family: 'Montserrat', sans-serif;
           font-size: 20px;

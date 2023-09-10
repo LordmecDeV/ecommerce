@@ -77,13 +77,14 @@
       @foreach($bestSeller->slice(0, 10)->toArray() as $bestSellers)
        <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;">
         <!-- inicio do card -->
+        <a href="{{ route('showProductClient', ['id' => $bestSellers->id]) }}">
         <img src="{{$bestSellers->image_product_1}}" class="card-img-top circle-rounded" alt="...">
         <div class="card-body mb-4">
-          <h2 class="card-title text-center fw-bold font-card-title" style="margin-bottom: 0.1rem;">{{$bestSellers->name}}</h2>
+          <h2 class="card-title text-center fw-bold font-card-title color-card-information" style="margin-bottom: 0.1rem;">{{$bestSellers->name}}</h2>
           <h5 class="card-text text-center text-muted fw-bold font-price" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">{{$bestSellers->type_product}}</h5>
           <p class="card-title text-center title-card text-decoration-line-through" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">De <span class="span-card">R$149</span>
           </p>
-          <p class="card-text text-center fw-bold font-price font-price" style="margin-top: 0.05rem;">Por R$ <span class="span-price">{{$bestSellers->price}}</span>
+          <p class="card-text text-center fw-bold font-price font-price color-card-information" style="margin-top: 0.05rem;">Por R$ <span class="span-price color-card-information">{{$bestSellers->price}}</span>
           </p>
           <div class="circle circle-color-best-sellers">
             <a href="{{ route('showProductClient', ['id' => $bestSellers->id]) }}" class="">
@@ -93,6 +94,7 @@
             </a>
           </div>
         </div>
+        </a>
       </div>
       <!-- final do card --> 
       @endforeach
@@ -113,15 +115,18 @@
       <h2 class="text-center fw-bold mt-5">Lançamentos</h2>
     </div>
     <div class="slick-carousel mt-5" style="margin-left:50px;">
-      <!-- inicio do slick --> @foreach($launch->slice(0, 10)->toArray() as $launchs) <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;">
+      <!-- inicio do slick --> 
+      @foreach($launch->slice(0, 10)->toArray() as $launchs) 
+      <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;">
         <!-- inicio do card -->
+        <a href="{{ route('showProductClient', ['id' => $launchs->id]) }}">
         <img src="{{$launchs->image_product_1}}" class="card-img-top circle-rounded" alt="...">
         <div class="card-body mb-4">
-          <h2 class="card-title text-center fw-bold font-card-title" style="margin-bottom: 0.1rem;">{{$launchs->name}}</h2>
+          <h2 class="card-title text-center fw-bold font-card-title color-card-information" style="margin-bottom: 0.1rem;">{{$launchs->name}}</h2>
           <h5 class="card-text text-center text-muted fw-bold font-price" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">{{$launchs->type_product}}</h5>
           <p class="card-title text-center title-card text-decoration-line-through" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">De <span class="span-card">R$149</span>
           </p>
-          <h5 class="card-text text-center fw-bold font-price font-price" style="margin-top: 0.05rem;">Por R$ <span class="span-price">{{$launchs->price}}
+          <h5 class="card-text text-center fw-bold font-price font-price color-card-information" style="margin-top: 0.05rem;">Por R$ <span class="span-price color-card-information">{{$launchs->price}}
               <span>
           </h5>
           <div class="circle circle-color-lauchs">
@@ -132,8 +137,10 @@
             </a>
           </div>
         </div>
+        </a>
       </div>
-      <!-- final do card --> @endforeach
+      <!-- final do card --> 
+      @endforeach
       <a href="/categoria/lancamentos" class="mt-4 mb-5">
         <div class="d-flex align-items-center justify-content-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" fill="currentColor" class="bi bi-plus me-2" viewBox="0 0 16 16">
@@ -151,15 +158,18 @@
       <h2 class="text-center fw-bold mt-5">Destaques</h2>
     </div>
     <div class="slick-carousel mt-5" style="margin-left:50px;">
-      <!-- inicio do slick --> @foreach($highlight->slice(0, 10)->toArray() as $highlights) <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;">
+      <!-- inicio do slick --> 
+      @foreach($highlight->slice(0, 10)->toArray() as $highlights) 
+        <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;">
         <!-- inicio do card -->
+        <a href="{{ route('showProductClient', ['id' => $highlights->id]) }}">
         <img src="{{$highlights->image_product_1}}" class="card-img-top circle-rounded" alt="...">
         <div class="card-body mb-4">
-          <h2 class="card-title text-center fw-bold font-card-title" style="margin-bottom: 0.1rem;">{{$highlights->name}}</h2>
+          <h2 class="card-title text-center fw-bold font-card-title color-card-information" style="margin-bottom: 0.1rem;">{{$highlights->name}}</h2>
           <h5 class="card-text text-center text-muted fw-bold font-price" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">{{$highlights->type_product}}</h5>
           <p class="card-title text-center title-card text-decoration-line-through" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">De <span class="span-card">R$149</span>
           </p>
-          <h5 class="card-text text-center fw-bold font-price font-price" style="margin-top: 0.05rem;">Por R$ <span class="span-price">{{$highlights->price}}</span>
+          <h5 class="card-text text-center fw-bold font-price font-price color-card-information" style="margin-top: 0.05rem;">Por R$ <span class="span-price color-card-information">{{$highlights->price}}</span>
           </h5>
           <div class="circle circle-color-highlights">
             <a href="{{ route('showProductClient', ['id' => $highlights->id]) }}" class="">
@@ -169,8 +179,10 @@
             </a>
           </div>
         </div>
+        </a>
       </div>
-      <!-- final do card --> @endforeach
+      <!-- final do card --> 
+      @endforeach
       <a href="/categoria/destaques" class="mt-4 mb-5">
         <div class="d-flex align-items-center justify-content-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" fill="currentColor" class="bi bi-plus me-2" viewBox="0 0 16 16">
@@ -188,15 +200,18 @@
       <h2 class="text-center fw-bold mt-5">Mosaicos</h2>
     </div>
     <div class="slick-carousel mt-5" style="margin-left:50px;">
-      <!-- inicio do slick --> @foreach($mosaic->slice(0, 10)->toArray() as $mosaics) <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;">
+      <!-- inicio do slick --> 
+      @foreach($mosaic->slice(0, 10)->toArray() as $mosaics) 
+      <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;">
         <!-- inicio do card -->
+        <a href="{{ route('showProductClient', ['id' => $mosaics->id]) }}">
         <img src="{{$mosaics->image_product_1}}" class="card-img-top circle-rounded" alt="...">
         <div class="card-body mb-4">
-          <h2 class="card-title text-center fw-bold font-card-title" style="margin-bottom: 0.1rem;">{{$mosaics->name}}</h2>
+          <h2 class="card-title text-center fw-bold font-card-title color-card-information" style="margin-bottom: 0.1rem;">{{$mosaics->name}}</h2>
           <h5 class="card-text text-center text-muted fw-bold font-price" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">{{$mosaics->type_product}}</h5>
           <p class="card-title text-center title-card text-decoration-line-through" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">De <span class="span-card">R$149</span>
           </p>
-          <h5 class="card-text text-center fw-bold font-price font-price" style="margin-top: 0.05rem;">Por R$ <span class="span-price">{{$mosaics->price}}
+          <h5 class="card-text text-center fw-bold font-price font-price color-card-information" style="margin-top: 0.05rem;">Por R$ <span class="span-price color-card-information">{{$mosaics->price}}
               <span>
           </h5>
           <div class="circle circle-color-mosaics">
@@ -207,8 +222,10 @@
             </a>
           </div>
         </div>
+        </a>
       </div>
-      <!-- final do card --> @endforeach
+      <!-- final do card --> 
+      @endforeach
       <a href="/categoria/mosaico" class="mt-4 mb-5">
         <div class="d-flex align-items-center justify-content-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" fill="currentColor" class="bi bi-plus me-2" viewBox="0 0 16 16">
@@ -226,15 +243,18 @@
       <h2 class="text-center fw-bold mt-5">Luminarias</h2>
     </div>
     <div class="slick-carousel mt-5" style="margin-left:50px;">
-      <!-- inicio do slick --> @foreach($lighting->slice(0, 10)->toArray() as $lightings) <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;">
+      <!-- inicio do slick --> 
+      @foreach($lighting->slice(0, 10)->toArray() as $lightings) 
+      <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;">
         <!-- inicio do card -->
+        <a href="{{ route('showProductClient', ['id' => $lightings->id]) }}">
         <img src="{{$lightings->image_product_1}}" class="card-img-top circle-rounded" alt="...">
         <div class="card-body mb-4">
-          <h2 class="card-title text-center fw-bold font-card-title" style="margin-bottom: 0.1rem;">{{$lightings->name}}</h2>
+          <h2 class="card-title text-center fw-bold font-card-title color-card-information" style="margin-bottom: 0.1rem;">{{$lightings->name}}</h2>
           <h5 class="card-text text-center text-muted fw-bold font-price" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">{{$lightings->type_product}}</h5>
           <p class="card-title text-center title-card text-decoration-line-through" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">De <span class="span-card">R$149</span>
           </p>
-          <h5 class="card-text text-center fw-bold font-price font-price" style="margin-top: 0.05rem;">Por R$ <span class="span-price">{{$lightings->price}}</span>
+          <h5 class="card-text text-center fw-bold font-price font-price color-card-information" style="margin-top: 0.05rem;">Por R$ <span class="span-price color-card-information">{{$lightings->price}}</span>
           </h5>
           <div class="circle circle-color-lighting">
             <a href="{{ route('showProductClient', ['id' => $lightings->id]) }}" class="">
@@ -244,8 +264,10 @@
             </a>
           </div>
         </div>
+        </a>
       </div>
-      <!-- final do card --> @endforeach
+      <!-- final do card --> 
+      @endforeach
       <a href="/categoria/luminaria" class="mt-4 mb-5">
         <div class="d-flex align-items-center justify-content-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" fill="currentColor" class="bi bi-plus me-2" viewBox="0 0 16 16">
