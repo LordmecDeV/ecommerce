@@ -176,15 +176,24 @@
 
 
        
-
-  <div class="container-fluid mt-5"><!--Descrição-->
+<!--Descrição-->
+<div class="container-fluid mt-5">
     <div class="d-flex justify-content-center">
-      <button style="" class="btn mt-3" type="button" onclick="Mudarestado('minhaDiv')"><h1>Descrição</h1> <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/></svg></button>
+      <button style="border: none;background: none;" class="mt-3" type="button" onclick="Mudarestado('minhaDiv')"><h1>Descrição</h1> <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/></svg></button>
     </div> 
-        <div class="" id="minhaDiv" style="display:none;">
+      <div class="" id="minhaDiv" style="display:none;">
         <img src="https://sat02pap005files.storage.live.com/y4mRBau8W1UjHcasic0XKGkfdGmhL0152CBM1Vf5H7744AK946AXdiwWl3XwJRnK8NxmeDeMqErffMKQuBKojbsEm2Uo3UQMqjVo2hJWUpA027lLQC3SuGM_pBGO6JRt8eEmaQR2m69l9ktiZWPidsKg_CaxlpoHGGD8bMwjasSGOPNrBbuKzJHY9WQ_hZhdmn5?width=1500&height=12497&cropmode=none" class="mx-auto d-block mt-5" alt="CATALOGO-PAINEIS-pdf-1" border="0">
-        </div>         
-  </div><!--Descrição final-->
+      </div>         
+</div>
+<!--Descrição final-->
+
+<div class="container-fluid mt-5">
+  <div class="d-flex justify-content-center">
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/mpP5SbbPHE8?si=Xb7VEGmD9ixyUx5l" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
 
   <div class="container-fluid p-0"><!-- inicio da div de carrousel de produtos -->
     <div class="d-flex align-items-center justify-content-center">
@@ -192,19 +201,21 @@
     </div>
     <div class="slick-carousel mt-5" style="margin-left:50px;"><!-- inicio do slick -->
     @foreach($bestSeller->slice(0, 10)->toArray() as $bestSellers)
-    <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;"><!-- inicio do card --> 
+    <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;"><!-- inicio do card -->
+    <a href="{{ route('showProductClient', ['id' => $bestSellers->id]) }}"> 
     <img src="{{$bestSellers->image_product_1}}" class="card-img-top circle-rounded" alt="...">
     <div class="card-body mb-4">
-    <h2 class="card-title text-center fw-bold font-card-title" style="margin-bottom: 0.1rem;">{{$bestSellers->name}}</h2>
+    <h2 class="card-title text-center fw-bold font-card-title color-card-information" style="margin-bottom: 0.1rem;">{{$bestSellers->name}}</h2>
     <h5 class="card-text text-center text-muted fw-bold font-price" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">{{$bestSellers->type_product}}</h5>
     <p class="card-title text-center title-card text-decoration-line-through" style="margin-top: 0.05rem; margin-bottom: 0.05rem;">De <span class="span-card">R$149</span></p>
-    <p class="card-text text-center fw-bold font-price font-price" style="margin-top: 0.05rem;">Por R$<span class="span-price">{{$bestSellers->price}}</span></p>
+    <p class="card-text text-center fw-bold font-price font-price color-card-information" style="margin-top: 0.05rem;">Por R$<span class="span-price">{{$bestSellers->price}}</span></p>
     <div class="circle circle-color-best-sellers">
     <a href="{{ route('showProductClient', ['id' => $bestSellers->id]) }}" class="">
       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-cart-plus-fill" viewBox="0 0 16 16"><path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/></svg>
     </a>
     </div>
     </div>
+    </a>
     </div><!-- final do card -->
     @endforeach
     <a href="/categoria/mais-vendidos" class="mt-4 mb-5">

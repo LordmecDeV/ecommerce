@@ -132,20 +132,27 @@
                       </tr>
                     </thead>
                     <tbody>
+                    @foreach($quotations as $transporterName => $freightDetails)
                       <tr>
-                        <td><input type="checkbox" class="form-check-input frete-checkbox" id="checkbox-pac"></td>
-                        <th scope="row"><h6 class="fw-bold">{{ $totalPacFrete['companyName'] }}</h5></th>
-                        <td><p class="fw-bold fontCalculateFrete">R$ {{ $totalPacFrete['totalFrete'] }}</p></td>
-                        <td><h5 class="fw-bold">{{ $totalPacFrete['deliveryTime'] }}</h5></td>
-                        <td><img src="https://www.geralferramentas.com.br/pub/media/catalog/product/cache/ebd33fa67d0860d79e515ee268e8835d/p/a/pac2270.png" height="150" width="150" class="img-fluid" alt="Company Logo"></td>
+                        <td><input type="checkbox" class="form-check-input frete-checkbox" id="checkbox-{{ strtolower($transporterName) }}" data-frete="{{ $freightDetails['totalFrete'] }}"></td>
+                        <th scope="row"><h6 class="fw-bold">{{ $transporterName }}</h5></th>
+                        <td><p class="fw-bold fontCalculateFrete">R$ {{ $freightDetails['totalFrete'] }}</p></td>
+                        <td><h5 class="fw-bold">{{ $freightDetails['deliveryTime'] }}</h5></td>
+                        <td>
+                          @if ($transporterName === 'SEDEX')
+                            <img src="https://logodownload.org/wp-content/uploads/2017/03/sedex-logo-5.png" height="150" width="150" class="img-fluid" alt="Company Logo">
+                          @elseif ($transporterName === 'PAC')
+                            <img src="https://www.geralferramentas.com.br/pub/media/catalog/product/cache/ebd33fa67d0860d79e515ee268e8835d/p/a/pac2270.png" height="150" width="150" class="img-fluid" alt="Company Logo">
+                          @elseif ($transporterName === '.Package')
+                            <img src="https://cdn.cookielaw.org/logos/ca573dc2-6848-4d5d-811b-a73af38af8db/351dcc81-561f-44be-ad95-966e6f1bb905/f0416ebe-67db-4d95-aee0-56e49a2678f4/logo_jadlog.png" height="150" width="150" class="img-fluid" alt="Company Logo">
+                          @elseif ($transporterName === '.Com')
+                            <img src="https://cdn.cookielaw.org/logos/ca573dc2-6848-4d5d-811b-a73af38af8db/351dcc81-561f-44be-ad95-966e6f1bb905/f0416ebe-67db-4d95-aee0-56e49a2678f4/logo_jadlog.png" height="150" width="150" class="img-fluid" alt="Company Logo">  
+                          @else
+                            <img src="URL_DA_IMAGEM_PADRAO" height="150" width="150" class="img-fluid" alt="Company Logo">
+                          @endif
+                          </td>
                       </tr>
-                      <tr>
-                        <td><input type="checkbox" class="form-check-input frete-checkbox" id="checkbox-sedex"></td>
-                        <th scope="row"><h5 class="fw-bold">{{ $totalSedexFrete['companyName'] }}</h5></th>
-                        <td><p class="fw-bold fontCalculateFrete">R$ {{ $totalSedexFrete['totalFrete'] }}</p></td>
-                        <td><h5 class="fw-bold">{{ $totalSedexFrete['deliveryTime'] }}</h5></td>
-                        <td><img src="https://img.elo7.com.br/product/main/27BA07B/sedex-sedex.jpg" height="100" width="100" class="img-fluid" alt="Company Logo"></td>
-                      </tr>
+                    @endforeach 
                     </tbody>
                   </table>
                 </div>
@@ -175,32 +182,35 @@
             <h5 class="mb-0">Resumo</h5>
           </div>
           <div class="card-body">
+          <div id="cupom-message" class="alert alert-success" style="display: none;"></div>
             <ul class="list-group list-group-flush">
-              <li
-                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                 Produtos
-                <span>R${{$totalPriceCart}}</span>
+                <span id="valor-produtos">R${{$totalPriceCart}}</span>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                 Frete
-                <span id="frete-valor">valor do frete</span>
+                <span id="frete-valor">R$ 0.00</span>
               </li>
-              <li
-                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                 <div>
                   <strong>Total</strong>
-                  <strong>
-                    <p class="mb-0">(including VAT)</p>
-                  </strong>
                 </div>
-                <span><strong>R${{$totalPriceCart}}</strong></span>
+                <span id="valor-total">R$ 0.00</span>
               </li>
             </ul>
-            <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">CUPOM</span>
-              <input type="text" class="form-control input-group-lg" placeholder="Aplicar desconto" aria-label="" aria-describedby="basic-addon1">
-              <button class="btn btn-primary" id=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16"><path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/></svg></button>
-            </div> 
+            <form id="cupom-form" method="POST" action="/aplicar-cupom">
+                @csrf
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">CUPOM</span>
+                    <input type="text" class="form-control input-group-lg" name="cupom" id="cupom-input" placeholder="Aplicar desconto" aria-label="" aria-describedby="basic-addon1">
+                    <button class="btn btn-primary" id="aplicar-cupom" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                            <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27-1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287+.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
             <button type="button" class="btn btn-primary btn-lg btn-block">
               Finalizar compra
             </button>
@@ -332,63 +342,121 @@
       </div>
     </div>
 
-    <script>
-        const cepInput = document.querySelector('#cep');
-        cepInput.addEventListener('blur', handleCepBlur);
+<script>
+const cepInput = document.querySelector('#cep');
+cepInput.addEventListener('blur', handleCepBlur);
 
-        async function handleCepBlur() {
-            const cep = cepInput.value.replace(/\D/g, '');
-            const url = `https://viacep.com.br/ws/${cep}/json/`;
+async function handleCepBlur() {
+    const cep = cepInput.value.replace(/\D/g, '');
+    const url = `https://viacep.com.br/ws/${cep}/json/`;
 
-            try {
-            const response = await fetch(url);
-            const data = await response.json();
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
 
-            document.querySelector('#logradouro').value = data.logradouro;
-            document.querySelector('#bairro').value = data.bairro;
-            document.querySelector('#cidade').value = data.localidade;
-            document.querySelector('#estado').value = data.uf;
-            } catch (error) {
-            console.error(error);
-            }
+        document.querySelector('#logradouro').value = data.logradouro;
+        document.querySelector('#bairro').value = data.bairro;
+        document.querySelector('#cidade').value = data.localidade;
+        document.querySelector('#estado').value = data.uf;
+    } catch (error) {
+        console.error(error);
+    }
+}
+$(document).ready(function() {
+    // Inicialmente, nenhum checkbox está selecionado
+    let selectedFrete = 0;
+
+    // Manipule a seleção de checkbox
+    $('.frete-checkbox').change(function() {
+        // Desmarque todos os outros checkboxes
+        $('.frete-checkbox').not(this).prop('checked', false);
+
+        // Atualize o valor do frete com base no checkbox selecionado
+        selectedFrete = parseFloat($(this).data('frete').replace(',', '.'));
+        updateFreteValue(selectedFrete);
+    });
+
+    // Função para atualizar o valor do frete na página
+    function updateFreteValue(value) {
+        $('#frete-valor').text('R$ ' + value.toFixed(2));
+    }
+});
+$(document).ready(function() {
+    // Inicialmente, nenhum checkbox está selecionado
+    let selectedFrete = 0;
+    let totalProdutos = parseFloat("{{ $totalPriceCart }}");
+
+    // Função para atualizar o valor total na página
+    function atualizarValorTotal() {
+        // Calcula o valor total somando o valor dos produtos e o valor do frete selecionado
+        let valorTotal = totalProdutos + selectedFrete;
+
+        // Atualiza os elementos HTML com os valores calculados
+        $('#frete-valor').text('R$ ' + selectedFrete.toFixed(2));
+        $('#valor-total').text('R$ ' + valorTotal.toFixed(2));
+        // Verifique se algum frete foi selecionado
+        if ($('.frete-checkbox:checked').length > 0) {
+            $('#aplicar-cupom').prop('disabled', false); // Habilita o botão
+        } else {
+            $('#aplicar-cupom').prop('disabled', true); // Desabilita o botão
         }
-        function updateFreteValue() {
-          // Obtém todos os checkboxes
-          const checkboxes = document.querySelectorAll('.frete-checkbox');
+    }
 
-          // Variável para armazenar o valor do frete selecionado
-          let valorFrete;
+    // Manipule a seleção de checkbox
+    $('.frete-checkbox').change(function() {
+        // Desmarque todos os outros checkboxes
+        $('.frete-checkbox').not(this).prop('checked', false);
 
-          // Itera sobre cada checkbox
-          checkboxes.forEach(function(checkbox) {
-            if (checkbox.checked) {
-              // Obtém o valor do frete da linha selecionada
-              const valorFreteElement = checkbox.parentNode.nextElementSibling.querySelector('.fontCalculateFrete');
+        // Atualize o valor do frete com base no checkbox selecionado
+        selectedFrete = parseFloat($(this).data('frete').replace(',', '.'));
+        atualizarValorTotal();
+    });
 
-              // Verifica o ID do checkbox selecionado e define o valor do frete correspondente
-              if (checkbox.id === 'checkbox-pac') {
-                valorFrete = "<?php echo $totalPacFrete['totalFrete']; ?>";
-              } else if (checkbox.id === 'checkbox-sedex') {
-                valorFrete = "<?php echo $totalSedexFrete['totalFrete']; ?>";
-              }
+    // Chame a função de cálculo inicial
+    atualizarValorTotal();
+});
 
-              // Atualiza o valor do frete no elemento <span>
-              document.getElementById('frete-valor').textContent = valorFrete;
+$(document).ready(function() {
+    $('#aplicar-cupom').click(function() {
+        event.preventDefault(); // Verifique se esta mensagem aparece no console.
+        const cupom = $('#cupom-input').val();
+
+        $.ajax({
+            url: '/aplicar-cupom',
+            method: 'POST',
+            data: {
+                cupom: cupom,
+                _token: $('#cupom-form input[name="_token"]').val()
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    const desconto = parseFloat(response.desconto);
+
+                    // Pega o valor atual do campo #valor-total
+                    const valorTotal = parseFloat($('#valor-total').text().replace('R$ ', ''));
+
+                    // Calcula o novo valor total com o desconto aplicado
+                    const novoValorTotal = valorTotal - desconto;
+
+                    // Atualiza o campo #valor-total
+                    $('#valor-total').text('R$ ' + novoValorTotal.toFixed(2));
+                    // Exibe a mensagem de sucesso
+                    $('#cupom-message').text('Cupom aplicado com sucesso, no valor de: R$ ' + desconto.toFixed(2));
+                    $('#cupom-message').removeClass('alert-danger').addClass('alert-success').show();
+                    // Desabilita o botão após aplicar o cupom
+                    $('#aplicar-cupom').prop('disabled', true);
+                } else {
+                    // Cupom inválido
+                    $('#cupom-message').text('Cupom inválido').removeClass('alert-success').addClass('alert-danger').show();
+                }
+            },
+            error: function() {
+                // Trate os erros, se necessário
             }
-          });
-
-          // Verifica se nenhum checkbox está selecionado
-          if (!valorFrete) {
-            // Defina um valor padrão ou exiba uma mensagem de erro
-            valorFrete = "Valor de frete não selecionado";
-            document.getElementById('frete-valor').textContent = valorFrete;
-          }
-        }
-
-        // Adiciona um ouvinte de evento para cada checkbox
-        const checkboxes = document.querySelectorAll('.frete-checkbox');
-        checkboxes.forEach(function(checkbox) {
-          checkbox.addEventListener('change', updateFreteValue);
         });
-    </script>
+    });
+});
+
+</script>
 @endsection

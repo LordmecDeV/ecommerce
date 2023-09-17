@@ -74,6 +74,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/administrarProduto/{id}', [ProductController::class, 'show'])->name('administrarProduto');
 	Route::put('/atualizarProduto/{id}', [ProductController::class, 'update'])->name('atualizarProduto');
 	Route::get('/cadastrar-produto', [ProductController::class, 'create'])->name('cadastrar-produto');
+	Route::get('/todos-cupons', [ProductController::class, 'allCupomView'])->name('todos-cupons');
+	Route::get('/cadastrar-cupom', [ProductController::class, 'createCupomView'])->name('cadastrar-cupom');
+	Route::post('/cadastrar-cupons', [ProductController::class, 'createCupom'])->name('cadastrar-cupons');
 
 	Route::put('/atualizar-preco-e-tamanho-produto/{id}', [PricesAndSizesController::class, 'update'])->name('atualizar-preco-e-tamanho-produto');
 	Route::get('/atualizar-preco-e-tamanho/{id}', [PricesAndSizesController::class, 'getUpdate'])->name('atualizar-preco-e-tamanho');
@@ -94,6 +97,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/adicionar-ao-carrinho',  [ShoppingCartController::class, 'createProductInCart'])->name('adicionar-ao-carrinho');
 	Route::get('/carrinho',  [ShoppingCartController::class, 'cartView'])->name('carrinho');
 	Route::delete('/excluir-item-do-carrinho',  [ShoppingCartController::class, 'destroy'])->name('excluir-item-do-carrinho');
+	Route::post('/aplicar-cupom',[ShoppingCartController::class, 'applyCupon'])->name('aplicar-cupom');
 	Route::get('/carrinho',  [ShoppingCartController::class, 'cartView'])->name('carrinho');
 	//Favoritos
 	Route::delete('/excluir-item-do-favorito',  [FavoriteController::class, 'destroy'])->name('excluir-item-do-favorito');

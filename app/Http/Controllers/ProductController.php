@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Favorite;
 use App\Models\PriceAndSize;
+use App\Models\Cupon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -92,6 +93,45 @@ class ProductController extends Controller
     {
         if (auth()->user()->can('viewAdminPanel', User::class)) {
             return view('laravel-examples/user-profile');
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        } 
+    }
+
+    public function allCupomView()
+    {
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            $viewAll = Cupon::latest()->paginate(10);
+            return view('allCupons', compact('viewAll'));
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        } 
+    }
+
+    public function createCupomView()
+    {
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            return view('cupom');
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        } 
+    }
+
+    public function createCupom(Request $request)
+    {
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+           $validatedData = $request->validate([
+            'cupom_name' => 'required|unique:cupons,cupom_name',
+            'type' => 'required',
+            'value' => 'required',
+        ],
+        [
+            'cupom_name.required' => 'O campo nome do cupom é obrigatório.',
+            'type.required' => 'O campo tipo de cupom é obrigatório.',
+            'value.required' => 'O campo valor é obrigatório.',
+        ]);
+        Cupon::create($validatedData);
+        return redirect('/todos-cupons');
         } else {
             return abort(403, 'Acesso não autorizado.');
         } 
@@ -257,8 +297,9 @@ class ProductController extends Controller
             }
         }
         $calculator->addServices(
-            Service::CORREIOS_PAC,
-            Service::CORREIOS_SEDEX
+            Service::CORREIOS_SEDEX,
+            Service::JADLOG_PACKAGE, 
+            Service::JADLOG_COM
         );
         $calculator->setOwnHand(); // mão própria
         $calculator->setReceipt(); // aviso de recebimento
@@ -349,9 +390,6 @@ class ProductController extends Controller
                             ->orWhere('name', 'like', '%'.$search.'%')
                             ->get();
 
-        // Faça algo com os resultados da pesquisa (exibição na view, redirecionamento, etc.)
-
-        // Retorne uma view com os resultados da pesquisa
         return view('searchResult', compact('todosProdutos'));
     }
     
