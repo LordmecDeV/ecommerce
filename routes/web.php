@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\ExportandImportController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\NewsletterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
@@ -77,6 +78,13 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/todos-cupons', [ProductController::class, 'allCupomView'])->name('todos-cupons');
 	Route::get('/cadastrar-cupom', [ProductController::class, 'createCupomView'])->name('cadastrar-cupom');
 	Route::post('/cadastrar-cupons', [ProductController::class, 'createCupom'])->name('cadastrar-cupons');
+	//Newsletter
+	Route::get('/todas-newsletter', [NewsletterController::class, 'allNewsletter'])->name('todas-newsletter');
+	Route::post('/store-newsletter', [NewsletterController::class, 'storeNewsletter'])->name('store-newsletter');
+	Route::get('/criar-newsletter', [NewsletterController::class, 'createNewsletter'])->name('criar-newsletter');
+	Route::post('/enviar-newsletter/{id}', [NewsletterController::class, 'sendNewsLetter'])->name('enviar-newsletter');
+	Route::post('/adicionar-cliente-newsletter', [NewsletterController::class, 'addMailClient'])->name('adicionar-cliente-newsletter');
+	Route::delete('/deletar-newsletter/{id}', [NewsletterController::class, 'destroy'])->name('newsletter-destroy');
 
 	Route::put('/atualizar-preco-e-tamanho-produto/{id}', [PricesAndSizesController::class, 'update'])->name('atualizar-preco-e-tamanho-produto');
 	Route::get('/atualizar-preco-e-tamanho/{id}', [PricesAndSizesController::class, 'getUpdate'])->name('atualizar-preco-e-tamanho');

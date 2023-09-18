@@ -344,13 +344,15 @@
           </ul>
         </div>
         <div class="col-md-5 offset-md-1 mb-3">
-          <form>
-            <h5>Subscribe to our newsletter</h5>
-            <p>Monthly digest of what's new and exciting from us.</p>
+            <h5>Assine a nossa newsletter</h5>
+            <p>Resumo mensal do que há de novo e interessante sobre nós.</p>
+            <form enctype="multipart/form-data" method="post" action="/adicionar-cliente-newsletter">
+                @csrf
+                {{ method_field('POST') }}
             <div class="d-flex flex-column flex-sm-row w-100 gap-2">
               <label for="newsletter1" class="visually-hidden">Email address</label>
-              <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-              <button class="btn btn-primary" type="button">Subscribe</button>
+              <input id="newsletter1" name="client_mail" type="email" class="form-control" placeholder="Receba promoções por email">
+              <button class="btn btn-primary" type="submit">Assinar</button>
             </div>
           </form>
         </div>
@@ -384,38 +386,83 @@
     </footer>
   </div>
   <!-- final do footer -->
-  <script>
-    $('.slick-carousel').slick({
-      dots: false,
-      infinite: false,
-      speed: 300,
-      arrows: true,
-      slidesToShow: 4,
-      slidesToScroll: 4,
-      responsive: [{
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: true,
-            dots: false,
-          }
-        }, {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2
-          }
-        }, {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
-        }
-        // You can unslick at a given breakpoint now by adding:
-        // settings: "unslick"
-        // instead of a settings object
-      ]
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+$('.slick-carousel').slick({
+  dots: false,
+  infinite: false,
+  speed: 300,
+  arrows: true,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  responsive: [{
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: false,
+      }
+    }, {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2
+      }
+    }, {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]
+});
+document.addEventListener('DOMContentLoaded', function () {
+    // Exibir o SweetAlert2 com o formulário de inscrição na newsletter
+    Swal.fire({
+        title: 'Inscrever-se na Newsletter',
+        html: '<input type="email" class="swal2-input" id="swal-input1" placeholder="Seu Email">',
+        showCancelButton: true,
+        confirmButtonText: 'Inscrever-se',
+        cancelButtonText: 'Cancelar',
+        showLoaderOnConfirm: true,
+        customClass: {
+          confirmButtonText: 'custom-swal-btn'
+        },
+        preConfirm: () => {
+            const email = document.getElementById('swal-input1').value;
+            
+            // Fazer a chamada AJAX para inserir o email na tabela NewsletterClient
+            const formData = new FormData();
+            formData.append('client_mail', email);
+            formData.append('_token', '{{ csrf_token() }}');
+
+            return fetch('/adicionar-cliente-newsletter', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Exibir mensagem de sucesso
+                    Swal.fire('Sucesso!', 'Seu email foi cadastrado com sucesso, aproveite este cupom: NEWS10!', 'success');
+                } else {
+                    // Exibir mensagem de erro
+                    Swal.fire('Erro!', data.message, 'error');
+                }
+            })
+            .catch(error => {
+                // Lógica de tratamento de erro, se necessário
+                console.error('Erro:', error);
+            });
+        },
     });
-  </script> @endsection
+});
+</script> 
+@endsection
