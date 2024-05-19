@@ -95,6 +95,8 @@ Route::group(['middleware' => 'auth'], function () {
 	//administrar conteudos do site
 	Route::get('/alterar-imagens-do-carousel', [ManageContentController::class, 'imagesCarousel'])->name('alterar-imagens-do-carousel');
 	Route::post('/alterar-carousel', [ManageContentController::class, 'updateImagesCarousel'])->name('alterar-carousel');
+	Route::get('/alterar-imagens-do-carousel-colecoes', [ManageContentController::class, 'imagesCarouselCollection'])->name('alterar-imagens-do-carousel-colecoes');
+	Route::post('/alterar-carousel-colecoes', [ManageContentController::class, 'updateImagesCarouselCollections'])->name('alterar-carousel-colecoes');
 	Route::get('/administrar-conteudo', [ManageContentController::class, 'index'])->name('administrar-conteudo');
 	//export e import
 	Route::get('export',  [ExportandImportController::class, 'export'])->name('export');
