@@ -1,112 +1,67 @@
 @extends('layouts.headerClient.header')
 @section('content')
-<div class="container w-100 mt-5 shadow-lg p-3 mb-5 bg-body rounded-5">
+<div class="container-fluid p-0">
+  <section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
 
-    
-<main class="form-signin m-auto ">
-<form method="POST" action="{{ route('login.store') }}">
-  @csrf
-  {{ method_field('POST') }}
-  @auth
-  <div class="alert alert-success">
-      <p>Você já esta logado</p>
-    </div>
-  @endauth
-  @guest
-  <div class="d-flex justify-content-center">
-    <img class="mb-4 d-flex justify-content-center align-self-center" src="https://i.ibb.co/cbhjFyD/LOGO-BAIXA-RESOLU-O.png" height="50" />
-  </div>
-    <div class="form-group">
-      <label class="mb-3" for="floatingInput">Email</label>
-      <input type="email" class="form-control mb-3 rounded-5" id="floatingInput" placeholder="name@example.com" name="email">
-    @error('email')
-    <div class="alert alert-danger">
-      {{ $message }}
-    </div>
-    @enderror  
-    </div>
-    <div class="form-group">
-      <label class="mb-3" for="floatingPassword">Senha</label>
-      <input type="password" class="form-control mb-3 rounded-5" id="floatingPassword" placeholder="Password" name="password">
-    @error('password')
-    <div class="alert alert-danger">
-      {{ $message }}
-    </div>  
-    @enderror
-    </div>
+              <div class="mb-md-5 mt-md-4 pb-5">
+            <form method="POST" action="{{ route('login.store') }}">
+                              @csrf
+                  {{ method_field('POST') }}
+                  @auth
+                  <div class="alert alert-success">
+                      <p>Você já esta logado</p>
+                    </div>
+                  @endauth
+                  @guest
+                  @error('email')
+                  <div class="alert alert-danger">
+                    {{ $message }}
+                  </div>
+                  @enderror
+                  @error('password')
+                  <div class="alert alert-danger">
+                    {{ $message }}
+                  </div>  
+                  @enderror 
+                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                <p class="text-white-50 mb-5">Por favor preencha seu email e senha!</p>
 
-    <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-        <label class="form-check-label" for="remember">Lembrar-me</label>
-    </div>
+                <div data-mdb-input-init class="form-outline form-white mb-4">
+                  <input type="email" id="typeEmailX" name="email" class="form-control form-control-lg" />
+                  <label class="form-label" for="typeEmailX">Email</label>
+                </div>
 
-    <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Entrar</button>
-    <p class="mt-5 mb-3 text-muted"><a href="/register">Ainda não possuo cadastro!</a></p>
-  </form>
-  @endguest
-</main>
+                <div data-mdb-input-init class="form-outline form-white mb-4">
+                  <input type="password" name="password" id="typePasswordX" class="form-control form-control-lg" />
+                  <label class="form-label" for="typePasswordX">Senha</label>
+                </div>
 
-    <div id="loom-companion-mv3" ext-id="liecbddmkiiihnedobmlmillhodjkdmb"><section id="shadow-host-companion"></section>
-    </div>
-    </div>
+                <div class="">
+                    <input type="checkbox" class="form-check-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                    <label class="form-check-label" for="remember">Lembrar-me</label>
+                </div>
 
-<div class="container-fluid bg-white"><!-- inicio do footer -->
-  <footer class="py-5">
-    <div class="row">
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
+                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Esqueceu sua senha?</a></p>
 
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
+                <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Entrar</button>
+                </div>
 
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
-
-      <div class="col-md-5 offset-md-1 mb-3">
-        <form>
-          <h5>Subscribe to our newsletter</h5>
-          <p>Monthly digest of what's new and exciting from us.</p>
-          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-            <label for="newsletter1" class="visually-hidden">Email address</label>
-            <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-            <button class="btn btn-primary" type="button">Subscribe</button>
+              <div>
+                <p class="mb-0">Ainda não tem uma conta?<a href="/register" class="text-white-50 fw-bold"> Registrar-se</a>
+                </p>
+              </div>
+            </form>
+            @endguest
+            </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
-
-    <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-      <p>© 2023 Walmeida</p>
-      <ul class="list-unstyled d-flex">
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-      </ul>
-    </div>
-    </footer>
-    </div><!-- final do footer -->
+  </section>
+</div>
 @endsection
