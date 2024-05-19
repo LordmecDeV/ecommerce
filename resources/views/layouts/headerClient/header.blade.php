@@ -317,7 +317,7 @@
               </div>
               @endauth
               @guest
-              <p>Você precisa estar logado para adicionar itens ao carrinho. Faça o <a href="{{ route('login') }}">login</a> ou <a href="">registre-se</a> para continuar.</p>
+              <p>Você precisa estar logado para adicionar itens ao carrinho. Faça o <a href="{{ route('login') }}">login</a> ou <a href="/register">registre-se</a> para continuar.</p>
               @endguest
             </div>
           </div>
@@ -351,7 +351,7 @@
               </div>
               @endauth
               @guest
-              <p>Você precisa estar logado para adicionar itens aos favoritos. Faça o <a href="{{ route('login') }}">login</a> ou <a href="">registre-se</a> para continuar.</p>
+              <p>Você precisa estar logado para adicionar itens aos favoritos. Faça o <a href="{{ route('login') }}">login</a> ou <a href="/register">registre-se</a> para continuar.</p>
               @endguest
             </div>
           </div>
