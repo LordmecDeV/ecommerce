@@ -253,7 +253,7 @@
         <!-- Center elements -->
         <div class="order-lg-last col-lg-5 col-sm-8 col-8">
           <div class="d-flex float-end">
-            <a class="btn btn-primary rounded-circle p-3 lh-1" style="margin-right:10px;" data-bs-toggle="offcanvas" href="#offcanvasUser" role="button" aria-controls="offcanvasExample"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg></a>
+            <a class="btn btn-primary rounded-circle p-3 lh-1" style="margin-right:10px;" data-bs-toggle="offcanvas" href="#offcanvasUser" role="button" aria-controls="offcanvasExample"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/></svg>
             <a class="btn btn-primary rounded-circle p-3 lh-1" style="margin-right:10px;" data-bs-toggle="offcanvas" href="#offcanvasFavorite" role="button" aria-controls="offcanvasExample" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg></a>
             <a role="button" aria-controls="offcanvasExample" href="#offcanvasRight" data-bs-toggle="offcanvas" class="btn btn-primary rounded-circle p-3 lh-1" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg></a>
           </div>
@@ -261,17 +261,19 @@
         <!-- offcanvas usuario -->
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasUser" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Meus dados</h5>
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Categorias</h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
           <div>
           @auth
           <ul class="list-group list-group-flush text-start">
-            <li class="list-group-item list-group-item-action text-reset" ><a href="/informacoes-do-usuario" class="text-reset">Minha conta</li></a>
-            <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="" class="text-reset">Meus pedidos</li></a>
-            <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="/favoritos" class="text-reset">Favoritos</li></a>
-            <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="" class="text-reset">Rastrear pedidos</li></a>
+            <li class="list-group-item list-group-item-action text-reset" ><a href="/categoria/mais-vendidos" class="text-reset">Mais vendidos</li></a>
+            <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="/categoria/destaques" class="text-reset">Produtos em destaque</li></a>
+            <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="/categoria/lancamentos" class="text-reset">Lançamentos</li></a>
+            <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="/categoria/luminaria" class="text-reset">Luminária</li></a>
+            <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="/categoria/mosaico" class="text-reset">Mosaicos</li></a>
+            <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="/categoria/quadro" class="text-reset">Quadros</li></a>
             <a href=""><li class="list-group-item list-group-item-action text-reset"><a href="{{ url('/logout')}}" class="text-reset">Sair</li></a>
             
           </ul>
@@ -371,58 +373,6 @@
     </div>
   </div>
   <!-- Jumbotron -->
-
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <!-- Container wrapper -->
-    <div class="container justify-content-center justify-content-md-between">
-      <!-- Toggle button -->
-      <button
-              class="navbar-toggler border py-2 text-dark"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarLeftAlignExample"
-              aria-controls="navbarLeftAlignExample"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-              >
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <!-- Collapsible wrapper -->
-      <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
-        <!-- Left links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link text-dark" aria-current="page" href="/home">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="/categoria/mais-vendidos">Mais vendidos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="/categoria/destaques">Produtos em destaque</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="/categoria/lancamentos">Lançamentos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="/categoria/luminaria">Luminária</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="/categoria/mosaico">Mosaicos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="/categoria/quadro">Quadros</a>
-          </li>
-            </ul>
-          </li>
-        </ul>
-        <!-- Left links -->
-      </div>
-    </div>
-    <!-- Container wrapper -->
-  </nav>
-  <!-- Navbar -->
 </header>
 <!-- Products -->
     <body>

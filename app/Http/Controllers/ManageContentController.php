@@ -34,15 +34,40 @@ class ManageContentController extends Controller
         if (auth()->user()->can('viewAdminPanel', User::class)) {
             $imageCarousel = $request->input('image_carousel');
             $linkImageCarousel = $request->input('link_image_carousel');
-            // dd($linkImageCarousel);
-            // Procura um registro existente com base no valor selecionado em "image_carousel"
-            // e atualiza o campo "link_image_carousel" com o valor fornecido ou cria um novo registro
+            $linkCollection = $request->input('link_collection');
             ManageContent::updateOrCreate(
                 ['image_carousel' => $imageCarousel],
-                ['link_image_carousel' => $linkImageCarousel]
+                ['link_image_carousel' => $linkImageCarousel, 'link_collection' => $linkCollection]
             );
-            // Redireciona de volta para a página anterior ou para uma página de sucesso, por exemplo
-            return redirect()->back()->with('success', 'Imagem do carousel atualizada com sucesso!');
+
+            return redirect()->back()->with('success', 'Imagem do carousel de coleções atualizada com sucesso!');
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        }
+    }
+
+    public function imagesCarouselCollection()
+    {
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            return view('updateImagesCarouselCollection');
+        } else {
+            return abort(403, 'Acesso não autorizado.');
+        }
+    }
+
+    public function updateImagesCarouselCollections(Request $request)
+    {
+        if (auth()->user()->can('viewAdminPanel', User::class)) {
+            $imageCarousel = $request->input('image_carousel');
+            $linkImageCarousel = $request->input('link_image_carousel');
+            $linkCollection = $request->input('link_collection');
+
+            ManageContent::updateOrCreate(
+                ['image_carousel' => $imageCarousel],
+                ['link_image_carousel' => $linkImageCarousel, 'link_collection' => $linkCollection]
+            );
+
+            return redirect()->back()->with('success', 'Imagem do carousel de coleções atualizada com sucesso!');
         } else {
             return abort(403, 'Acesso não autorizado.');
         }

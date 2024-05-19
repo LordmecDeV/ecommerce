@@ -159,16 +159,13 @@ class ProductController extends Controller
         $lighting = DB::table('products')->where('type_product', 'Luminaria')->get();
         $lighting = $this->applyMinPriceLogic($lighting);
 
-        //imagens do carousel
-        $mainImageCarousel = DB::table('manage_content')
-                                ->where('image_carousel', 'Imagem principal do carousel')
-                                ->value('link_image_carousel');
-        $imageCarousel2 = DB::table('manage_content')
-                                ->where('image_carousel', 'Imagem 2')
-                                ->value('link_image_carousel');
-        $imageCarousel3 = DB::table('manage_content')
-                                ->where('image_carousel', 'Imagem 3')
-                                ->value('link_image_carousel');
+        $carouselImages = DB::table('manage_content')
+                                ->whereIn('image_carousel', ['Imagem 1', 'Imagem 2', 'Imagem 3'])
+                                ->get(['image_carousel', 'link_image_carousel', 'link_collection']);
+
+        $collectionImages = DB::table('manage_content')
+                                ->whereIn('image_carousel', ['Luminaria', 'Quadros', 'Lançamentos', 'Mosaico', 'Produtos em destaque'])
+                                ->get(['image_carousel', 'link_image_carousel', 'link_collection']);
 
         return view('clientViews.home', compact(
             'bestSeller',
@@ -176,9 +173,8 @@ class ProductController extends Controller
             'highlight',
             'mosaic',
             'lighting',
-            'mainImageCarousel',
-            'imageCarousel2',
-            'imageCarousel3'
+            'carouselImages',
+            'collectionImages'
         ));
     }
 
