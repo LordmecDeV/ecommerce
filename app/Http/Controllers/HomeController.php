@@ -12,6 +12,6 @@ class HomeController extends Controller
     //         return redirect('dashboard');
     //     } else {
     //         return abort(403, 'Acesso não autorizado.');
-    //     } 
+    //     }
     // }
 }

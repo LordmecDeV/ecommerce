@@ -2,17 +2,15 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register()
     {
@@ -21,8 +19,6 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -35,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
             ->select('shopping_cart.product_id', 'shopping_cart.quantity', 'products.*', 'price_and_size.*')
             ->where('shopping_cart.user_id', $userId)
             ->get();
-            $headerCartItems = $headerCartItems->unique(function($item) {
+            $headerCartItems = $headerCartItems->unique(function ($item) {
                 return $item->product_id . '-' . $item->price;
             });
             $favoriteItems = DB::table('favorites')

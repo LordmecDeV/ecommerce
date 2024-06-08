@@ -8,11 +8,14 @@
                 @csrf
                 {{ method_field('POST') }}
                     <div class="form-group">
-                        <label for="">Qual imagem alterar</label>
+                        <label for="">Criar ou alterar imagem do carousel da Home de produtos(Desktop ou Mobile)</label>
                         <select class="form-control" id="" name="image_carousel">
                         <option>Imagem 1</option>
                         <option>Imagem 2</option>
                         <option>Imagem 3</option>
+                        <option>Imagem mobile 1</option>
+                        <option>Imagem mobile 2</option>
+                        <option>Imagem mobile 3</option>
                         </select>
                     </div>
                     <div class="form-group">

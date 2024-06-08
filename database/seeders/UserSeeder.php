@@ -10,8 +10,6 @@ class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
@@ -22,7 +20,7 @@ class UserSeeder extends Seeder
             'role' => 'Administrador',
             'password' => Hash::make('secret'),
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ]);
     }
 }

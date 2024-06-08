@@ -9,8 +9,8 @@ class ManageContent extends Model
 {
     use HasFactory;
 
-    protected $table = "manage_content";
+    protected $table = 'manage_content';
     protected $fillable = [
-        'type_description', 'description', 'image_carousel', 'link_image_carousel', 'link_collection'
+        'type_description', 'description', 'image_carousel', 'link_image_carousel', 'link_collection',
     ];
 }

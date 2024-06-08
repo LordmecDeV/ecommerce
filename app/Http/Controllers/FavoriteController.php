@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Favorite;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class FavoriteController extends Controller
@@ -12,6 +12,7 @@ class FavoriteController extends Controller
     {
         $favoriteProduct = $request->all();
         Favorite::create($favoriteProduct);
+
         return redirect('/favoritos');
     }
 
@@ -24,6 +25,7 @@ class FavoriteController extends Controller
             ->where('favorites.user_id', $user_id)
             ->get();
         $message = $this->checkFavoriteIsEmpty($user_id);
+
         return view('clientViews.favorite', compact('favoriteItems', 'message'));
     }
 
@@ -34,11 +36,11 @@ class FavoriteController extends Controller
         $favoriteItem = Favorite::where('user_id', $userId)
                                 ->where('product_id', $productId)
                                 ->first();
-        if (!$favoriteItem) 
-        {
+        if (! $favoriteItem) {
             return back()->with('error', 'Item não encontrado nos favoritos.');
         }
         $favoriteItem->delete();
+
         return back()->with('success', 'Item removido dos favoritos com sucesso.');
     }
 
@@ -48,10 +50,10 @@ class FavoriteController extends Controller
                     ->where('user_id', $userId)
                     ->exists();
 
-        if (!$favoriteItem) {
+        if (! $favoriteItem) {
             return 'Seu carrinho está vazio!';
         }
+
         return '';
     }
-    
 }
