@@ -9,8 +9,8 @@ class PriceAndSize extends Model
 {
     use HasFactory;
 
-    protected $table = "price_and_size";
+    protected $table = 'price_and_size';
     protected $fillable = [
-        'type_product', 'price', 'height', 'width', 'length', 'weight'
+        'type_product', 'price', 'height', 'width', 'length', 'weight',
     ];
 }

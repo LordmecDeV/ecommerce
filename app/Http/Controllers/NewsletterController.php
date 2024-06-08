@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Mail\newsletterMail;
 use App\Models\Newsletter;
 use App\Models\NewsletterClient;
 use App\Models\Product;
-use App\Mail\newsletterMail;
-use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 
 class NewsletterController extends Controller
 {
@@ -17,20 +17,22 @@ class NewsletterController extends Controller
     {
         if (auth()->user()->can('viewAdminPanel', User::class)) {
             $viewAll = Newsletter::latest()->paginate(10);
+
             return view('allNewsletter', compact('viewAll'));
-        } else {
-            return abort(403, 'Acesso não autorizado.');
-        } 
+        }
+
+        return abort(403, 'Acesso não autorizado.');
     }
 
     public function createNewsletter()
     {
         if (auth()->user()->can('viewAdminPanel', User::class)) {
             $products = Product::all();
+
             return view('createNewsletter', compact('products'));
-        } else {
-            return abort(403, 'Acesso não autorizado.');
-        } 
+        }
+
+        return abort(403, 'Acesso não autorizado.');
     }
 
     public function storeNewsletter(Request $request)
@@ -39,10 +41,11 @@ class NewsletterController extends Controller
             $create = $request->all();
             $create['products_in_mail'] = json_encode($create['products_in_mail']);
             Newsletter::create($create);
+
             return redirect('/todas-newsletter');
-        } else {
-            return abort(403, 'Acesso não autorizado.');
-        } 
+        }
+
+        return abort(403, 'Acesso não autorizado.');
     }
 
     public function addMailClient(Request $request)
@@ -53,6 +56,7 @@ class NewsletterController extends Controller
             return response()->json(['success' => false, 'message' => 'Email já cadastrado.']);
         }
         NewsletterClient::create(['client_mail' => $email]);
+
         return response()->json(['success' => true]);
     }
 
@@ -69,10 +73,11 @@ class NewsletterController extends Controller
             $products = Product::whereIn('id', $productIds)->get();
             $subscribers = NewsletterClient::pluck('client_mail')->toArray();
             \Mail::to($subscribers)->send(new newsletterMail($title, $title_content, $products, $facebook, $instagram, $whatsapp));
+
             return redirect()->route('todas-newsletter')->with('success', 'Newsletter disparada para todos clientes com sucesso!');
-        } else {
-            return abort(403, 'Acesso não autorizado.');
-        }  
+        }
+
+        return abort(403, 'Acesso não autorizado.');
     }
 
     public function destroy($id)
@@ -80,9 +85,10 @@ class NewsletterController extends Controller
         if (auth()->user()->can('viewAdminPanel', User::class)) {
             $product = Newsletter::findOrFail($id);
             $product->delete();
-        return redirect()->route('todas-newsletter')->with('success', 'Newsletter excluída com sucesso!');
-        } else {
-            return abort(403, 'Acesso não autorizado.');
-        }  
+
+            return redirect()->route('todas-newsletter')->with('success', 'Newsletter excluída com sucesso!');
+        }
+
+        return abort(403, 'Acesso não autorizado.');
     }
 }

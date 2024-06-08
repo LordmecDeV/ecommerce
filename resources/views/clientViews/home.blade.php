@@ -1,14 +1,26 @@
 @extends('layouts.headerClient.header') @section('content') <div id="carouselInterval" class="carousel slide" data-bs-ride="carousel">
-  <!-- inicio do carrousel -->
-  <div class="carousel-inner">
-    @foreach($carouselImages as $index => $image)
-      <div class="carousel-item {{ $index == 0 ? 'active' : '' }}" data-bs-interval="{{ ($index + 1) * 2000 }}">
-        <a href="{{ $image->link_collection }}">
-          <img src="{{ $image->link_image_carousel }}" class="d-block w-100">
-        </a>
-      </div>
-    @endforeach
-  </div>
+<!-- inicio do carrousel -->
+<div class="carousel-inner d-none d-md-block">
+  @foreach($carouselImages as $index => $image)
+    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}" data-bs-interval="{{ ($index + 1) * 2000 }}">
+      <a href="{{ $image->link_collection }}">
+        <img src="{{ $image->link_image_carousel }}" class="d-block w-100">
+      </a>
+    </div>
+  @endforeach
+</div>
+
+<!-- inicio do carrousel Mobile -->
+<div class="carousel-inner d-md-none">
+  @foreach($carouselImagesMobile as $index => $image)
+    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}" data-bs-interval="{{ ($index + 1) * 2000 }}">
+      <a href="{{ $image->link_collection }}">
+        <img src="{{ $image->link_image_carousel }}" class="d-block w-100">
+      </a>
+    </div>
+  @endforeach
+</div>
+
 <!-- final do carrousel -->
 <div class="container-fluid p-0">
   <!-- inicio do submenu com as informações e caracteristicas do site -->

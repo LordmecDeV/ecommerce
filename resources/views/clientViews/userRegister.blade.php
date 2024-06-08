@@ -1,9 +1,12 @@
 @extends('layouts.headerClient.header')
 @section('content')
+<div class="container-fluid p-0">
+  <section class=" gradient-custom" style="min-height: 100vh;">>
+    <div class="container py-5 h-100">
     <form enctype="multipart/form-data" method="post" action="/register-user">
     @csrf
     {{ method_field('POST') }}
-    <div class="container mt-5 shadow-lg p-5 bg-body rounded-5">
+    <div class="container shadow-lg p-5 bg-body rounded-5">
         <h3 class="mb-5">Dados para acesso:</h3>
         <div class="row g-3">
             <div class="col-sm-6">
@@ -54,7 +57,7 @@
 
             <div class="col-sm-6">
               <label for="lastName" class="form-label">Endereço:</label>
-              <input type="text" class="form-control" id="logradouro" placeholder="85626673407" name="location" required>
+              <input type="text" class="form-control" id="logradouro" placeholder="Av. Paulista" name="location" required>
             </div>
 
             <div class="col-sm-6">
@@ -89,34 +92,12 @@
               <input type="text" class="form-control" id="estado" placeholder="São Paulo" name="state" required>
             </div>
           </div>
-        <button class="btn btn-primary mt-5 btn-lg" type="submit">Cadastrar-se</button>
+        <button class="btn btn-outline-dark btn-lg px-5 mt-4" type="submit">Cadastrar-se</button>
     </div>
     </form>
-
-    <div class="container-fluid bg-white"><!-- inicio do footer -->
-  <footer class="py-5">
-    <div class="row">
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Coleções</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" href="/categoria/mais-vendidos">Mais vendidos</a></li>
-          <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" href="/categoria/destaques">Produtos em destaque</a></li>
-          <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" href="/categoria/mosaico">Mosaicos</a></li>
-          <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" href="/categoria/quadro">Quadros</a></li>
-        </ul>
-      </div>
     </div>
-
-    <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-      <p>© 2023 Walmeida</p>
-      <ul class="list-unstyled d-flex">
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-      </ul>
-    </div>
-    </footer>
-    </div><!-- final do footer -->
+  </section>
+</div>
     
     <script>
         const cepInput = document.querySelector('#cep');

@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Models\Cupon;
 use App\Models\Favorite;
 use App\Models\PriceAndSize;
-use App\Models\Cupon;
-use Illuminate\Support\Str;
+use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
-use MelhorEnvio\Shipment;
-use MelhorEnvio\Resources\Shipment\Package;
-use MelhorEnvio\Enums\Service;
+use Illuminate\Support\Str;
 use MelhorEnvio\Enums\Environment;
+use MelhorEnvio\Enums\Service;
+use MelhorEnvio\Resources\Shipment\Package;
 use MelhorEnvio\Resources\Shipment\Product as MelhorEnvioProduct;
-
+use MelhorEnvio\Shipment;
 
 class ProductController extends Controller
 {
@@ -28,32 +27,35 @@ class ProductController extends Controller
     {
         if (auth()->user()->can('viewAdminPanel', User::class)) {
             $todosProdutos = Product::latest()->paginate(10);
+
             return view('allProducts', compact('todosProdutos'));
-        } else {
-            return abort(403, 'Acesso não autorizado.');
         }
+
+        return abort(403, 'Acesso não autorizado.');
     }
 
     public function dashboard()
     {
         if (auth()->user()->can('viewAdminPanel', User::class)) {
             return view('dashboard');
-        } else {
-            return abort(403, 'Acesso não autorizado.');
-        } 
+        }
+
+        return abort(403, 'Acesso não autorizado.');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     // criação do produto
     public function store(Request $request)
     {
         if (auth()->user()->can('viewAdminPanel', User::class)) {
-            $validatedData = $request->validate([
+            $validatedData = $request->validate(
+                [
                 'sku' => 'required|unique:products,sku',
                 'name' => 'required',
                 'description' => 'required',
@@ -73,68 +75,74 @@ class ProductController extends Controller
                 'image_product_9' => 'nullable',
                 'image_product_10' => 'nullable',
             ],
-            [
-                'sku.required' => 'O campo SKU é obrigatório.',
-                'sku.unique' => 'SKU já existe.',
-                'name.required' => 'O campo Nome é obrigatório.',
-                'description.required' => 'O campo Descrição é obrigatório.',
-                'price.required' => 'O campo Preço é obrigatório.',
-                'status.required' => 'O campo Status é obrigatório.',
-                'type_product.required' => 'O campo Tipo de Produto é obrigatório.',
-            ]);
-               Product::create($validatedData);
-               return redirect('/todosProdutos');
-        } else {
-            return abort(403, 'Acesso não autorizado.');
+                [
+                    'sku.required' => 'O campo SKU é obrigatório.',
+                    'sku.unique' => 'SKU já existe.',
+                    'name.required' => 'O campo Nome é obrigatório.',
+                    'description.required' => 'O campo Descrição é obrigatório.',
+                    'price.required' => 'O campo Preço é obrigatório.',
+                    'status.required' => 'O campo Status é obrigatório.',
+                    'type_product.required' => 'O campo Tipo de Produto é obrigatório.',
+                ]
+            );
+            Product::create($validatedData);
+
+            return redirect('/todosProdutos');
         }
+
+        return abort(403, 'Acesso não autorizado.');
     }
 
     public function create()
     {
         if (auth()->user()->can('viewAdminPanel', User::class)) {
             return view('laravel-examples/user-profile');
-        } else {
-            return abort(403, 'Acesso não autorizado.');
-        } 
+        }
+
+        return abort(403, 'Acesso não autorizado.');
     }
 
     public function allCupomView()
     {
         if (auth()->user()->can('viewAdminPanel', User::class)) {
             $viewAll = Cupon::latest()->paginate(10);
+
             return view('allCupons', compact('viewAll'));
-        } else {
-            return abort(403, 'Acesso não autorizado.');
-        } 
+        }
+
+        return abort(403, 'Acesso não autorizado.');
     }
 
     public function createCupomView()
     {
         if (auth()->user()->can('viewAdminPanel', User::class)) {
             return view('cupom');
-        } else {
-            return abort(403, 'Acesso não autorizado.');
-        } 
+        }
+
+        return abort(403, 'Acesso não autorizado.');
     }
 
     public function createCupom(Request $request)
     {
         if (auth()->user()->can('viewAdminPanel', User::class)) {
-           $validatedData = $request->validate([
-            'cupom_name' => 'required|unique:cupons,cupom_name',
-            'type' => 'required',
-            'value' => 'required',
+            $validatedData = $request->validate(
+                [
+             'cupom_name' => 'required|unique:cupons,cupom_name',
+             'type' => 'required',
+             'value' => 'required',
         ],
-        [
-            'cupom_name.required' => 'O campo nome do cupom é obrigatório.',
-            'type.required' => 'O campo tipo de cupom é obrigatório.',
-            'value.required' => 'O campo valor é obrigatório.',
-        ]);
-        Cupon::create($validatedData);
-        return redirect('/todos-cupons');
-        } else {
-            return abort(403, 'Acesso não autorizado.');
-        } 
+                [
+                    'cupom_name.required' => 'O campo nome do cupom é obrigatório.',
+                    'type.required' => 'O campo tipo de cupom é obrigatório.',
+                    'value.required' => 'O campo valor é obrigatório.',
+                ]
+            );
+            Cupon::create($validatedData);
+
+            return redirect('/todos-cupons');
+        }
+
+        return abort(403, 'Acesso não autorizado.');
     }
 
     public function homePage()
@@ -163,6 +171,10 @@ class ProductController extends Controller
                                 ->whereIn('image_carousel', ['Imagem 1', 'Imagem 2', 'Imagem 3'])
                                 ->get(['image_carousel', 'link_image_carousel', 'link_collection']);
 
+        $carouselImagesMobile = DB::table('manage_content')
+                                ->whereIn('image_carousel', ['Imagem mobile 1', 'Imagem mobile 2', 'Imagem mobile 3'])
+                                ->get(['image_carousel', 'link_image_carousel', 'link_collection']);
+
         $collectionImages = DB::table('manage_content')
                                 ->whereIn('image_carousel', ['Luminaria', 'Quadros', 'Lançamentos', 'Mosaico', 'Produtos em destaque'])
                                 ->get(['image_carousel', 'link_image_carousel', 'link_collection']);
@@ -174,6 +186,7 @@ class ProductController extends Controller
             'mosaic',
             'lighting',
             'carouselImages',
+            'carouselImagesMobile',
             'collectionImages'
         ));
     }
@@ -182,7 +195,7 @@ class ProductController extends Controller
     {
         foreach ($products as $product) {
             $type_product = $product->type_product;
-            $minPrice = DB::table('price_and_size')->where('type_product', 'like', $type_product.'%')->min('price');
+            $minPrice = DB::table('price_and_size')->where('type_product', 'like', $type_product . '%')->min('price');
             $formattedPrice = number_format($minPrice, 2, ',', '.');
             $product->price = $formattedPrice;
         }
@@ -200,7 +213,7 @@ class ProductController extends Controller
             ->exists();
 
         $type_product = $viewProduct->type_product;
-        $minPrice = DB::table('price_and_size')->where('type_product', 'like', $type_product.'%')->min('price');
+        $minPrice = DB::table('price_and_size')->where('type_product', 'like', $type_product . '%')->min('price');
         $formattedPrice = number_format($minPrice, 2, ',', '.');
         $viewProduct->price = $formattedPrice;
 
@@ -210,6 +223,7 @@ class ProductController extends Controller
         $getSmallFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 30x55')->value('price');
         $getMidFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 40x66')->value('price');
         $getBigFrame = DB::table('price_and_size')->where('type_product', 'Quadro - 55x92')->value('price');
+
         return view('clientViews.showProductClient', compact(
             'viewProduct',
             'bestSeller',
@@ -253,7 +267,7 @@ class ProductController extends Controller
                 );
                 $calculator->addProducts($melhorEnvioProduct);
             }
-            } elseif ($type_product === 'Quadro') {
+        } elseif ($type_product === 'Quadro') {
             $getPriceQuadro = DB::table('price_and_size')
                 ->where('type_product', 'Quadro - 40x66')
                 ->get();
@@ -272,7 +286,7 @@ class ProductController extends Controller
                 );
                 $calculator->addProducts($melhorEnvioProduct);
             }
-            } elseif ($type_product === 'Luminaria') {
+        } elseif ($type_product === 'Luminaria') {
             $getPriceLuminaria = DB::table('price_and_size')
                 ->where('type_product', 'Luminaria')
                 ->get();
@@ -294,15 +308,15 @@ class ProductController extends Controller
         }
         $calculator->addServices(
             Service::CORREIOS_SEDEX,
-            Service::JADLOG_PACKAGE, 
+            Service::JADLOG_PACKAGE,
             Service::JADLOG_COM
         );
         $calculator->setOwnHand(); // mão própria
         $calculator->setReceipt(); // aviso de recebimento
         $calculator->setCollect(); // coleta
         $quotations = $calculator->calculate();
-        
-        if (!empty($quotations)) {
+
+        if (! empty($quotations)) {
             // Construir a resposta em formato JSON
             $response = [
                 'success' => true,
@@ -328,18 +342,18 @@ class ProductController extends Controller
                     ];
                 }
             }
-            
-            return response()->json($response);
-        } else {
-            return response()->json(['success' => false]);
-        }
-    }
 
+            return response()->json($response);
+        }
+
+        return response()->json(['success' => false]);
+    }
 
     public function categoryLighting()
     {
         $viewLighting = DB::table('products')->where('type_product', 'Luminaria')->latest()->paginate(16);
         $viewLighting = $this->applyMinPriceLogic($viewLighting);
+
         return view('clientViews.categoryProduct.categoryProductLuminaria', compact('viewLighting'));
     }
 
@@ -347,6 +361,7 @@ class ProductController extends Controller
     {
         $viewMosaic = DB::table('products')->where('type_product', 'Mosaico')->latest()->paginate(16);
         $viewMosaic = $this->applyMinPriceLogic($viewMosaic);
+
         return view('clientViews.categoryProduct.categoryProductMosaico', compact('viewMosaic'));
     }
 
@@ -354,6 +369,7 @@ class ProductController extends Controller
     {
         $viewFrame = DB::table('products')->where('type_product', 'Quadro')->latest()->paginate(16);
         $viewFrame = $this->applyMinPriceLogic($viewFrame);
+
         return view('clientViews.categoryProduct.categoryProductQuadro', compact('viewFrame'));
     }
 
@@ -361,6 +377,7 @@ class ProductController extends Controller
     {
         $bestSeller = DB::table('products')->where('carrousel', '1')->latest()->paginate(16);
         $bestSeller = $this->applyMinPriceLogic($bestSeller);
+
         return view('clientViews.categoryProduct.categoryProductMaisVendidos', compact('bestSeller'));
     }
 
@@ -368,6 +385,7 @@ class ProductController extends Controller
     {
         $launch = DB::table('products')->where('carrousel', '2')->latest()->paginate(16);
         $launch = $this->applyMinPriceLogic($launch);
+
         return view('clientViews.categoryProduct.categoryProductLancamentos', compact('launch'));
     }
 
@@ -375,6 +393,7 @@ class ProductController extends Controller
     {
         $highlight = DB::table('products')->where('carrousel', '3')->latest()->paginate(16);
         $highlight = $this->applyMinPriceLogic($highlight);
+
         return view('clientViews.categoryProduct.categoryProductDestaques', compact('highlight'));
     }
 
@@ -383,28 +402,30 @@ class ProductController extends Controller
         $search = $request->input('search');
 
         $todosProdutos = Product::where('id', $search)
-                            ->orWhere('name', 'like', '%'.$search.'%')
+                            ->orWhere('name', 'like', '%' . $search . '%')
                             ->get();
 
         return view('searchResult', compact('todosProdutos'));
     }
-    
+
     public function show($id)
     {
         if (auth()->user()->can('viewAdminPanel', User::class)) {
             $viewProduct = Product::find($id);
             $viewImage = json_decode($viewProduct->image_product);
             $viewImageDescription = json_decode($viewProduct->image_description);
-        return view('showProduct', compact('viewProduct', 'viewImageDescription', 'viewImage'));
-        } else {
-            return abort(403, 'Acesso não autorizado.');
+
+            return view('showProduct', compact('viewProduct', 'viewImageDescription', 'viewImage'));
         }
+
+        return abort(403, 'Acesso não autorizado.');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -415,8 +436,9 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -425,16 +447,18 @@ class ProductController extends Controller
             $updateProduct = $request->all();
             $product = Product::find($id);
             $product->update($updateProduct);
+
             return redirect('/todosProdutos');
-        } else {
-            return abort(403, 'Acesso não autorizado.');
         }
+
+        return abort(403, 'Acesso não autorizado.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

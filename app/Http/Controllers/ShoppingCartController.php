@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use MelhorEnvio\Resources\Shipment\Product as MelhorEnvioProduct;
-use App\Models\Product;
 use App\Models\Cupon;
 use App\Models\PriceAndSize;
+use App\Models\Product;
 use App\Models\ShoppingCart;
-use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
-use MelhorEnvio\Shipment;
-use MelhorEnvio\Resources\Shipment\Package;
-use MelhorEnvio\Enums\Service;
+use Illuminate\Support\Str;
 use MelhorEnvio\Enums\Environment;
-
+use MelhorEnvio\Enums\Service;
+use MelhorEnvio\Resources\Shipment\Package;
+use MelhorEnvio\Resources\Shipment\Product as MelhorEnvioProduct;
+use MelhorEnvio\Shipment;
 
 class ShoppingCartController extends Controller
 {
@@ -28,9 +27,9 @@ class ShoppingCartController extends Controller
             $addInCart['characteristics'] = json_encode($addInCart['characteristics']);
         }
         ShoppingCart::create($addInCart);
+
         return redirect('/carrinho');
     }
-
 
     public function cartView()
     {
@@ -42,48 +41,52 @@ class ShoppingCartController extends Controller
                         ->where('shopping_cart.user_id', $userId)
                         ->get();
 
-        $cartItems = $cartItems->unique(function($item) {
+        $cartItems = $cartItems->unique(function ($item) {
             return $item->product_id . '-' . $item->price;
         });
         $quotations = $this->calculateFrete($cartItems); // calcular o frete para os itens no carrinho
         $user = auth()->user();
         $cep = $user->cep;
         $location = $user->location;
-        $city = $user->city;  
-        $number = $user->number;     
+        $city = $user->city;
+        $number = $user->number;
         $message = $this->checkCartIsEmpty($userId);  //verifica se o carrinho esta vazio
         $totalPriceCart = $this->getTotalCartValue($userId); //calcula o total de itens adicionados no carrinho pelo usuário logado e retorna o valor em uma variável
-        
-        return view('clientViews.cart', compact(
-            'cartItems',
-            'quotations',
-            'message',
-            'totalPriceCart',
-            'cep',
-            'location',
-            'city',
-            'number')
+
+        return view(
+            'clientViews.cart',
+            compact(
+                'cartItems',
+                'quotations',
+                'message',
+                'totalPriceCart',
+                'cep',
+                'location',
+                'city',
+                'number'
+            )
         );
     }
 
-    
     public function checkCartIsEmpty($userId)
     {
         $cartItems = DB::table('shopping_cart')
                     ->where('user_id', $userId)
                     ->exists();
 
-        if (!$cartItems) {
+        if (! $cartItems) {
             return 'Seu carrinho está vazio!';
         }
+
         return '';
     }
 
-    public function getTotalCartValue($userId) 
+    public function getTotalCartValue($userId)
     {
         $total = DB::table('shopping_cart')
                     ->where('user_id', $userId)
                     ->sum('product_characteristics');
+
         return $total;
     }
 
@@ -94,11 +97,11 @@ class ShoppingCartController extends Controller
         $cartItem = ShoppingCart::where('user_id', $userId)
                                 ->where('product_id', $productId)
                                 ->first();
-        if (!$cartItem) 
-        {
+        if (! $cartItem) {
             return back()->with('error', 'Item não encontrado no carrinho.');
         }
         $cartItem->delete();
+
         return back()->with('success', 'Item removido do carrinho com sucesso.');
     }
 
@@ -114,15 +117,15 @@ class ShoppingCartController extends Controller
                         $packages = $item['packages'];
                         foreach ($packages as $package) {
                             if (isset($package['price'])) {
-                                $totalFrete += (float) $package['price'];
+                                $totalFrete += (float)$package['price'];
                             } else {
                                 if (isset($item['price'])) {
-                                    $totalFrete += (float) $item['price'];
+                                    $totalFrete += (float)$item['price'];
                                 }
                             }
                         }
                     } elseif (isset($item['price'])) {
-                        $totalFrete += (float) $item['price'];
+                        $totalFrete += (float)$item['price'];
                     }
 
                     if (isset($item['delivery_time'])) {
@@ -140,7 +143,6 @@ class ShoppingCartController extends Controller
             'deliveryTime' => $deliveryTime,
         ];
     }
-
 
     public function calculateFrete($cartItems)
     {
@@ -168,23 +170,22 @@ class ShoppingCartController extends Controller
             );
             $calculator->addProducts($melhorEnvioProduct);
             $calculator->addServices(
-                Service::CORREIOS_PAC, 
+                Service::CORREIOS_PAC,
                 Service::CORREIOS_SEDEX,
                 Service::CORREIOS_MINI,
-                Service::JADLOG_PACKAGE, 
-                Service::JADLOG_COM, 
+                Service::JADLOG_PACKAGE,
+                Service::JADLOG_COM,
                 Service::AZULCARGO_AMANHA,
                 Service::AZULCARGO_ECOMMERCE,
                 Service::LATAMCARGO_JUNTOS,
                 Service::VIABRASIL_RODOVIARIO
-            );    
+            );
             $calculator->setOwnHand(); // mão própria
             $calculator->setReceipt(); // aviso de recebimento
             $calculator->setCollect(); // coleta
             $quotations[] = $calculator->calculate();
-            
         }
-          // Calcular o frete total para cada transportadora desejada
+        // Calcular o frete total para cada transportadora desejada
         $desiredTransporters = ['SEDEX', '.Package', '.Com']; // Adicione outras transportadoras conforme necessário
         $totalFreights = [];
 
@@ -192,7 +193,7 @@ class ShoppingCartController extends Controller
             $totalFreights[$transporter] = $this->calculateTotalFreightForTransporter($quotations, $transporter);
         }
 
-        return $totalFreights;        
+        return $totalFreights;
     }
 
     public function applyCupon(Request $request)
@@ -202,10 +203,10 @@ class ShoppingCartController extends Controller
         if ($cupom) {
             // Cupom válido, retorne o valor do desconto
             return response()->json(['success' => true, 'desconto' => $cupom->value]);
-        } else {
-            // Cupom inválido
-            return response()->json(['success' => false]);
         }
+
+        // Cupom inválido
+        return response()->json(['success' => false]);
     }
 
     public function updateAddress(Request $request)
@@ -241,5 +242,4 @@ class ShoppingCartController extends Controller
         // Retorne uma resposta de sucesso ou redirecione para a página desejada
         return redirect()->back()->with('success', 'Endereço atualizado com sucesso.');
     }
-            
 }

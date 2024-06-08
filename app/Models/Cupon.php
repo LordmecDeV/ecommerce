@@ -9,8 +9,8 @@ class Cupon extends Model
 {
     use HasFactory;
 
-    protected $table = "cupons";
+    protected $table = 'cupons';
     protected $fillable = [
-        'cupom_name', 'type', 'value'
+        'cupom_name', 'type', 'value',
     ];
 }

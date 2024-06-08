@@ -16,10 +16,9 @@ class newsletterMail extends Mailable
     public $facebook;
     public $instagram;
     public $whatsapp;
+
     /**
      * Create a new message instance.
-     *
-     * @return void
      */
     public function __construct($title, $title_content, $products, $facebook, $instagram, $whatsapp)
     {
@@ -39,6 +38,7 @@ class newsletterMail extends Mailable
     public function build()
     {
         $this->subject($this->title);
+
         return $this->markdown('mail.newsletter');
     }
 }
