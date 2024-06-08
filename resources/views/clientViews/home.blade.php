@@ -60,20 +60,28 @@
     </div>
   </div>
   <!-- final do submenu com as informações e caracteristicas do site -->
-  <h1 class="text-center mt-5 mb-5 fw-bold"> Categorias </h1>
-  <div class="slick-carousel mt-5" style="margin-left:50px;">
-    @foreach($collectionImages as $image)
-      <a href="{{ $image->link_collection }}">
-        <img style="margin-right:40px;" src="{{ $image->link_image_carousel }}" class="rounded-circle img-thumbnail" alt="{{ $image->image_carousel }}">
-      </a>
-    @endforeach
+  <!-- Apenas para Mobile -->
+  <div class="d-md-none">
+    <div class="container mt-2">
+      <div class="row justify-content-center">
+        @foreach($collectionImages as $image)
+        <div class="col-3 p-2">
+          <a href="{{ $image->link_collection }}">
+            <div class="carousel-image-wrapper">
+              <img src="{{ $image->link_image_carousel }}" class="rounded-circle img-thumbnail carousel-image" alt="{{ $image->image_carousel }}">
+            </div>
+          </a>
+        </div>
+        @endforeach
+      </div>
+    </div>
   </div>
   <div class="container-fluid p-0">
     <!-- inicio da div de carrousel de produtos -->
-    <div class="d-flex align-items-center justify-content-center">
-      <h2 class="text-center fw-bold mt-5">Mais vendidos</h2>
+    <div class="d-flex align-items-center justify-content-center mt-md-5 mt-2">
+      <h2 class="text-center fw-bold">Mais vendidos</h2>
     </div>
-    <div class="slick-carousel mt-5" style="margin-left:50px;">
+    <div class="slick-carousel mt-md-5 mt-2" style="margin-left:50px;">
       <!-- inicio do slick --> 
       @foreach($bestSeller->slice(0, 10)->toArray() as $bestSellers)
        <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;">
@@ -112,10 +120,10 @@
   <!-- final da div de carrousel de produtos -->
   <div class="container-fluid p-0">
     <!-- inicio da div de carrousel de produtos -->
-    <div class="d-flex align-items-center justify-content-center">
-      <h2 class="text-center fw-bold mt-5">Lançamentos</h2>
+    <div class="d-flex align-items-center justify-content-center mt-md-5 mt-2">
+      <h2 class="text-center fw-bold">Lançamentos</h2>
     </div>
-    <div class="slick-carousel mt-5" style="margin-left:50px;">
+    <div class="slick-carousel mt-md-5 mt-2" style="margin-left:50px;">
       <!-- inicio do slick --> 
       @foreach($launch->slice(0, 10)->toArray() as $launchs) 
       <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;">
@@ -155,10 +163,10 @@
   <!-- final da div de carrousel de produtos -->
   <div class="container-fluid p-0">
     <!-- inicio da div de carrousel de produtos -->
-    <div class="d-flex align-items-center justify-content-center">
-      <h2 class="text-center fw-bold mt-5">Destaques</h2>
+    <div class="d-flex align-items-center justify-content-center mt-md-5 mt-2">
+      <h2 class="text-center fw-bold">Destaques</h2>
     </div>
-    <div class="slick-carousel mt-5" style="margin-left:50px;">
+    <div class="slick-carousel mt-md-5 mt-2" style="margin-left:50px;">
       <!-- inicio do slick --> 
       @foreach($highlight->slice(0, 10)->toArray() as $highlights) 
         <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;">
@@ -197,10 +205,10 @@
   <!-- final da div de carrousel de produtos -->
   <div class="container-fluid p-0">
     <!-- inicio da div de carrousel de produtos -->
-    <div class="d-flex align-items-center justify-content-center">
-      <h2 class="text-center fw-bold mt-5">Mosaicos</h2>
+    <div class="d-flex align-items-center justify-content-center mt-md-5 mt-2">
+      <h2 class="text-center fw-bold">Mosaicos</h2>
     </div>
-    <div class="slick-carousel mt-5" style="margin-left:50px;">
+    <div class="slick-carousel mt-md-5 mt-2" style="margin-left:50px;">
       <!-- inicio do slick --> 
       @foreach($mosaic->slice(0, 10)->toArray() as $mosaics) 
       <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;">
@@ -240,10 +248,10 @@
   <!-- final da div de carrousel de produtos -->
   <div class="container-fluid p-0">
     <!-- inicio da div de carrousel de produtos -->
-    <div class="d-flex align-items-center justify-content-center">
-      <h2 class="text-center fw-bold mt-5">Luminarias</h2>
+    <div class="d-flex align-items-center justify-content-center mt-md-5 mt-2">
+      <h2 class="text-center fw-bold">Luminarias</h2>
     </div>
-    <div class="slick-carousel mt-5" style="margin-left:50px;">
+    <div class="slick-carousel mt-md-5 mt-2" style="margin-left:50px;">
       <!-- inicio do slick --> 
       @foreach($lighting->slice(0, 10)->toArray() as $lightings) 
       <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;">
@@ -372,6 +380,37 @@ $('.slick-carousel').slick({
     // settings: "unslick"
     // instead of a settings object
   ]
+});
+$(document).ready(function(){
+    $('.slick-carousel-custom').slick({
+        dots: false,
+        infinite: false,
+        speed: 300,
+        arrows: false,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        responsive: [{
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                infinite: true,
+                dots: false,
+            }
+        }, {
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 3, // Mostrar três imagens por vez no mobile
+                slidesToScroll: 1
+            }
+        }, {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 3, // Mostrar três imagens por vez no mobile
+                slidesToScroll: 1
+            }
+        }]
+    });
 });
 document.addEventListener('DOMContentLoaded', function () {
     // Exibir o SweetAlert2 com o formulário de inscrição na newsletter

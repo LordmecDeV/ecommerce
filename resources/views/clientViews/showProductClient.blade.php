@@ -2,13 +2,41 @@
 @section('content')
 <div class="container">
   <div class="row mt-5 d-flex justify-content-center margin-responsive">
-    <div class="col-8">
-    <div class="slider-for shadow-lg p-3 bg-body rounded-5">
-        <div><img src="{{$viewProduct->image_product_1}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_1}}"></div>
-        <div><img src="{{$viewProduct->image_product_2}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_2}}"></div>
-        <div><img src="{{$viewProduct->image_product_3}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_3}}"></div>
-        <div><img src="{{$viewProduct->image_product_4}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_4}}"></div>
-        <div><img src="{{$viewProduct->image_product_5}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_5}}"></div>
+    <!-- Carrossel para dispositivos móveis -->
+    <div class="carousel-inner d-md-none mb-4">
+        <div class="carousel-item active" data-bs-interval="2000">
+            <a href="#">
+                <img src="{{ $viewProduct->image_product_1 }}" class="d-block w-100 rounded-3">
+            </a>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <a href="#">
+                <img src="{{ $viewProduct->image_product_2 }}" class="d-block w-100">
+            </a>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <a href="#">
+                <img src="{{ $viewProduct->image_product_3 }}" class="d-block w-100">
+            </a>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <a href="#">
+                <img src="{{ $viewProduct->image_product_4 }}" class="d-block w-100">
+            </a>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <a href="#">
+                <img src="{{ $viewProduct->image_product_5 }}" class="d-block w-100">
+            </a>
+        </div>
+    </div>
+    <div class="col-8 col-8 d-none d-md-block">
+      <div class="slider-for shadow-lg p-3 bg-body rounded-5">
+          <div><img src="{{$viewProduct->image_product_1}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_1}}"></div>
+          <div><img src="{{$viewProduct->image_product_2}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_2}}"></div>
+          <div><img src="{{$viewProduct->image_product_3}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_3}}"></div>
+          <div><img src="{{$viewProduct->image_product_4}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_4}}"></div>
+          <div><img src="{{$viewProduct->image_product_5}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_5}}"></div>
       </div>
     </div>
     <div class="col">
@@ -186,14 +214,6 @@
       </div>         
 </div>
 <!--Descrição final-->
-
-<div class="container-fluid mt-5">
-  <div class="d-flex justify-content-center">
-    <div class="embed-responsive embed-responsive-16by9">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/mpP5SbbPHE8?si=Xb7VEGmD9ixyUx5l" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
 
   <div class="container-fluid p-0"><!-- inicio da div de carrousel de produtos -->
     <div class="d-flex align-items-center justify-content-center">

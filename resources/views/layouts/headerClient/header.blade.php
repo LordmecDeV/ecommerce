@@ -207,9 +207,66 @@
         .div1 { grid-area: 1 / 3 / 5 / 5; }
         .div2 { grid-area: 5 / 3 / 6 / 5; }
         .div3 { grid-area: 1 / 5 / 6 / 7; }
+        .carousel-image-wrapper {
+          width: 100%;
+          height: auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .carousel-image {
+          max-width: 100%;
+          max-height: 150px;
+          border-radius: 50%;
+        }
+        .bottom-tab-bar {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background-color: #007bff;
+          border-top: 1px solid #ddd;
+          display: flex;
+          justify-content: space-around;
+          padding: 10px 0;
+          z-index: 1000;
+          display: none; /* Oculta inicialmente */
+        }
+
+        .bottom-tab-bar a {
+          color: white;
+          text-align: center;
+          flex: 1;
+          text-decoration: none;
+        }
+
+        .bottom-tab-bar a.active {
+          color: #007bff;
+        }
+
+        .bottom-tab-bar svg {
+          width: 24px;
+          height: 24px;
+        }
+
+        .bottom-tab-bar span {
+          display: block;
+          font-size: 12px;
+        }
+        /* Ajustes para garantir que as imagens sejam dimensionadas corretamente */
         @media screen and (min-width: 768px) {
             .margin-responsive {
             margin-left: 290px;
+            }
+            .slick-carousel {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .carousel-image {
+                margin-right: 40px;
             }
           }
         @media screen and (max-width: 767px) {
@@ -228,13 +285,28 @@
             .button-width{
               width: 100%;
             }
+            .carousel-image {
+                margin: 10px;
+            }
+            .font-card-title {
+              font-size: 3vw;
+            }
+            .font-price {
+              font-size: 2.5vw;
+            }
+            .card-img-top {
+              width: 100%;
+              height: auto;
+            }
+            .bottom-tab-bar {
+              display: flex;
+            }
           }
           .gradient-custom {
           /* fallback for old browsers */
           background-color: #8BC6EC;
           background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
           }
-          
     </style>
 </head>
 <header>
@@ -253,9 +325,9 @@
         <!-- Center elements -->
         <div class="order-lg-last col-lg-5 col-sm-8 col-8">
           <div class="d-flex float-end">
-            <a class="btn btn-primary rounded-circle p-3 lh-1" style="margin-right:10px;" data-bs-toggle="offcanvas" href="#offcanvasUser" role="button" aria-controls="offcanvasExample"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/></svg>
-            <a class="btn btn-primary rounded-circle p-3 lh-1" style="margin-right:10px;" data-bs-toggle="offcanvas" href="#offcanvasFavorite" role="button" aria-controls="offcanvasExample" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg></a>
-            <a role="button" aria-controls="offcanvasExample" href="#offcanvasRight" data-bs-toggle="offcanvas" class="btn btn-primary rounded-circle p-3 lh-1" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg></a>
+            <a class="btn circle-color-best-sellers rounded-circle p-3 lh-1" style="margin-right:10px;" data-bs-toggle="offcanvas" href="#offcanvasUser" role="button" aria-controls="offcanvasExample"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-list" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/></svg>
+            <a class="btn circle-color-best-sellers rounded-circle p-3 lh-1" style="margin-right:10px;" data-bs-toggle="offcanvas" href="#offcanvasFavorite" role="button" aria-controls="offcanvasExample" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-heart-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg></a>
+            <a role="button" aria-controls="offcanvasExample" href="#offcanvasRight" data-bs-toggle="offcanvas" class="btn circle-color-best-sellers rounded-circle p-3 lh-1" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-cart-fill" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg></a>
           </div>
         </div>
         <!-- offcanvas usuario -->
@@ -384,6 +456,33 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
     @yield('content')
+
+    <div class="bottom-tab-bar">
+  <a href="/home" class="tab-item">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+    <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+  </svg>
+    <span>Home</span>
+  </a>
+  <a href="/search" class="tab-item">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+  </svg>
+    <span>Search</span>
+  </a>
+  <a href="/favorites" class="tab-item">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-heart-fill" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+    </svg>
+    <span>Favorites</span>
+  </a>
+  <a href="/cart" class="tab-item">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-cart-fill" viewBox="0 0 16 16">
+      <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </svg>
+    <span>Cart</span>
+  </a>
+</div>
     </body>
     @section('footer')
       @include('footer')
