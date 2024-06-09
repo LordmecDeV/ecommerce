@@ -86,7 +86,7 @@
           <ul class="list-group list-group-flush c">
             <li class="list-group"><h2 class="product-price" data-price="{{$viewProduct->price}}">R$ {{$viewProduct->price}} <span>no pix</span> </h2></li>
             <li class="list-group"><h6 class="fontBuyProduct">com 3% de desconto</h6></li>
-            <li class="list-group"><h6 class="fontBuyProduct2"><h6>A partir de <span>R$&&&</span></h6></li><!-- criar variavel para aplicar desconto no valor do produto -->
+            <li class="list-group"><h6 class="fontBuyProduct2"><h6>A partir de <span>R${{$getSmallFrame}}</span></h6></li><!-- criar variavel para aplicar desconto no valor do produto -->
           </ul>
       </li>
         <li class="list-group mt-4">
@@ -100,9 +100,9 @@
               <input type="hidden" id="price" name="product_characteristics" value="">
               <input type="hidden" id="characteristics" name="characteristics" value="">
               <input type="hidden" id="price" name="quantity" value="1">
-              <button type="submit" class="btn circle-color-best-sellers btn-lg rounded-5">Adicionar ao carrinho</button>
-            </form>
-          </div>
+              </div>
+          <button type="submit" class="btn circle-color-best-sellers btn-lg rounded-5 w-100">Adicionar ao carrinho</button>
+          </form>
         </li>
         <li class="list-group">
           <div class="d-flex justify-content-start mt-4">
@@ -184,9 +184,9 @@
               <input type="hidden" name="product_id" value="{{$viewProduct->id}}">
               <input type="hidden" id="price" name="product_characteristics" value="{{$viewProduct->price}}">
               <input type="hidden" id="price" name="quantity" value="1">
-              <button type="submit" class="btn circle-color-best-sellers btn-lg rounded-5">Adicionar ao carrinho</button>
-            </form>
-          </div>
+              </div>
+          <button type="submit" class="btn circle-color-best-sellers btn-lg rounded-5 w-100">Adicionar ao carrinho</button>
+          </form>
         </li>
         <li class="list-group">
           <div class="d-flex justify-content-start mt-4">
