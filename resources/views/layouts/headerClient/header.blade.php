@@ -11,6 +11,7 @@
     <!-- Importação do Slick Theme CSS (opcional) -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@500&family=Montserrat:ital,wght@0,400;0,500;1,400&display=swap');
         .color-header{
@@ -81,6 +82,7 @@
         }
         .circle-color-best-sellers{
           background-color: #007bff;
+          color:white;
         }
         .circle-color-highlights{
           background-color: #F7D060;
@@ -252,7 +254,7 @@
 
         .bottom-tab-bar span {
           display: block;
-          font-size: 12px;
+          font-size: 9px;
         }
         /* Ajustes para garantir que as imagens sejam dimensionadas corretamente */
         @media screen and (min-width: 768px) {
@@ -455,6 +457,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
     @yield('content')
 
     <div class="bottom-tab-bar">
@@ -468,19 +471,19 @@
   <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-search" viewBox="0 0 16 16">
     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
   </svg>
-    <span>Search</span>
+    <span>Procurar</span>
   </a>
   <a href="/favorites" class="tab-item">
     <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-heart-fill" viewBox="0 0 16 16">
       <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
     </svg>
-    <span>Favorites</span>
+    <span>Favoritos</span>
   </a>
   <a href="/cart" class="tab-item">
     <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-cart-fill" viewBox="0 0 16 16">
       <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
     </svg>
-    <span>Cart</span>
+    <span>Carrinho</span>
   </a>
 </div>
     </body>
