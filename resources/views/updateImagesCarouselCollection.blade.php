@@ -12,7 +12,6 @@
                         <select class="form-control" id="" name="image_carousel">
                         <option>Mosaico</option>
                         <option>Produtos em destaque</option>
-                        <option>Lançamentos</option>
                         <option>Quadros</option>
                         <option>Luminaria</option>
                         </select>

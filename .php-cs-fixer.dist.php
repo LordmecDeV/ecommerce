@@ -7,7 +7,9 @@ $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__ . '/public')
     ->in(__DIR__ . '/resources')
     ->in(__DIR__ . '/routes')
-    ->in(__DIR__ . '/tests');
+    ->in(__DIR__ . '/tests')
+    ->name('*.php')
+    ->name('*.blade.php');
 
 return (new PhpCsFixer\Config())
     ->setRules([

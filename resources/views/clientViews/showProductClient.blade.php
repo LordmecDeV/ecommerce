@@ -1,14 +1,57 @@
 @extends('layouts.headerClient.header')
 @section('content')
 <div class="container">
-  <div class="row mt-5 d-flex justify-content-center margin-responsive">
-    <div class="col-8">
-    <div class="slider-for shadow-lg p-3 bg-body rounded-5">
-        <div><img src="{{$viewProduct->image_product_1}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_1}}"></div>
-        <div><img src="{{$viewProduct->image_product_2}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_2}}"></div>
-        <div><img src="{{$viewProduct->image_product_3}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_3}}"></div>
-        <div><img src="{{$viewProduct->image_product_4}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_4}}"></div>
-        <div><img src="{{$viewProduct->image_product_5}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_5}}"></div>
+  <div class="row mt-md-5 mt-2 d-flex justify-content-center margin-responsive">
+    <!-- Carrossel para dispositivos móveis -->
+    <h1 class="d-md-none mt-2 mb-2"><strong>{{$viewProduct->name}}</strong></h1>
+    <div class="carousel-inner d-md-none mb-4">
+        <div class="carousel-item active" data-bs-interval="2000">
+            <a href="#">
+                <img src="{{ $viewProduct->image_product_1 }}" class="d-block w-100 rounded-3">
+            </a>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <a href="#">
+                <img src="{{ $viewProduct->image_product_2 }}" class="d-block w-100">
+            </a>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <a href="#">
+                <img src="{{ $viewProduct->image_product_3 }}" class="d-block w-100">
+            </a>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <a href="#">
+                <img src="{{ $viewProduct->image_product_4 }}" class="d-block w-100">
+            </a>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <a href="#">
+                <img src="{{ $viewProduct->image_product_5 }}" class="d-block w-100">
+            </a>
+        </div>
+    </div>
+
+    <div class="glider-container d-md-none">
+          <div class="glider">
+            <div><img src="{{ $viewProduct->image_product_1 }}" class="img-fluid rounded-4"></div>
+            <div><img src="{{ $viewProduct->image_product_2 }}" class="img-fluid rounded-4"></div>
+            <div><img src="{{ $viewProduct->image_product_3 }}" class="img-fluid rounded-4"></div>
+            <div><img src="{{ $viewProduct->image_product_4 }}" class="img-fluid rounded-4"></div>
+            <div><img src="{{ $viewProduct->image_product_5 }}" class="img-fluid rounded-4"></div>
+          </div>
+            <button class="glider-prev">«</button>
+            <button class="glider-next">»</button>
+          <div class="dots"></div>
+    </div>
+  
+    <div class="col-8 col-8 d-none d-md-block">
+      <div class="slider-for shadow-lg p-3 bg-body rounded-5">
+          <div><img src="{{$viewProduct->image_product_1}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_1}}"></div>
+          <div><img src="{{$viewProduct->image_product_2}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_2}}"></div>
+          <div><img src="{{$viewProduct->image_product_3}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_3}}"></div>
+          <div><img src="{{$viewProduct->image_product_4}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_4}}"></div>
+          <div><img src="{{$viewProduct->image_product_5}}" class="img-fluid rounded-4" data-lazy="{{$viewProduct->image_product_5}}"></div>
       </div>
     </div>
     <div class="col">
@@ -21,7 +64,7 @@
           <input type="hidden" name="product_id" value="{{$viewProduct->id}}">
           <li class="list-inline-item"><button type="{{ $isFavorite ? 'button' : 'submit' }}" class="btn btn-link p-0 text-muted mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"  class="bi bi-heart-fill" fill="{{ $isFavorite ? 'red' : '#ced4da' }}" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg></button></li>
         </form>
-          <h1 class="">{{$viewProduct->name}}<h1>
+        <h1 class="d-none d-md-block">{{$viewProduct->name}}</h1>
         </li>
         @if($viewProduct->type_product == 'Quadro')
         <li class="list-group">
@@ -57,7 +100,7 @@
               <input type="hidden" id="price" name="product_characteristics" value="">
               <input type="hidden" id="characteristics" name="characteristics" value="">
               <input type="hidden" id="price" name="quantity" value="1">
-              <button type="submit" class="btn btn-primary btn-lg rounded-5">Adicionar ao carrinho</button>
+              <button type="submit" class="btn circle-color-best-sellers btn-lg rounded-5">Adicionar ao carrinho</button>
             </form>
           </div>
         </li>
@@ -67,7 +110,7 @@
               <span class="input-group-text" id="basic-addon1">CEP</span>
               <input type="text" class="form-control-sm input-group-sm" id="cep-input" placeholder="Digite seu CEP" aria-label="" aria-describedby="basic-addon1">
               <input type="hidden" name="type_product" value="Quadro">
-              <button class="btn btn-primary" id="calcular-frete-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16"><path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/><path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/></svg></button>
+              <button class="btn circle-color-best-sellers" id="calcular-frete-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16"><path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/><path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/></svg></button>
           </div>
           </div>
         </li>
@@ -77,21 +120,20 @@
   </div>
   @elseif($viewProduct->type_product == 'Mosaico')
   <h6 class="border-bottom">Selecione o tipo de mosaico:</h6> 
-            <ul class="list-inline justify-content-start">
-              @foreach ($getPriceThreePlates as $price)
-              <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-3-placas" data-price="{{$price->price}}" onclick="updatePriceField(this)">3 Placas</button></li>
-              @endforeach
-              @foreach ($getPriceThreeStraightPlates as $price)
-              <li class="list-inline-item"><button type="button" class="btn btn-outline-dark" id="btn-3-placas-reto" data-price="{{$price->price}}" onclick="updatePriceField(this)">3 Placas Reto</button></li>
-              @endforeach
-              @foreach ($getPriceFivePlates as $price)
-              <li class="list-inline-item mt-2"><button type="button" class="btn btn-outline-dark" id="btn-5-placas" data-price="{{$price->price}}" onclick="updatePriceField(this)">5 Placas</button></li>
-              @endforeach
-            </ul>
-        </li>
+  <ul class="list-inline justify-content-start">
+    @foreach ($getPriceThreePlates as $price)
+    <li class="list-inline-item"><button type="button" class="btn btn-sm btn-outline-dark" id="btn-3-placas" data-price="{{$price->price}}" onclick="updatePriceField(this)">3 Placas</button></li>
+    @endforeach
+    @foreach ($getPriceThreeStraightPlates as $price)
+    <li class="list-inline-item"><button type="button" class="btn btn-sm btn-outline-dark" id="btn-3-placas-reto" data-price="{{$price->price}}" onclick="updatePriceField(this)">3 Placas Reto</button></li>
+    @endforeach
+    @foreach ($getPriceFivePlates as $price)
+    <li class="list-inline-item mt-2"><button type="button" class="btn btn-sm btn-outline-dark" id="btn-5-placas" data-price="{{$price->price}}" onclick="updatePriceField(this)">5 Placas</button></li>
+    @endforeach
+</ul>
         <li class="list-group mt-2">
           <ul class="list-group list-group-flush c">
-            <li class="list-group"><h2 class="product-price" data-price="{{$viewProduct->price}}" onclick="updatePriceField(this)">{{$viewProduct->price}} <span>no pix</span> </h2></li>
+            <li class="list-group"><h2 class="product-price" data-price="{{$viewProduct->price}}" onclick="updatePriceField(this)"><strong>{{$viewProduct->price}} <span>Com PIX</span> </strong></h2></li>
             <li class="list-group"><h6 class="fontBuyProduct">com 3% de desconto</h6></li>
              <li class="list-group"><h6 class="fontBuyProduct2"><h6>A partir de <span>R$$$</span></h6></li><!-- criar variavel para aplicar desconto no valor do produto -->
           </ul>
@@ -105,10 +147,10 @@
               <input type="hidden" name="user_id" value="{{auth()->id()}}">
               <input type="hidden" name="product_id" value="{{$viewProduct->id}}">
               <input type="hidden" id="price" name="product_characteristics" value="">
-              <input type="hidden" id="price" name="quantity" value="1">
-              <button type="submit" class="btn btn-primary btn-lg rounded-5">Adicionar ao carrinho</button>
-            </form>
+              <input type="hidden" id="price" name="quantity" value="1"> 
           </div>
+          <button type="submit" class="btn circle-color-best-sellers btn-lg rounded-5 w-100">Adicionar ao carrinho</button>
+          </form>
         </li>
         <li class="list-group">
           <div class="d-flex justify-content-start mt-4">
@@ -116,7 +158,7 @@
               <span class="input-group-text" id="basic-addon1">CEP</span>
               <input type="text" class="form-control-sm input-group-sm" id="cep-input" placeholder="Digite seu CEP" aria-label="" aria-describedby="basic-addon1">
               <input type="hidden" name="type_product" value="Mosaico">
-              <button class="btn btn-primary" id="calcular-frete-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16"><path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/><path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/></svg></button>
+              <button class="btn circle-color-best-sellers" id="calcular-frete-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16"><path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/><path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/></svg></button>
           </div> 
           </div>
         </li>
@@ -142,7 +184,7 @@
               <input type="hidden" name="product_id" value="{{$viewProduct->id}}">
               <input type="hidden" id="price" name="product_characteristics" value="{{$viewProduct->price}}">
               <input type="hidden" id="price" name="quantity" value="1">
-              <button type="submit" class="btn btn-primary btn-lg rounded-5">Adicionar ao carrinho</button>
+              <button type="submit" class="btn circle-color-best-sellers btn-lg rounded-5">Adicionar ao carrinho</button>
             </form>
           </div>
         </li>
@@ -152,7 +194,7 @@
               <span class="input-group-text" id="basic-addon1">CEP</span>
               <input type="text" class="form-control-sm input-group-sm" id="cep-input" placeholder="Digite seu CEP" aria-label="" aria-describedby="basic-addon1">
               <input type="hidden" name="type_product" value="Luminaria">
-              <button class="btn btn-primary" id="calcular-frete-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16"><path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/><path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/></svg></button>
+              <button class="btn circle-color-best-sellers" id="calcular-frete-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16"><path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/><path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/></svg></button>
           </div>
           </div>
         </li>
@@ -187,19 +229,11 @@
 </div>
 <!--Descrição final-->
 
-<div class="container-fluid mt-5">
-  <div class="d-flex justify-content-center">
-    <div class="embed-responsive embed-responsive-16by9">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/mpP5SbbPHE8?si=Xb7VEGmD9ixyUx5l" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-
   <div class="container-fluid p-0"><!-- inicio da div de carrousel de produtos -->
     <div class="d-flex align-items-center justify-content-center">
     <h2 class="text-center fw-bold mt-5">Mais vendidos</h2>
     </div>
-    <div class="slick-carousel mt-5" style="margin-left:50px;"><!-- inicio do slick -->
+    <div class="slick-carousel mt-5" style=""><!-- inicio do slick -->
     @foreach($bestSeller->slice(0, 10)->toArray() as $bestSellers)
     <div class="card p-2 space-margin-left-5  shadow mb-5 bg-body circle-rounded" style="width: 18rem;"><!-- inicio do card -->
     <a href="{{ route('showProductClient', ['id' => $bestSellers->id]) }}"> 
@@ -497,5 +531,32 @@
             });
         });
     });
+    document.addEventListener('DOMContentLoaded', function() {
+    new Glider(document.querySelector('.glider'), {
+      slidesToShow: 3,
+      slidesToScroll: 3,
+      dots: '.dots',
+      arrows: {
+        prev: '.glider-prev',
+        next: '.glider-next'
+      },
+      responsive: [
+        {
+          breakpoint: 576,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        }
+      ]
+    });
+  });
     </script>
 @endsection
